@@ -50,25 +50,25 @@ public class Login extends javax.swing.JFrame {
         lbl_username.setForeground(new java.awt.Color(255, 255, 255));
         lbl_username.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_username.setText("Username");
-        getContentPane().add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 240, -1, -1));
+        getContentPane().add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 220, -1, -1));
 
         lbl_apakahsudahpunyaakun.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_apakahsudahpunyaakun.setForeground(new java.awt.Color(255, 255, 255));
         lbl_apakahsudahpunyaakun.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_apakahsudahpunyaakun.setText("Apakah Sudah Punya Akun?");
-        getContentPane().add(lbl_apakahsudahpunyaakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 460, 160, -1));
+        getContentPane().add(lbl_apakahsudahpunyaakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 450, 160, -1));
 
         lbl_login.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_login.setForeground(new java.awt.Color(255, 255, 255));
         lbl_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_login.setText("LOGIN");
-        getContentPane().add(lbl_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 150, 410, -1));
+        getContentPane().add(lbl_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 150, 400, -1));
 
         txt_username.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 260, 240, -1));
+        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 240, 240, -1));
 
         txt_password.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 340, 240, -1));
+        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 310, 240, -1));
 
         chk_showpassword.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         chk_showpassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -79,7 +79,7 @@ public class Login extends javax.swing.JFrame {
                 chk_showpasswordActionPerformed(evt);
             }
         });
-        getContentPane().add(chk_showpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 380, -1, -1));
+        getContentPane().add(chk_showpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 350, -1, -1));
 
         btn_register.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btn_register.setForeground(new java.awt.Color(255, 255, 255));
@@ -87,7 +87,12 @@ public class Login extends javax.swing.JFrame {
         btn_register.setBorderPainted(false);
         btn_register.setContentAreaFilled(false);
         btn_register.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        getContentPane().add(btn_register, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 450, 220, 40));
+        btn_register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registerActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_register, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 440, 220, 40));
 
         btn_login.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_login.setText("LOGIN");
@@ -96,20 +101,20 @@ public class Login extends javax.swing.JFrame {
                 btn_loginActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 410, 240, -1));
+        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 390, 240, -1));
 
         btn_forgotpassword.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btn_forgotpassword.setForeground(new java.awt.Color(255, 255, 255));
         btn_forgotpassword.setText("Forgot Password?");
         btn_forgotpassword.setBorderPainted(false);
         btn_forgotpassword.setContentAreaFilled(false);
-        getContentPane().add(btn_forgotpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 380, -1, -1));
+        getContentPane().add(btn_forgotpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 350, -1, -1));
 
         lbl_password.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_password.setForeground(new java.awt.Color(255, 255, 255));
         lbl_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_password.setText("Password");
-        getContentPane().add(lbl_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 320, 60, -1));
+        getContentPane().add(lbl_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 290, 60, -1));
 
         lbl_body.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Masuk.png"))); // NOI18N
         getContentPane().add(lbl_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
@@ -248,6 +253,11 @@ public class Login extends javax.swing.JFrame {
     JOptionPane.showMessageDialog(null, "Terjadi Kesalahan: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
 }
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void btn_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registerActionPerformed
+        this.dispose();
+        new Register().setVisible(true);
+    }//GEN-LAST:event_btn_registerActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
