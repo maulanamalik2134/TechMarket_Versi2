@@ -42,7 +42,7 @@ public class Barang extends javax.swing.JFrame {
           txt_idbarang.setText(getNextIdBarang());
           kosong();
           Date date = new Date();
-                SimpleDateFormat s = new SimpleDateFormat("yyyy/MM/dd ");
+                SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd ");
                 txt_tanggalmasuk.setText(s.format(date));
     }
     
@@ -61,7 +61,7 @@ public class Barang extends javax.swing.JFrame {
         }
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Gagal mengambil data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Gagal Mengambil Data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         return "";
     }
 }
@@ -645,7 +645,7 @@ if (tabel_barang.getValueAt(baris, 7) == null) {
             pst.setString(7, tanggalMasuk);
             pst.setString(8, idSupplier);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Data berhasil disimpan", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
             tabel_barang();
             txt_idbarang.setText(getNextIdBarang()); // Update ID barang berikutnya setelah penyimpanan berhasil
         }
@@ -658,7 +658,7 @@ kosong();
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         try {
-    int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin Ingin Mengedit Data Ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
         String idSupplier = txt_idsupplier.getText();
         String namaBarang = txt_namabarang.getText();

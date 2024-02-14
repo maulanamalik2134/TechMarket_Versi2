@@ -38,14 +38,14 @@ public class Supplier extends javax.swing.JFrame {
                 txt_tanggal.setText(s.format(date));
             }
         }, 0, 1, TimeUnit.SECONDS);
-          tabel_akun();
-          txt_idakun.setText(getNextIdAkun());
+          tabel_supplier();
+          txt_idsupplier.setText(getNextIdSupplier());
           kosong1();
     }
     
-     private String getNextIdAkun() {
+     private String getNextIdSupplier() {
     try {
-        String sql = "SELECT MAX(Id_akun) AS max_id FROM akun";
+        String sql = "SELECT MAX(Id_supplier) AS max_id FROM supplier";
         System.out.println(sql);
         java.sql.Connection conn = Aplikasi.Config.configDB();
         java.sql.Statement stm = conn.createStatement();
@@ -64,43 +64,34 @@ public class Supplier extends javax.swing.JFrame {
 }
      
     private void kosong1(){
-        txt_username.setText(null);
-        txt_password.setText(null);
-        cmb_role.setSelectedItem(null);
-        txt_gmail.setText(null);
-        txt_telepon.setText(null);
         txt_alamat.setText(null);
+        txt_telepon.setText(null);
+        txt_namasupplier.setText(null);
     }
     
-    private void tabel_akun() {
+    private void tabel_supplier() {
     DefaultTableModel model = new DefaultTableModel();
-    model.addColumn("Id Akun");
-    model.addColumn("Username");
-    model.addColumn("Password");
-    model.addColumn("Role");
-    model.addColumn("Gmail");
+    model.addColumn("Id Supplier");
+    model.addColumn("Nama Supplier");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
 
     try {
         int no = 1;
-        String sql = "SELECT akun.id_akun, akun.username, akun.password, akun.role, akun.gmail, akun.telepon, akun.alamat FROM akun";
+        String sql = "SELECT supplier.id_supplier, supplier.nama_supplier, supplier.telepon, supplier.alamat FROM supplier";
         java.sql.Connection conn = (Connection) Config.configDB();
         java.sql.Statement stm = conn.createStatement();
         java.sql.ResultSet res = stm.executeQuery(sql);
 
         while (res.next()) {
             model.addRow(new Object[]{
-                    res.getString("id_akun"),
-                    res.getString("username"),
-                    res.getString("password"),
-                    res.getString("role"),
-                    res.getString("gmail"),
+                    res.getString("id_supplier"),
+                    res.getString("nama_supplier"),
                     res.getString("telepon"),
                     res.getString("alamat"),
             });
         }
-        tabel_akun.setModel(model);
+        tabel_supplier.setModel(model);
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -118,27 +109,22 @@ public class Supplier extends javax.swing.JFrame {
         btn_logout = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
         txt_tanggal = new javax.swing.JLabel();
-        lbl_idakun = new javax.swing.JLabel();
-        txt_idakun = new javax.swing.JFormattedTextField();
-        lbl_gmail = new javax.swing.JLabel();
-        txt_gmail = new javax.swing.JFormattedTextField();
+        lbl_idsupplier = new javax.swing.JLabel();
+        txt_idsupplier = new javax.swing.JFormattedTextField();
         lbl_alamat = new javax.swing.JLabel();
-        txt_password = new javax.swing.JFormattedTextField();
-        lbl_username = new javax.swing.JLabel();
-        txt_username = new javax.swing.JFormattedTextField();
-        lbl_password = new javax.swing.JLabel();
+        lbl_namasupplier = new javax.swing.JLabel();
+        txt_namasupplier = new javax.swing.JFormattedTextField();
         txt_alamat = new javax.swing.JFormattedTextField();
         lbl_telepon = new javax.swing.JLabel();
         txt_telepon = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabel_akun = new javax.swing.JTable();
+        tabel_supplier = new javax.swing.JTable();
         txt_cari = new javax.swing.JFormattedTextField();
         btn_cari = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         btn_tambah = new javax.swing.JButton();
         btn_print = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
-        cmb_role = new javax.swing.JComboBox<>();
         body = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -226,63 +212,37 @@ public class Supplier extends javax.swing.JFrame {
         txt_tanggal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(txt_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 450, 50));
 
-        lbl_idakun.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        lbl_idakun.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_idakun.setText("Id Akun");
-        getContentPane().add(lbl_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
+        lbl_idsupplier.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        lbl_idsupplier.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_idsupplier.setText("Id Supplier");
+        getContentPane().add(lbl_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
 
-        txt_idakun.setEnabled(false);
-        txt_idakun.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt_idakun.addActionListener(new java.awt.event.ActionListener() {
+        txt_idsupplier.setEnabled(false);
+        txt_idsupplier.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_idsupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_idakunActionPerformed(evt);
+                txt_idsupplierActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 100, 30));
-
-        lbl_gmail.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        lbl_gmail.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_gmail.setText("Gmail");
-        getContentPane().add(lbl_gmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, -1, -1));
-
-        txt_gmail.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt_gmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_gmailActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txt_gmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 130, 290, 30));
+        getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 100, 30));
 
         lbl_alamat.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_alamat.setForeground(new java.awt.Color(255, 255, 255));
         lbl_alamat.setText("Alamat");
-        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, -1, -1));
+        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, -1, -1));
 
-        txt_password.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt_password.addActionListener(new java.awt.event.ActionListener() {
+        lbl_namasupplier.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        lbl_namasupplier.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_namasupplier.setText("Nama Supplier");
+        getContentPane().add(lbl_namasupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, -1, -1));
+
+        txt_namasupplier.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_namasupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_passwordActionPerformed(evt);
+                txt_namasupplierActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 190, 30));
-
-        lbl_username.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        lbl_username.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_username.setText("Username ");
-        getContentPane().add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, -1, -1));
-
-        txt_username.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt_username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_usernameActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 190, 30));
-
-        lbl_password.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        lbl_password.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_password.setText("Password");
-        getContentPane().add(lbl_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
+        getContentPane().add(txt_namasupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 240, 30));
 
         txt_alamat.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_alamat.addActionListener(new java.awt.event.ActionListener() {
@@ -290,7 +250,7 @@ public class Supplier extends javax.swing.JFrame {
                 txt_alamatActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 190, 290, 30));
+        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 130, 240, 30));
 
         lbl_telepon.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_telepon.setForeground(new java.awt.Color(255, 255, 255));
@@ -305,8 +265,8 @@ public class Supplier extends javax.swing.JFrame {
         });
         getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 130, 180, 30));
 
-        tabel_akun.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        tabel_akun.setModel(new javax.swing.table.DefaultTableModel(
+        tabel_supplier.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tabel_supplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -338,12 +298,12 @@ public class Supplier extends javax.swing.JFrame {
                 "Id Barang", "Id Supplier", "Nama Barang", "Harga", "Stok", "Diskon", "Garansi"
             }
         ));
-        tabel_akun.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabel_supplier.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabel_akunMouseClicked(evt);
+                tabel_supplierMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tabel_akun);
+        jScrollPane1.setViewportView(tabel_supplier);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 1000, 290));
 
@@ -398,31 +358,19 @@ public class Supplier extends javax.swing.JFrame {
         });
         getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 270, -1, -1));
 
-        cmb_role.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir", "Karyawan" }));
-        getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 100, 30));
-
         body.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Small (2).png"))); // NOI18N
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_idakunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idakunActionPerformed
+    private void txt_idsupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idsupplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_idakunActionPerformed
+    }//GEN-LAST:event_txt_idsupplierActionPerformed
 
-    private void txt_gmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_gmailActionPerformed
+    private void txt_namasupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namasupplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_gmailActionPerformed
-
-    private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_passwordActionPerformed
-
-    private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_usernameActionPerformed
+    }//GEN-LAST:event_txt_namasupplierActionPerformed
 
     private void txt_alamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_alamatActionPerformed
         // TODO add your handling code here:
@@ -432,43 +380,28 @@ public class Supplier extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_teleponActionPerformed
 
-    private void tabel_akunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_akunMouseClicked
-        int baris = tabel_akun.rowAtPoint(evt.getPoint());
-        String id_akun= tabel_akun.getValueAt(baris, 0).toString();
-        txt_idakun.setText(id_akun);
-        System.out.println(id_akun);
-        txt_idakun.disable();
-        if (tabel_akun.getValueAt(baris, 1)==null){
-            txt_username.setText("");
+    private void tabel_supplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_supplierMouseClicked
+        int baris = tabel_supplier.rowAtPoint(evt.getPoint());
+        String id_supplier= tabel_supplier.getValueAt(baris, 0).toString();
+        txt_idsupplier.setText(id_supplier);
+        System.out.println(id_supplier);
+        txt_idsupplier.disable();
+        if (tabel_supplier.getValueAt(baris, 1)==null){
+            txt_namasupplier.setText("");
         } else {
-            txt_username.setText(tabel_akun.getValueAt(baris, 1).toString());
+            txt_namasupplier.setText(tabel_supplier.getValueAt(baris, 1).toString());
         }
-        if (tabel_akun.getValueAt(baris, 2)==null){
-            txt_password.setText("");
-        } else {
-            txt_password.setText(tabel_akun.getValueAt(baris, 2).toString());
-        }
-        if (tabel_akun.getValueAt(baris, 3)==null){
-            cmb_role.setSelectedItem("");
-        } else {
-            cmb_role.setSelectedItem(tabel_akun.getValueAt(baris, 3).toString());
-        }
-        if (tabel_akun.getValueAt(baris, 4)==null){
-            txt_gmail.setText("");
-        } else {
-            txt_gmail.setText(tabel_akun.getValueAt(baris, 4).toString());
-        }
-        if (tabel_akun.getValueAt(baris, 5)==null){
+        if (tabel_supplier.getValueAt(baris, 3)==null){
             txt_telepon.setText("");
         } else {
-            txt_telepon.setText(tabel_akun.getValueAt(baris, 5).toString());
+            txt_telepon.setText(tabel_supplier.getValueAt(baris, 3).toString());
         }
-        if (tabel_akun.getValueAt(baris, 6)==null){
+        if (tabel_supplier.getValueAt(baris, 4)==null){
             txt_alamat.setText("");
         } else {
-            txt_alamat.setText(tabel_akun.getValueAt(baris, 6).toString());
+            txt_alamat.setText(tabel_supplier.getValueAt(baris, 4).toString());
         }
-    }//GEN-LAST:event_tabel_akunMouseClicked
+    }//GEN-LAST:event_tabel_supplierMouseClicked
 
     private void txt_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cariActionPerformed
         // TODO add your handling code here:
@@ -479,31 +412,27 @@ public class Supplier extends javax.swing.JFrame {
     Connection conn = Config.configDB();
     Statement statement = conn.createStatement();
     String searchKeyword = txt_cari.getText();
-    String sql = "SELECT * FROM akun WHERE username LIKE ?";
+    String sql = "SELECT * FROM supplier WHERE Nama_supplier LIKE ?";
     PreparedStatement pst = conn.prepareStatement(sql);
     pst.setString(1, "%" + searchKeyword + "%");
     ResultSet res = pst.executeQuery();
 
     DefaultTableModel model = new DefaultTableModel();
-    model.addColumn("Id Akun");
-    model.addColumn("Username");
-    model.addColumn("Password");
-    model.addColumn("Role");
-    model.addColumn("Gmail");
+    model.addColumn("Id Supplier");
+    model.addColumn("Nama Supplier");
+    model.addColumn("Email");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
-    tabel_akun.setModel(model);
+    tabel_supplier.setModel(model);
 
     int no = 1;
     while (res.next()) {
         model.addRow(new Object[]{
-            res.getString("id_akun"),
-                    res.getString("username"),
-                    res.getString("password"),
-                    res.getString("role"),
-                    res.getString("gmail"),
+            res.getString("id_supplier"),
+                    res.getString("nama_supplier"),
+                    res.getString("email"),
                     res.getString("telepon"),
-                    res.getString("alamat"),
+                    res.getString("alamat")
         });
         no++;
     }
@@ -514,120 +443,102 @@ public class Supplier extends javax.swing.JFrame {
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         try {
-    String idakun = txt_idakun.getText();
-    String username = txt_username.getText();
-    String password = txt_password.getText();
-    String role = (String) cmb_role.getSelectedItem();
-    String gmail = txt_gmail.getText();
+    String idsupplier = txt_idsupplier.getText();
+    String namasupplier = txt_namasupplier.getText();
     String telepon = txt_telepon.getText();
     String alamat = txt_alamat.getText();
 
     // Periksa apakah setiap field telah diisi
-    if (idakun.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Id Akun harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
-    } else if (username.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
-    } else if (password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
-    } else if (role.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Role harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
-    } else if (gmail.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Gmail harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
+    if (idsupplier.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Id Supplier Harus Diisi", "Error", JOptionPane.ERROR_MESSAGE);
+    } else if (namasupplier.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Nama Supplier Harus Diisi", "Error", JOptionPane.ERROR_MESSAGE);
     } else if (telepon.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Telepon harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Telepon Harus Diisi", "Error", JOptionPane.ERROR_MESSAGE);
     } else if (alamat.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Alamat harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Alamat Harus Diisi", "Error", JOptionPane.ERROR_MESSAGE);
     } else {
-        String sqlCheck = "SELECT * FROM akun WHERE username=?";
+        String sqlCheck = "SELECT * FROM supplier WHERE Nama_supplier=?";
         java.sql.Connection conn = Aplikasi.Config.configDB();
         java.sql.PreparedStatement pstCheck = conn.prepareStatement(sqlCheck);
-        pstCheck.setString(1, username);
+        pstCheck.setString(1, namasupplier);
         java.sql.ResultSet rsCheck = pstCheck.executeQuery();
 
         if (rsCheck.next()) {
-            JOptionPane.showMessageDialog(null, "Username sudah ada dalam database", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nama Barang Sudah Ada Dalam Database", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            String sql = "INSERT INTO akun (id_akun, username, password, role, gmail, telepon, alamat) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO supplier (id_supplier, nama_supplier, telepon, alamat) VALUES (?, ?, ?, ?)";
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, idakun);
-            pst.setString(2, username);
-            pst.setString(3, password);
-            pst.setString(4, role);
-            pst.setString(5, gmail);
-            pst.setString(6, telepon);
-            pst.setString(7, alamat);
+            pst.setString(1, idsupplier);
+            pst.setString(2, namasupplier);
+            pst.setString(3, telepon);
+            pst.setString(4, alamat);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Data berhasil disimpan", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
-            tabel_akun();
-            txt_idakun.setText(getNextIdAkun()); // Update ID barang berikutnya setelah penyimpanan berhasil
+            JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+            tabel_supplier();
+            txt_idsupplier.setText(getNextIdSupplier()); // Update ID barang berikutnya setelah penyimpanan berhasil
         }
     }
 } catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Gagal menyimpan data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(null, "Gagal Menyimpan Data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
         kosong1();
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         try {
-    int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin Ingin Mengedit Data Ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
-        String username = txt_username.getText();
-        String password = txt_password.getText();
-        String role = (String) cmb_role.getSelectedItem();
-        String gmail = txt_gmail.getText();
+        String idsupplier = txt_idsupplier.getText();
+        String namasupplier = txt_namasupplier.getText();
         String telepon = txt_telepon.getText();
         String alamat = txt_alamat.getText();
-        String idakun = txt_idakun.getText();
 
         // Periksa apakah nama barang yang diedit sudah ada dalam database
-        String sqlCheck = "SELECT * FROM akun WHERE username=? AND Id_akun!=?";
+        String sqlCheck = "SELECT * FROM supplier WHERE Nama_supplier=? AND Id_supplier!=?";
         java.sql.Connection conn = Config.configDB();
         java.sql.PreparedStatement pstCheck = conn.prepareStatement(sqlCheck);
-        pstCheck.setString(1, username);
-        pstCheck.setString(2, idakun);
+        pstCheck.setString(1, namasupplier);
+        pstCheck.setString(2, idsupplier);
         java.sql.ResultSet rsCheck = pstCheck.executeQuery();
 
         if (rsCheck.next()) {
-            JOptionPane.showMessageDialog(null, "Username sudah ada dalam database", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nama Supplier Sudah Ada Dalam Database", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            String sql = "UPDATE akun SET username=?, password=?, role=?, gmail=?, telepon=?, alamat=? WHERE Id_akun=?";
+            String sql = "UPDATE barang SET nama_supplier=?, telepon=?, alamat=? WHERE Id_supplier=?";
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, username);
-            pst.setString(2, password);
-            pst.setString(3, role);
-            pst.setString(4, gmail);
-            pst.setString(5, telepon);
-            pst.setString(6, alamat);
-            pst.setString(7, idakun);
+            pst.setString(1, namasupplier);
+            pst.setString(2, telepon);
+            pst.setString(3, alamat);
+            pst.setString(4, idsupplier);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
-            tabel_akun();
-            txt_idakun.setText(getNextIdAkun());
+            JOptionPane.showMessageDialog(null, "Data Berhasil Diubah", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+            tabel_supplier();
+            txt_idsupplier.setText(getNextIdSupplier());
             kosong1();
         }
     }
 } catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Gagal mengubah data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(null, "Gagal Mengubah Data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         try {
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this data?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin Menghapus Data Ini?", "Confirmation", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            String sqlbarang = "DELETE FROM akun WHERE id_akun=?";
+            String sqlbarang = "DELETE FROM supplier WHERE id_supplier=?";
             java.sql.Connection conn = Config.configDB();
             java.sql.PreparedStatement pstbarang = conn.prepareStatement(sqlbarang);
-            pstbarang.setString(1, txt_idakun.getText());
+            pstbarang.setString(1, txt_idsupplier.getText());
             pstbarang.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Data successfully deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
-            txt_idakun.setText(getNextIdAkun());
+            JOptionPane.showMessageDialog(null, "Berhasil Menghapus Data ini", "Success", JOptionPane.INFORMATION_MESSAGE);
+            txt_idsupplier.setText(getNextIdSupplier());
         }
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Failed to delete data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "gagal Menghapus Data Ini: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    tabel_akun();
+    tabel_supplier();
     kosong1();
     }//GEN-LAST:event_btn_hapusActionPerformed
 
@@ -718,22 +629,17 @@ public class Supplier extends javax.swing.JFrame {
     private javax.swing.JButton btn_print;
     private javax.swing.JButton btn_supplier;
     private javax.swing.JButton btn_tambah;
-    private javax.swing.JComboBox<String> cmb_role;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_alamat;
-    private javax.swing.JLabel lbl_gmail;
-    private javax.swing.JLabel lbl_idakun;
-    private javax.swing.JLabel lbl_password;
+    private javax.swing.JLabel lbl_idsupplier;
+    private javax.swing.JLabel lbl_namasupplier;
     private javax.swing.JLabel lbl_telepon;
-    private javax.swing.JLabel lbl_username;
-    private javax.swing.JTable tabel_akun;
+    private javax.swing.JTable tabel_supplier;
     private javax.swing.JFormattedTextField txt_alamat;
     private javax.swing.JFormattedTextField txt_cari;
-    private javax.swing.JFormattedTextField txt_gmail;
-    private javax.swing.JFormattedTextField txt_idakun;
-    private javax.swing.JFormattedTextField txt_password;
+    private javax.swing.JFormattedTextField txt_idsupplier;
+    private javax.swing.JFormattedTextField txt_namasupplier;
     private javax.swing.JLabel txt_tanggal;
     private javax.swing.JFormattedTextField txt_telepon;
-    private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }
