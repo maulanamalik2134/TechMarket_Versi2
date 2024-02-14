@@ -211,7 +211,7 @@ public class Barang extends javax.swing.JFrame {
                 txt_idbarangActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_idbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 110, 30));
+        getContentPane().add(txt_idbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 100, 30));
 
         lbl_idsupplier.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_idsupplier.setForeground(new java.awt.Color(255, 255, 255));
@@ -224,12 +224,12 @@ public class Barang extends javax.swing.JFrame {
                 txt_idsupplierActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 110, 30));
+        getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 100, 30));
 
         lbl_tanggalmasuk.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_tanggalmasuk.setForeground(new java.awt.Color(255, 255, 255));
         lbl_tanggalmasuk.setText("Tanggal");
-        getContentPane().add(lbl_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, -1, -1));
+        getContentPane().add(lbl_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 110, -1, -1));
 
         txt_tanggalmasuk.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_tanggalmasuk.addActionListener(new java.awt.event.ActionListener() {
@@ -237,12 +237,12 @@ public class Barang extends javax.swing.JFrame {
                 txt_tanggalmasukActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 130, 110, 30));
+        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 130, 140, 30));
 
         lbl_stok.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_stok.setForeground(new java.awt.Color(255, 255, 255));
         lbl_stok.setText("Stok");
-        getContentPane().add(lbl_stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 170, -1, -1));
+        getContentPane().add(lbl_stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 170, -1, -1));
 
         txt_kategori.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_kategori.addActionListener(new java.awt.event.ActionListener() {
@@ -250,12 +250,12 @@ public class Barang extends javax.swing.JFrame {
                 txt_kategoriActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 480, 30));
+        getContentPane().add(txt_kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 390, 30));
 
         lbl_namabarang.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_namabarang.setForeground(new java.awt.Color(255, 255, 255));
         lbl_namabarang.setText("Nama Barang");
-        getContentPane().add(lbl_namabarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
+        getContentPane().add(lbl_namabarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, -1, -1));
 
         txt_namabarang.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_namabarang.addActionListener(new java.awt.event.ActionListener() {
@@ -263,12 +263,12 @@ public class Barang extends javax.swing.JFrame {
                 txt_namabarangActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_namabarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 480, 30));
+        getContentPane().add(txt_namabarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 390, 30));
 
         lbl_kategori.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_kategori.setForeground(new java.awt.Color(255, 255, 255));
         lbl_kategori.setText("Kategori");
-        getContentPane().add(lbl_kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, -1, -1));
+        getContentPane().add(lbl_kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
 
         txt_stok.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_stok.addActionListener(new java.awt.event.ActionListener() {
@@ -276,12 +276,12 @@ public class Barang extends javax.swing.JFrame {
                 txt_stokActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 190, 110, 30));
+        getContentPane().add(txt_stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 190, 140, 30));
 
         lbl_hargabeli.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_hargabeli.setForeground(new java.awt.Color(255, 255, 255));
         lbl_hargabeli.setText("Harga Beli");
-        getContentPane().add(lbl_hargabeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 110, -1, -1));
+        getContentPane().add(lbl_hargabeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 110, -1, -1));
 
         txt_hargabeli.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_hargabeli.addActionListener(new java.awt.event.ActionListener() {
@@ -289,12 +289,12 @@ public class Barang extends javax.swing.JFrame {
                 txt_hargabeliActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_hargabeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 130, 110, 30));
+        getContentPane().add(txt_hargabeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 130, 130, 30));
 
         lbl_hargajual.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lbl_hargajual.setForeground(new java.awt.Color(255, 255, 255));
         lbl_hargajual.setText("Harga Jual");
-        getContentPane().add(lbl_hargajual, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 170, -1, -1));
+        getContentPane().add(lbl_hargajual, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 170, -1, -1));
 
         txt_hargajual.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_hargajual.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +302,7 @@ public class Barang extends javax.swing.JFrame {
                 txt_hargajualActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_hargajual, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 190, 110, 30));
+        getContentPane().add(txt_hargajual, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 190, 130, 30));
 
         tabel_barang.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tabel_barang.setModel(new javax.swing.table.DefaultTableModel(
