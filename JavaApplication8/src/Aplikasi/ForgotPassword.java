@@ -212,33 +212,31 @@ if (newPassword.contains(" ")) {
         return;
     }
 
-   // Cek apakah username atau email ada di database
-    String checkUserEmailSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR email = ?";
-    PreparedStatement checkUserEmailPst = conn.prepareStatement(checkUserEmailSql);
-    checkUserEmailPst.setString(1, username);
-    checkUserEmailPst.setString(2, email);
-    ResultSet checkUserEmailRs = checkUserEmailPst.executeQuery();
+    // cek apakah username dan email ada di database
+    String checkUserEmailSql = "SELECT COUNT(*) FROM akun WHERE gmail = ?";
+    java.sql.PreparedStatement checkUserEmailPst = conn.prepareStatement(checkUserEmailSql);
+    checkUserEmailPst.setString(1, email);
+    java.sql.ResultSet checkUserEmailRs = checkUserEmailPst.executeQuery();
     if (checkUserEmailRs.next() && checkUserEmailRs.getInt(1) > 0) {
-        // Username atau email ditemukan, lanjutkan proses reset password
-        // ...
-        // (Tambahkan kode reset password di sini)
-        // ...
+        // jika ya, update password di database
+                String updateSql = "UPDATE akun SET password = ? , gmail = ?";
+        java.sql.PreparedStatement updatePst = conn.prepareStatement(updateSql);
+        updatePst.setString(1, newPassword);
+        updatePst.setString(2, email);
+        updatePst.executeUpdate();
+
         JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.");
-        // Tutup form reset password dan buka form login
-        this.setVisible(false);
-        new Login().setVisible(true);
+        // tutup form reset password dan buka form login
+    this.setVisible(false);
+    new Login().setVisible(true);
     } else {
-        // Username atau email tidak ditemukan
-        JOptionPane.showMessageDialog(null, "Username Atau Email Tidak Ditemukan. Silakan Cek Kembali Username Dan Email Anda.");
+        // jika tidak, tampilkan pesan error
+        JOptionPane.showMessageDialog(null, "Email Tidak Ditemukan. Silakan Cek Kembali Dan Email Yang Benar.");
     }
-} catch (NullPointerException e) {
-    // Tangani NullPointerException di sini
-    e.printStackTrace();
-} catch (SQLException e) {
-    // Tangani SQLException di sini
-    e.printStackTrace();
-    JOptionPane.showMessageDialog(null, "Terjadi Kesalahan Dalam Koneksi Database");
-}
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_registerActionPerformed
 
     public static void main(String args[]) {
