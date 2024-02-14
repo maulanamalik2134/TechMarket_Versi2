@@ -132,55 +132,49 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_chk_showpasswordActionPerformed
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-   try {
-    // Ambil input username, password, dan role dari pengguna
+    try {
+    // Ambil input username dan password dari pengguna
     String username = txt_username.getText();
     String password = new String(txt_password.getPassword());
 
     // Lakukan validasi input
     if (username.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Mohon Lengkapi Username", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Username Harus Diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
     if (password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Mohon Lengkapi Password", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Password Harus Diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
     // Lakukan koneksi ke database
     java.sql.Connection conn = (Connection) Config.configDB();
 
-    // Buat query untuk memeriksa username, password, dan role yang cocok
+    // Buat query untuk memeriksa username dan password yang cocok
     String checkUserPassSql = "SELECT * FROM akun WHERE username = ? AND password = ?";
     java.sql.PreparedStatement checkUserPassPst = conn.prepareStatement(checkUserPassSql);
     checkUserPassPst.setString(1, username);
     checkUserPassPst.setString(2, password);
     java.sql.ResultSet checkUserPassRs = checkUserPassPst.executeQuery();
 
-    int maxAttempts = 15; // Jumlah maksimum penundaan
-    int delayHours = 0; // Waktu penundaan awal (jam)
+    int maxAttempts = 15; // Jumlah maksimum percobaan
     int delayMinutes = 0; // Waktu penundaan awal (menit)
     int delaySeconds = 0; // Waktu penundaan awal (detik)
-    int currentAttempt = 0; // Jumlah penundaan saat ini
+    int currentAttempt = 0; // Jumlah percobaan saat ini
 
     if (!checkUserPassRs.next()) {
-        // Username, password tampilkan pesan error
+        // Username atau password tidak cocok, tampilkan pesan error
         failedAttempts++;
         currentAttempt = failedAttempts;
         if (currentAttempt == 3) {
-            delayMinutes = 0; // Blokir selama 0 menit
-            delaySeconds = 5; // dan 30 detik setelah 3 percobaan gagal
+            delaySeconds = 30; // Blokir selama 30 detik setelah 3 percobaan gagal
         } else if (currentAttempt == 5) {
-            delayMinutes = 0; // Blokir selama 1 menit
-            delaySeconds = 10; // dan 0 detik setelah 5 percobaan gagal
+            delayMinutes = 1; // Blokir selama 1 menit setelah 5 percobaan gagal
         } else if (currentAttempt == 10) {
-            delayMinutes = 0; // Blokir selama 2 menit
-            delaySeconds = 15; // dan 0 detik setelah 10 percobaan gagal
+            delayMinutes = 2; // Blokir selama 2 menit setelah 10 percobaan gagal
         } else if (currentAttempt == 15) {
-            delayHours = 0; // Blokir selama 24 jam
-            delayMinutes = 0;
-            delaySeconds = 30;
+            delayMinutes = 60; // Blokir selama 60 menit (1 jam) setelah 15 percobaan gagal
         }
 
         if (currentAttempt >= maxAttempts) {
@@ -188,9 +182,9 @@ public class Login extends javax.swing.JFrame {
             return;
         }
 
-        if (delayHours > 0 || delayMinutes > 0 || delaySeconds > 0) {
-            int totalDelayInSeconds = delayHours * 3600 + delayMinutes * 60 + delaySeconds;
-            JOptionPane.showMessageDialog(null, "Anda Telah Gagal Login Sebanyak " + currentAttempt + " Kali. Akun Anda Akan Di Blokir Selama " + delayHours + " Jam " + delayMinutes + " Menit " + delaySeconds + " Detik.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        if (delayMinutes > 0 || delaySeconds > 0) {
+            int totalDelayInSeconds = delayMinutes * 60 + delaySeconds;
+            JOptionPane.showMessageDialog(null, "Anda Telah Gagal Login Sebanyak " + currentAttempt + " Kali. Akun Anda Akan Diblokir Selama " + delayMinutes + " Menit " + delaySeconds + " Detik.", "Peringatan", JOptionPane.WARNING_MESSAGE);
             // Blokir akun selama waktu yang ditentukan
             isBlocked = true;
 
@@ -200,10 +194,9 @@ public class Login extends javax.swing.JFrame {
 
                 public void actionPerformed(ActionEvent e) {
                     if (remainingSeconds > 0) {
-                        int hours = remainingSeconds / 3600;
-                        int minutes = (remainingSeconds % 3600) / 60;
+                        int minutes = remainingSeconds / 60;
                         int seconds = remainingSeconds % 60;
-                        JOptionPane.showMessageDialog(null, "Akun Anda Masih diblokir Selama " + hours + " Jam " + minutes + " Menit " + seconds + " Detik.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Akun Anda Masih Diblokir Selama " + minutes + " Menit " + seconds + " Detik.", "Peringatan", JOptionPane.WARNING_MESSAGE);
                         remainingSeconds--;
                     } else {
                         // Setelah waktu penundaan berakhir, izinkan pengguna mencoba login lagi
@@ -222,10 +215,10 @@ public class Login extends javax.swing.JFrame {
             btn_login.setEnabled(false);
             return;
         } else {
-            JOptionPane.showMessageDialog(null, "Username, Password, Atau Role Salah", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Username, Password ", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
     } else {
-        // Jika login berhasil, reset jumlah penundaan dan aktifkan tombol
+        // Jika login berhasil, reset jumlah percobaan dan aktifkan tombol
         failedAttempts = 0;
         currentAttempt = 0;
         btn_login.setEnabled(true);
@@ -234,15 +227,20 @@ public class Login extends javax.swing.JFrame {
         String role = checkUserPassRs.getString("role");
         if (role.equals("Admin")) {
             JOptionPane.showMessageDialog(null, "Username " + username + " Berhasil Login Sebagai Admin", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            // Buka halaman dashboard admin
+            new Dashboard().setVisible(true);
         } else if (role.equals("Kasir")) {
             JOptionPane.showMessageDialog(null, "Username " + username + " Berhasil Login Sebagai Kasir", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            // Buka halaman transaksi penjualan
+            new Transaksi_penjualan().setVisible(true);
+        } else if (role.equals("Karyawan")) {
+            JOptionPane.showMessageDialog(null, "Username " + username + " Berhasil Login Sebagai Karyawan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            // Buka halaman opname
+            new Opname().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Role Tidak Valid", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        // Buka halaman dashboard sesuai dengan peran pengguna
-        new Dashboard().setVisible(true);
 
         // Tutup halaman login
         this.dispose();
