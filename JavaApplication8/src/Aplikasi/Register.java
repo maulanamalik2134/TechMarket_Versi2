@@ -12,28 +12,26 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class Register extends javax.swing.JFrame {
-    int failedAttempts = 0;
-    boolean isBlocked = false;
 
     public Register() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
         try {
-    String sql = "SELECT * FROM akun ORDER BY Id_akun DESC LIMIT 1";
-    java.sql.Connection conn = (Connection) Aplikasi.Config.configDB();
-    java.sql.Statement stm = conn.createStatement();
-    java.sql.ResultSet res = stm.executeQuery(sql);
-    if (res.next()) {
-        String idakun = "" + (res.getInt("Id_akun") + 1);
-        txt_idakun.setText(idakun);
-    } else {
-        txt_idakun.setText("1");
+        String sql = "SELECT * FROM akun ORDER BY Id_akun DESC LIMIT 1";
+        java.sql.Connection conn = (Connection) Aplikasi.Config.configDB();
+        java.sql.Statement stm = conn.createStatement();
+        java.sql.ResultSet res = stm.executeQuery(sql);
+        if (res.next()) {
+            String idakun = "" + (res.getInt("Id_akun") + 1);
+            txt_idakun.setText(idakun);
+        } else {
+            txt_idakun.setText("1");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
-} catch (Exception e) {
-    e.printStackTrace();
 }
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -161,7 +159,7 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_kembaliActionPerformed
 
     private void btn_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registerActionPerformed
-        try {
+       try {
     int id_akun = Integer.parseInt(txt_idakun.getText());
     String username = txt_username.getText();
     String password = new String(txt_password.getPassword());
@@ -174,7 +172,30 @@ public class Register extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Username Harus Diisi");
         return;
     }
-    
+
+    // Validasi panjang dan karakter username
+    if (username.length() < 5 || username.length() > 15) {
+        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter");
+        return;
+    }
+
+    if (username.contains(" ")) {
+        JOptionPane.showMessageDialog(null, "Username Tidak Boleh Mengandung Spasi");
+        return;
+    }
+
+    // Validasi karakter username
+    if (!username.matches("^[a-zA-Z0-9_-]+$")) {
+        JOptionPane.showMessageDialog(null, "Username Hanya Boleh Mengandung Huruf, Angka, Garis Bawah (_), Dan Tanda Hubung (-)");
+        return;
+    }
+
+    // Validasi awalan karakter username
+    if (!username.matches("^[a-zA-Z].*[^_-]$")) {
+        JOptionPane.showMessageDialog(null, "Username Harus Dimulai Dengan Huruf Dan Tidak Boleh Diakhiri Dengan Garis Bawah (_) Atau Tanda Hubung (-)");
+        return;
+    }
+
     String checkUserSql = "SELECT COUNT(*) FROM akun WHERE username = ?";
     PreparedStatement checkUserPst = conn.prepareStatement(checkUserSql);
     checkUserPst.setString(1, username);
@@ -189,57 +210,33 @@ public class Register extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Password Harus Diisi");
         return;
     }
-    
-    String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
-    PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
-    checkPassPst.setString(1, password);
-    ResultSet checkPassRs = checkPassPst.executeQuery();
-    if (checkPassRs.next() && checkPassRs.getInt(1) > 0) {
-        JOptionPane.showMessageDialog(null, "Password Sudah Digunakan");
+
+    // Validasi panjang dan karakter password
+    if (password.length() < 5 || password.length() > 15) {
+        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter");
         return;
     }
 
-    // Validasi panjang dan karakter username
-    if (username.length() < 5 || username.length() > 15) {
-        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter");
-        return;
-    }
-    
-    if (username.contains(" ")) {
-        JOptionPane.showMessageDialog(null, "Username Tidak Boleh Mengandung Spasi");
-        return;
-    }
-    
-    // Validasi karakter username
-    if (!username.matches("^[a-zA-Z0-9_-]+$")) {
-        JOptionPane.showMessageDialog(null, "Username Hanya Boleh Mengandung Huruf, Angka, Garis Bawah (_), Dan Tanda Hubung (-)");
-        return;
-    }
-    
-    // Validasi awalan karakter username
-    if (!username.matches("^[a-zA-Z].*[^_-]$")) {
-        JOptionPane.showMessageDialog(null, "Username Harus Dimulai Dengan Huruf Dan Tidak Boleh Diakhiri Dengan Garis Bawah (_) Atau Tanda Hubung (-)");
-        return;
-    }
-    
-    // Validasi panjang dan karakter password
-    if (password.length() < 5 || password.length() > 15) {
-        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter");
-        return;
-    }
-    
-    // Validasi tidak ada spasi dalam password
     if (password.contains(" ")) {
         JOptionPane.showMessageDialog(null, "Password Tidak Boleh Mengandung Spasi");
         return;
     }
-    
+
     // Validasi kekuatan password
     if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
         JOptionPane.showMessageDialog(null, "Password Harus sulit Ditebak. Gunakan Kombinasi Huruf Besar, Huruf Kecil, Angka, Dan Simbol");
         return;
     }
-    
+
+    String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
+    PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
+    checkPassPst.setString(1, password);
+    ResultSet checkPassRs = checkPassPst.executeQuery();
+    if (checkPassRs.next() && checkPassRs.getInt(1) > 0) {
+        JOptionPane.showMessageDialog(null, "Password Sudah Ada");
+        return;
+    }
+
     // Cek kesesuaian password dengan konfirmasi password
     if (!password.equals(konfirmasi)) {
         JOptionPane.showMessageDialog(null, "Konfirmasi Password Tidak Sesuai");
@@ -253,6 +250,28 @@ public class Register extends javax.swing.JFrame {
         ResultSet checkRs = checkPst.executeQuery();
         if (checkRs.next() && checkRs.getInt(1) > 0) {
             JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
+            return;
+        }
+    }
+
+    // Validasi jumlah akun kasir
+    if (role.equals("Kasir")) {
+        String checkSql = "SELECT COUNT(*) FROM akun WHERE role = 'Kasir'";
+        PreparedStatement checkPst = conn.prepareStatement(checkSql);
+        ResultSet checkRs = checkPst.executeQuery();
+        if (checkRs.next() && checkRs.getInt(1) >= 4) {
+            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Empat Kasir");
+            return;
+        }
+    }
+
+    // Validasi jumlah akun karyawan
+    if (role.equals("Karyawan")) {
+        String checkSql = "SELECT COUNT(*) FROM akun WHERE role = 'Karyawan'";
+        PreparedStatement checkPst = conn.prepareStatement(checkSql);
+        ResultSet checkRs = checkPst.executeQuery();
+        if (checkRs.next() && checkRs.getInt(1) >= 4) {
+            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Empat Karyawan");
             return;
         }
     }
