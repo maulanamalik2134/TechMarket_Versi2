@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Dashboard extends javax.swing.JFrame {
+public class Supplier extends javax.swing.JFrame {
     String Tanggal;
     private DefaultTableModel model;
      
@@ -25,7 +25,7 @@ public class Dashboard extends javax.swing.JFrame {
     String formattedDateTime = dateTime.format(formatter);
     txt_tanggal.setText(formattedDateTime);
 }
-    public Dashboard() {
+    public Supplier() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
@@ -402,7 +402,7 @@ public class Dashboard extends javax.swing.JFrame {
         cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir", "Karyawan" }));
         getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 100, 30));
 
-        body.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Small (1).png"))); // NOI18N
+        body.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Small (2).png"))); // NOI18N
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
 
         pack();
@@ -632,12 +632,12 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-
+        this.dispose();
+        new Dashboard().setVisible(true);
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
-        this.dispose();
-        new Supplier().setVisible(true);
+        
     }//GEN-LAST:event_btn_supplierActionPerformed
 
     private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
@@ -679,13 +679,13 @@ public class Dashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -699,7 +699,7 @@ public class Dashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+                new Supplier().setVisible(true);
             }
         });
     }

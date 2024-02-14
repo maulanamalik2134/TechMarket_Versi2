@@ -156,42 +156,77 @@ public class Barang extends javax.swing.JFrame {
         btn_akun.setForeground(new java.awt.Color(255, 255, 255));
         btn_akun.setText("Akun");
         btn_akun.setContentAreaFilled(false);
+        btn_akun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_akunActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 250, -1));
 
         btn_supplier.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_supplier.setForeground(new java.awt.Color(255, 255, 255));
         btn_supplier.setText("Supplier");
         btn_supplier.setContentAreaFilled(false);
+        btn_supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_supplierActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, -1));
 
         btn_barang.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_barang.setForeground(new java.awt.Color(255, 255, 255));
         btn_barang.setText("Barang");
         btn_barang.setContentAreaFilled(false);
+        btn_barang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_barangActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 250, -1));
 
         btn_absen.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_absen.setForeground(new java.awt.Color(255, 255, 255));
         btn_absen.setText("Absen");
         btn_absen.setContentAreaFilled(false);
+        btn_absen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_absenActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_absen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 250, -1));
 
         btn_dashboard.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setText("Dashboard");
         btn_dashboard.setContentAreaFilled(false);
+        btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dashboardActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 250, -1));
 
         btn_logout.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_logout.setForeground(new java.awt.Color(255, 255, 255));
         btn_logout.setText("Log Out");
         btn_logout.setContentAreaFilled(false);
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 250, -1));
 
         btn_laporan.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
         btn_laporan.setText("Laporan");
         btn_laporan.setContentAreaFilled(false);
+        btn_laporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_laporanActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 250, -1));
 
         txt_tanggal.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -397,7 +432,7 @@ public class Barang extends javax.swing.JFrame {
         });
         getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 270, -1, -1));
 
-        body.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Barang (11).png"))); // NOI18N
+        body.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Small.png"))); // NOI18N
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
 
         pack();
@@ -685,6 +720,40 @@ kosong();
 tabel_barang();
 kosong();
     }//GEN-LAST:event_btn_hapusActionPerformed
+
+    private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
+        this.dispose();
+        new Dashboard().setVisible(true);
+    }//GEN-LAST:event_btn_dashboardActionPerformed
+
+    private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed
+        this.dispose();
+        new Akun().setVisible(true);
+    }//GEN-LAST:event_btn_akunActionPerformed
+
+    private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
+        this.dispose();
+        new Supplier().setVisible(true);
+    }//GEN-LAST:event_btn_supplierActionPerformed
+
+    private void btn_absenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_absenActionPerformed
+        this.dispose();
+        new Absen().setVisible(true);
+    }//GEN-LAST:event_btn_absenActionPerformed
+
+    private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
+        this.dispose();
+        new Laporan().setVisible(true);
+    }//GEN-LAST:event_btn_laporanActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_barangActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
