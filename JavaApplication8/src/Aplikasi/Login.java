@@ -108,6 +108,11 @@ public class Login extends javax.swing.JFrame {
         btn_forgotpassword.setText("Forgot Password?");
         btn_forgotpassword.setBorderPainted(false);
         btn_forgotpassword.setContentAreaFilled(false);
+        btn_forgotpassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_forgotpasswordActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_forgotpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 350, -1, -1));
 
         lbl_password.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -256,6 +261,11 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
         new Register().setVisible(true);
     }//GEN-LAST:event_btn_registerActionPerformed
+
+    private void btn_forgotpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_forgotpasswordActionPerformed
+        this.dispose();
+        new ForgotPassword().setVisible(true);
+    }//GEN-LAST:event_btn_forgotpasswordActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
