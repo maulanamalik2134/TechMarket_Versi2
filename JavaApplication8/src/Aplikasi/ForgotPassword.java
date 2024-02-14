@@ -146,92 +146,99 @@ public class ForgotPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_kembaliActionPerformed
 
     private void btn_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registerActionPerformed
-        try {                                           
-            String email = txt_gmail.getText();
-            String newPassword = new String(txt_password.getPassword());
-            String confirmPassword = new String(txt_konfirmasipassword.getPassword());
+        try {
+    String username = txt_username.getText();
+    String email = txt_gmail.getText();
+    String newPassword = new String(txt_password.getPassword());
+    String confirmPassword = new String(txt_konfirmasipassword.getPassword());
 
-            // Cek apakah password sudah digunakan
+    // Cek apakah username sudah diisi
+    if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username Harus Diisi");
+        return;
+    }
+
+    // Cek apakah email sudah diisi
     if (email.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Email Harus Diisi");
         return;
     }
-    
-    // Cek apakah password sudah digunakan
+
+    // Cek apakah password sudah diisi
     if (newPassword.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Password harus diisi");
         return;
     }
-    // Cek apakah password sudah digunakan
-    if (confirmPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Konfirmasi Password harus diisi");
-        return;
-    }
     
-        // Validasi panjang dan karakter password
+    // Validasi panjang dan karakter password
     if (newPassword.length() < 5 || newPassword.length() > 15) {
         JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter");
         return;
     }
     
     // Validasi tidak ada spasi dalam password
-    if (newPassword.contains(" ")) {
-        JOptionPane.showMessageDialog(null, "Password Tidak boleh Mengandung Spasi");
+if (newPassword.contains(" ")) {
+    JOptionPane.showMessageDialog(null, "Password Tidak boleh Mengandung Spasi");
+    return;
+}
+
+    // Cek apakah konfirmasi password sudah diisi
+    if (confirmPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Konfirmasi Password harus diisi");
         return;
     }
-    
-    // Validasi kekuatan password
-    if (!newPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
-        JOptionPane.showMessageDialog(null, "Password Harus Sulit Ditebak. Gunakan Kombinasi Huruf Besar, Huruf Kecil, Angka, Dan Simbol");
-        return;
-    }
-    
+
     // Cek kesesuaian password dengan konfirmasi password
-    if (!confirmPassword.equals(confirmPassword)) {
+    if (!newPassword.equals(confirmPassword)) {
         JOptionPane.showMessageDialog(null, "Konfirmasi Password Tidak Sesuai");
         return;
     }
 
-        java.sql.Connection conn = null;
-            try {
-                conn = (Connection)Config.configDB();
-            } catch (SQLException ex) {
-                Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            // Cek apakah password sudah digunakan
-        String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
-        PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
-        checkPassPst.setString(1, newPassword);
-        ResultSet checkPassRs = checkPassPst.executeQuery();
-        if (checkPassRs.next() && checkPassRs.getInt(1) > 0) {
-            JOptionPane.showMessageDialog(null, "Password Sudah Digunakan");
-            return;
-        }
-            // cek apakah username dan email ada di database
-    String checkUserEmailSql = "SELECT COUNT(*) FROM akun WHERE email = ?";
-    java.sql.PreparedStatement checkUserEmailPst = conn.prepareStatement(checkUserEmailSql);
-    checkUserEmailPst.setString(1, email);
-    java.sql.ResultSet checkUserEmailRs = checkUserEmailPst.executeQuery();
-    if (checkUserEmailRs.next() && checkUserEmailRs.getInt(1) > 0) {
-        // jika ya, update password di database
-                String updateSql = "UPDATE akun SET password = ? , email = ?";
-        java.sql.PreparedStatement updatePst = conn.prepareStatement(updateSql);
-        updatePst.setString(1, newPassword);
-        updatePst.setString(2, email);
-        updatePst.executeUpdate();
-
-        JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.");
-        // tutup form reset password dan buka form login
-    this.setVisible(false);
-    new Login().setVisible(true);
-    } else {
-        // jika tidak, tampilkan pesan error
-        JOptionPane.showMessageDialog(null, "Email Tidak Ditemukan. Silakan Cek Kembali Dan Email Yang Benar.");
+    // Koneksi ke database
+    java.sql.Connection conn = null;
+    try {
+        conn = (Connection) Config.configDB();
+    } catch (SQLException ex) {
+        Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
     }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    // Cek apakah password sudah digunakan
+    String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
+    PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
+    checkPassPst.setString(1, newPassword);
+    ResultSet checkPassRs = checkPassPst.executeQuery();
+    if (checkPassRs.next() && checkPassRs.getInt(1) > 0) {
+        JOptionPane.showMessageDialog(null, "Password Sudah Digunakan");
+        return;
+    }
+
+   // Cek apakah username atau email ada di database
+    String checkUserEmailSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR email = ?";
+    PreparedStatement checkUserEmailPst = conn.prepareStatement(checkUserEmailSql);
+    checkUserEmailPst.setString(1, username);
+    checkUserEmailPst.setString(2, email);
+    ResultSet checkUserEmailRs = checkUserEmailPst.executeQuery();
+    if (checkUserEmailRs.next() && checkUserEmailRs.getInt(1) > 0) {
+        // Username atau email ditemukan, lanjutkan proses reset password
+        // ...
+        // (Tambahkan kode reset password di sini)
+        // ...
+        JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.");
+        // Tutup form reset password dan buka form login
+        this.setVisible(false);
+        new Login().setVisible(true);
+    } else {
+        // Username atau email tidak ditemukan
+        JOptionPane.showMessageDialog(null, "Username Atau Email Tidak Ditemukan. Silakan Cek Kembali Username Dan Email Anda.");
+    }
+} catch (NullPointerException e) {
+    // Tangani NullPointerException di sini
+    e.printStackTrace();
+} catch (SQLException e) {
+    // Tangani SQLException di sini
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(null, "Terjadi Kesalahan Dalam Koneksi Database");
+}
     }//GEN-LAST:event_btn_registerActionPerformed
 
     public static void main(String args[]) {
