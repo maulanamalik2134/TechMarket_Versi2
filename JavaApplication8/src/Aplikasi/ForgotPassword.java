@@ -104,7 +104,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 240, 240, -1));
 
         btn_register.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        btn_register.setText("REGISTER");
+        btn_register.setText("FORGOT");
         btn_register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registerActionPerformed(evt);
