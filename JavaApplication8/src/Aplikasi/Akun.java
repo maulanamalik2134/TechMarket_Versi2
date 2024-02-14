@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Barang extends javax.swing.JFrame {
+public class Akun extends javax.swing.JFrame {
     String Tanggal;
     private DefaultTableModel model;
      
@@ -25,7 +25,7 @@ public class Barang extends javax.swing.JFrame {
     String formattedDateTime = dateTime.format(formatter);
     txt_tanggal.setText(formattedDateTime);
 }
-    public Barang() {
+    public Akun() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
@@ -540,44 +540,10 @@ if (tabel_barang.getValueAt(baris, 7) == null) {
     String tanggalMasuk = txt_tanggalmasuk.getText();
     String kategori = txt_kategori.getText();
 
-    // Validasi panjang dan karakter username
-    if (namaBarang.length() < 3 || namaBarang.length() > 50) {
-        JOptionPane.showMessageDialog(null, "Nama Barang Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 50 Karakter");
-        return;
-    }
-    
-    // Validasi panjang dan karakter username
-    if (kategori.length() < 5 || kategori.length() > 50) {
-        JOptionPane.showMessageDialog(null, "Kategori Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 50 Karakter");
-        return;
-    }
-    
-    // Validasi panjang dan karakter username
-    if (hargaJual.length() < 4 || hargaJual.length() > 8) {
-        JOptionPane.showMessageDialog(null, "Harga Jual Harus Diisi Dengan Panjang Minimal 4 Karakter Dan Maksimal 8 Karakter");
-        return;
-    }
-    
-    // Validasi panjang dan karakter username
-    if (hargaBeli.length() < 4 || hargaBeli.length() > 8) {
-        JOptionPane.showMessageDialog(null, "Harga Beli Harus Diisi Dengan Panjang Minimal 4 Karakter Dan Maksimal 8 Karakter");
-        return;
-    }
-    
-    // Validasi panjang dan karakter username
-    if (stok.length() < 1 || stok.length() > 3) {
-        JOptionPane.showMessageDialog(null, "Stok Harus Diisi Dengan Panjang Minimal 1 Karakter Dan Maksimal 3 Karakter");
-        return;
-    }
-    
-    // Validasi panjang dan karakter username
-    if (idSupplier.length() < 1 || idSupplier.length() > 3) {
-        JOptionPane.showMessageDialog(null, "Id Supplier Harus Diisi Dengan Panjang Minimal 1 Karakter Dan Maksimal 3 Karakter");
-        return;
-    }
-    
     // Periksa apakah setiap field telah diisi
-    if (idSupplier.isEmpty()) {
+    if (idBarang.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "ID Barang harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
+    } else if (idSupplier.isEmpty()) {
         JOptionPane.showMessageDialog(null, "ID Supplier harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
     } else if (namaBarang.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Nama Barang harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
@@ -587,6 +553,8 @@ if (tabel_barang.getValueAt(baris, 7) == null) {
         JOptionPane.showMessageDialog(null, "Stok harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
     } else if (hargaBeli.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Harga Beli harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
+    } else if (tanggalMasuk.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Tanggal harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
     } else if (kategori.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Kategori harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
     } else {
@@ -700,21 +668,23 @@ kosong();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Akun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Akun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Akun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Akun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Barang().setVisible(true);
+                new Akun().setVisible(true);
             }
         });
     }
