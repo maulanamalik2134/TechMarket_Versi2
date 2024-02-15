@@ -116,7 +116,7 @@ public class Dashboard extends javax.swing.JFrame {
         btn_absen = new javax.swing.JButton();
         btn_dashboard = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
-        btn_laporan = new javax.swing.JButton();
+        btn_transaksi = new javax.swing.JButton();
         txt_tanggal = new javax.swing.JLabel();
         lbl_idakun = new javax.swing.JLabel();
         txt_idakun = new javax.swing.JFormattedTextField();
@@ -139,6 +139,9 @@ public class Dashboard extends javax.swing.JFrame {
         btn_print = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
         cmb_role = new javax.swing.JComboBox<>();
+        btn_oprasional = new javax.swing.JButton();
+        btn_return = new javax.swing.JButton();
+        btn_laporan = new javax.swing.JButton();
         body = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -153,7 +156,7 @@ public class Dashboard extends javax.swing.JFrame {
                 btn_akunActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 250, -1));
+        getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 250, -1));
 
         btn_supplier.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_supplier.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,7 +167,7 @@ public class Dashboard extends javax.swing.JFrame {
                 btn_supplierActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, -1));
+        getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 250, -1));
 
         btn_barang.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_barang.setForeground(new java.awt.Color(255, 255, 255));
@@ -175,7 +178,7 @@ public class Dashboard extends javax.swing.JFrame {
                 btn_barangActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 250, -1));
+        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, -1));
 
         btn_absen.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_absen.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,7 +189,7 @@ public class Dashboard extends javax.swing.JFrame {
                 btn_absenActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_absen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 250, -1));
+        getContentPane().add(btn_absen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 250, -1));
 
         btn_dashboard.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
@@ -197,7 +200,7 @@ public class Dashboard extends javax.swing.JFrame {
                 btn_dashboardActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 250, -1));
+        getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 250, -1));
 
         btn_logout.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btn_logout.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,16 +213,16 @@ public class Dashboard extends javax.swing.JFrame {
         });
         getContentPane().add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 250, -1));
 
-        btn_laporan.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
-        btn_laporan.setText("Laporan");
-        btn_laporan.setContentAreaFilled(false);
-        btn_laporan.addActionListener(new java.awt.event.ActionListener() {
+        btn_transaksi.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
+        btn_transaksi.setText("Transaksi");
+        btn_transaksi.setContentAreaFilled(false);
+        btn_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_laporanActionPerformed(evt);
+                btn_transaksiActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 250, -1));
+        getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 250, -1));
 
         txt_tanggal.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_tanggal.setForeground(new java.awt.Color(255, 255, 255));
@@ -401,6 +404,39 @@ public class Dashboard extends javax.swing.JFrame {
         cmb_role.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir", "Karyawan" }));
         getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 100, 30));
+
+        btn_oprasional.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btn_oprasional.setForeground(new java.awt.Color(255, 255, 255));
+        btn_oprasional.setText("Oprasional");
+        btn_oprasional.setContentAreaFilled(false);
+        btn_oprasional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_oprasionalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_oprasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 250, -1));
+
+        btn_return.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btn_return.setForeground(new java.awt.Color(255, 255, 255));
+        btn_return.setText("Return");
+        btn_return.setContentAreaFilled(false);
+        btn_return.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_returnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 250, -1));
+
+        btn_laporan.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
+        btn_laporan.setText("Laporan");
+        btn_laporan.setContentAreaFilled(false);
+        btn_laporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_laporanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 250, -1));
 
         body.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Small (1).png"))); // NOI18N
         getContentPane().add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
@@ -650,10 +686,10 @@ public class Dashboard extends javax.swing.JFrame {
         new Absen().setVisible(true);
     }//GEN-LAST:event_btn_absenActionPerformed
 
-    private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
+    private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
         this.dispose();
         new Laporan().setVisible(true);
-    }//GEN-LAST:event_btn_laporanActionPerformed
+    }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
         this.dispose();
@@ -664,6 +700,20 @@ public class Dashboard extends javax.swing.JFrame {
         this.dispose();
         new Akun().setVisible(true);
     }//GEN-LAST:event_btn_akunActionPerformed
+
+    private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
+//        this.dispose();
+//        new Oprasional().setVisible(true);
+    }//GEN-LAST:event_btn_oprasionalActionPerformed
+
+    private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
+//        this.dispose();
+//        new Return().setVisible(true);
+    }//GEN-LAST:event_btn_returnActionPerformed
+
+    private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_laporanActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -715,9 +765,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_laporan;
     private javax.swing.JButton btn_logout;
+    private javax.swing.JButton btn_oprasional;
     private javax.swing.JButton btn_print;
+    private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_supplier;
     private javax.swing.JButton btn_tambah;
+    private javax.swing.JButton btn_transaksi;
     private javax.swing.JComboBox<String> cmb_role;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_alamat;
