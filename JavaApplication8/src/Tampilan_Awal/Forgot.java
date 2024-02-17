@@ -203,6 +203,12 @@ if (chk_showpassword.isSelected()) {
         return;
     }
     
+    // Validasi panjang dan karakter password
+    if (newPassword.length() < 5 || newPassword.length() > 15) {
+        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter");
+        return;
+    }
+    
     // Mengandung huruf besar, huruf kecil, angka, dan simbol
     Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$");
     Matcher matcher = pattern.matcher(newPassword);

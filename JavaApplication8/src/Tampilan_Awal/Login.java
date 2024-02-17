@@ -173,7 +173,7 @@ public void login() {
         lbl_tanggal.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         lbl_tanggal.setForeground(new java.awt.Color(255, 255, 255));
         lbl_tanggal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        getContentPane().add(lbl_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 490, 50));
+        getContentPane().add(lbl_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 450, 50));
 
         lbl_lokasi.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         lbl_lokasi.setForeground(new java.awt.Color(255, 255, 255));
