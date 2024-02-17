@@ -149,7 +149,7 @@ public Absen() {
         txt_tanggal1.setText("jLabel2");
         getContentPane().add(txt_tanggal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 400, -1, -1));
 
-        txt_idakun.setText("jLabel1");
+        txt_idakun.setText("10");
         getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 280, -1, -1));
 
         pack();
@@ -163,7 +163,7 @@ public Absen() {
         try {
     int id_absen = Integer.parseInt(txt_idabsen.getText()); // Mendapatkan ID absen dari input teks
     int id_user = Integer.parseInt(txt_idakun.getText()); // Mendapatkan ID pengguna dari input teks
-    String keterangan = (String) cmb_absen.getSelectedItem(); // Mendapatkan keterangan absen dari pilihan yang dipilih
+     String keterangan = (String) cmb_absen.getSelectedItem(); // Mendapatkan keterangan absen dari pilihan yang dipilih
     String username = txt_username.getText(); // Mendapatkan username dari input teks
     
     // Mendapatkan timestamp saat ini
@@ -177,10 +177,6 @@ public Absen() {
     
     java.sql.Connection conn = (Connection) Config.configDB(); // Mendapatkan koneksi ke database
     
-    // Cek apakah sudah melewati waktu absen
-    String startTime = "07:00"; // Waktu mulai absen
-    String endTime = "17:00"; // Waktu akhir absen
-    
     // Cek jika username salah
     boolean isUsernameCorrect = false;
     String checkUsernameSql = "SELECT * FROM akun WHERE username = ?";
@@ -193,50 +189,52 @@ public Absen() {
     
     // Tampilkan pesan notifikasi sesuai dengan kesalahan yang terjadi
     if (!isUsernameCorrect) {
-        JOptionPane.showMessageDialog(null, "Username Salah", "Peringatan", JOptionPane.WARNING_MESSAGE);
-    }
-    
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); // Membuat objek SimpleDateFormat untuk membandingkan waktu
-    Date current = sdf.parse(jam); // Mengubah waktu saat ini menjadi objek Date
-    Date start = sdf.parse(startTime); // Mengubah waktu mulai absen menjadi objek Date
-    Date end = sdf.parse(endTime); // Mengubah waktu akhir absen menjadi objek Date
-    
-    if (current.before(start) || current.after(end)) { // Jika waktu saat ini sebelum waktu mulai absen atau setelah waktu akhir absen
-        JOptionPane.showMessageDialog(null, "Waktu absen telah berakhir. Silakan absen antara jam 07:00 - 17:00."); // Tampilkan pesan bahwa waktu absen telah berakhir
-        new Login().setVisible(true); // Tampilkan tampilan login
-        dispose(); // Menutup tampilan absen
-    } else if (username.isEmpty()) { // Jika username kosong
-        JOptionPane.showMessageDialog(null, "Username tidak ditemukan. Silakan masukkan username Anda."); // Tampilkan pesan bahwa username tidak ditemukan
+        JOptionPane.showMessageDialog(null, "Username Tidak Di Temukan", "Peringatan", JOptionPane.WARNING_MESSAGE);
     } else {
-        // Cek apakah ID akun sudah melakukan absen sebelumnya pada hari ini
-        String checkSql = "SELECT COUNT(*) FROM absen WHERE Id_akun=? AND Tanggal >= ? AND Tanggal < ?"; // Query untuk menghitung jumlah absen
-        java.sql.PreparedStatement checkPst = conn.prepareStatement(checkSql); // Membuat objek PreparedStatement untuk menjalankan query
-        checkPst.setInt(1, id_user); // Mengatur parameter ID akun
-        checkPst.setTimestamp(2, Timestamp.valueOf(tanggal + " 00:00:00")); // Mengatur parameter tanggal awal
-        checkPst.setTimestamp(3, Timestamp.valueOf(tanggal + " 23:59:59")); // Mengatur parameter tanggal akhir
-        java.sql.ResultSet checkResult = checkPst.executeQuery(); // Menjalankan query dan mendapatkan hasil
-        checkResult.next(); // Memindahkan kursor ke baris pertama hasil
-        int absenCount = checkResult.getInt(1); // Mendapatkan jumlah absen
+        // Cek apakah sudah melewati waktu absen
+        String startTime = "07:00"; // Waktu mulai absen
+        String endTime = "17:00"; // Waktu akhir absen
         
-        if (absenCount > 0) { // Jika sudah ada absen sebelumnya pada hari ini
-            JOptionPane.showMessageDialog(null, "Anda sudah melakukan absen hari ini. Silakan coba lagi besok."); // Tampilkan pesan bahwa sudah melakukan absen hari ini
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); // Membuat objek SimpleDateFormat untuk membandingkan waktu
+        Date current = sdf.parse(jam); // Mengubah waktu saat ini menjadi objek Date
+        Date start = sdf.parse(startTime); // Mengubah waktu mulai absen menjadi objek Date
+        Date end = sdf.parse(endTime); // Mengubah waktu akhir absen menjadi objek Date
+        
+        if (current.before(start) || current.after(end)) { // Jika waktu saat ini sebelum waktu mulai absen atau setelah waktu akhir absen
+            JOptionPane.showMessageDialog(null, "Waktu absen telah berakhir. Silakan absen antara jam 07:00 - 17:00."); // Tampilkan pesan bahwa waktu absen telah berakhir
             new Login().setVisible(true); // Tampilkan tampilan login
             dispose(); // Menutup tampilan absen
         } else {
-            // Menyimpan data absen ke dalam database
-            String sql = "INSERT INTO absen (Id_absen, Id_akun, Keterangan, Tanggal) VALUES (?, ?, ?, ?)"; // Query untuk menyimpan data absen
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql); // Membuat objek PreparedStatement untuk menjalankan query
-            pst.setInt(1, id_absen); // Mengatur parameter ID absen
-            pst.setInt(2, id_user); // Mengatur parameter ID akun
-            pst.setString(3, keterangan); // Mengatur parameter keterangan absen
-            pst.setTimestamp(4, Timestamp.valueOf(tanggal)); // Mengatur parameter tanggal absen
-            pst.executeUpdate(); // Menjalankan query untuk menyimpan data absen
+            // Cek apakah ID akun sudah melakukan absen sebelumnya pada hari ini
+            String checkSql = "SELECT COUNT(*) FROM absen WHERE Id_akun=? AND Tanggal >= ? AND Tanggal < ?"; // Query untuk menghitung jumlah absen
+            java.sql.PreparedStatement checkPst = conn.prepareStatement(checkSql); // Membuat objek PreparedStatement untuk menjalankan query
+            checkPst.setInt(1, id_user); // Mengatur parameter ID akun
+            checkPst.setTimestamp(2, Timestamp.valueOf(tanggal + " 00:00:00")); // Mengatur parameter tanggal awal
+            checkPst.setTimestamp(3, Timestamp.valueOf(tanggal + " 23:59:59")); // Mengatur parameter tanggal akhir
+            java.sql.ResultSet checkResult = checkPst.executeQuery(); // Menjalankan query dan mendapatkan hasil
+            checkResult.next(); // Memindahkan kursor ke baris pertama hasil
+            int absenCount = checkResult.getInt(1); // Mendapatkan jumlah absen
             
-            JOptionPane.showMessageDialog(null, "Data absen berhasil disimpan!\nUsername: " + username + "\nWaktu Absen: " + dateFormat.format(currentTime)); // Tampilkan pesan bahwa data absen berhasil disimpan
-            
-            // Mengarahkan pengguna ke tampilan login
-            new Login().setVisible(true); // Tampilkan tampilan login
-            dispose(); // Menutup tampilan absen
+            if (absenCount > 0) { // Jika sudah ada absen sebelumnya pada hari ini
+                JOptionPane.showMessageDialog(null, "Anda sudah melakukan absen hari ini. Silakan coba lagi besok."); // Tampilkan pesan bahwa sudah melakukan absen hari ini
+                new Login().setVisible(true); // Tampilkan tampilan login
+                dispose(); // Menutup tampilan absen
+            } else {
+                // Menyimpan data absen ke dalam database
+                String sql = "INSERT INTO absen (Id_absen, Id_akun, Keterangan, Tanggal) VALUES (?, ?, ?, ?)"; // Query untuk menyimpan data absen
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql); // Membuat objek PreparedStatement untuk menjalankan query
+                pst.setInt(1, id_absen); // Mengatur parameter ID absen
+                pst.setInt(2, id_user); // Mengatur parameter ID akun
+                pst.setString(3, keterangan); // Mengatur parameter keterangan absen
+                pst.setTimestamp(4, Timestamp.valueOf(tanggal)); // Mengatur parameter tanggal absen
+                pst.executeUpdate(); // Menjalankan query untuk menyimpan data absen
+                
+                JOptionPane.showMessageDialog(null, "Data absen berhasil disimpan!\nUsername: " + username + "\nWaktu Absen: " + dateFormat.format(currentTime)); // Tampilkan pesan bahwa data absen berhasil disimpan
+                
+                // Mengarahkan pengguna ke tampilan login
+                new Login().setVisible(true); // Tampilkan tampilan login
+                dispose(); // Menutup tampilan absen
+            }
         }
     }
 } catch (Exception e) {
