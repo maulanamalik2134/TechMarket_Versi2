@@ -145,6 +145,11 @@ public void login() {
         btn_forgot.setForeground(new java.awt.Color(255, 255, 255));
         btn_forgot.setText("Forgot Password?");
         btn_forgot.setContentAreaFilled(false);
+        btn_forgot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_forgotActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_forgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 350, -1, -1));
 
         btn_login.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
@@ -345,6 +350,11 @@ public void login() {
         this.setVisible(false);
         new Absen().setVisible(true);
     }//GEN-LAST:event_Btn_absenActionPerformed
+
+    private void btn_forgotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_forgotActionPerformed
+        this.setVisible(false);
+        new Forgot().setVisible(true);
+    }//GEN-LAST:event_btn_forgotActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
