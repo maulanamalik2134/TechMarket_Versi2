@@ -181,6 +181,21 @@ public Absen() {
     String startTime = "07:00"; // Waktu mulai absen
     String endTime = "17:00"; // Waktu akhir absen
     
+    // Cek jika username salah
+    boolean isUsernameCorrect = false;
+    String checkUsernameSql = "SELECT * FROM akun WHERE username = ?";
+    java.sql.PreparedStatement checkUsernamePst = conn.prepareStatement(checkUsernameSql);
+    checkUsernamePst.setString(1, username);
+    java.sql.ResultSet checkUsernameRs = checkUsernamePst.executeQuery();
+    if (checkUsernameRs.next()) {
+        isUsernameCorrect = true;
+    }
+    
+    // Tampilkan pesan notifikasi sesuai dengan kesalahan yang terjadi
+    if (!isUsernameCorrect) {
+        JOptionPane.showMessageDialog(null, "Username Salah", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    }
+    
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); // Membuat objek SimpleDateFormat untuk membandingkan waktu
     Date current = sdf.parse(jam); // Mengubah waktu saat ini menjadi objek Date
     Date start = sdf.parse(startTime); // Mengubah waktu mulai absen menjadi objek Date
