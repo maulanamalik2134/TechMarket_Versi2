@@ -271,7 +271,7 @@ public Menu_Laporan() {
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void btn_transaksipenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipenjualanActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai transaksi penjualan. Lanjutkan?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai laporan penjualan. Lanjutkan?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
     if (result == JOptionPane.YES_OPTION) {
         this.setVisible(false);
         new Laporan_Pembelian().setVisible(true);
@@ -279,7 +279,7 @@ public Menu_Laporan() {
     }//GEN-LAST:event_btn_transaksipenjualanActionPerformed
 
     private void btn_transaksipembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipembelianActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai transaksi pembelian. Lanjutkan?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai laporan pembelian. Lanjutkan?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
     if (result == JOptionPane.YES_OPTION) {
         this.setVisible(false);
         new Laporan_Penjualan().setVisible(true);
