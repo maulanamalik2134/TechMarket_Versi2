@@ -274,7 +274,7 @@ if (chk_showpassword.isSelected()) {
         updatePst.setString(2, email);
         updatePst.executeUpdate();
 
-        JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.");
+        JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nGmail: " + email + "\nPassword Baru: " + newPassword);
         
         // tutup form reset password dan buka form login
         this.setVisible(false);

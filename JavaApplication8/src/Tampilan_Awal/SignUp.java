@@ -335,7 +335,7 @@ if (chk_showpassword.isSelected()) {
     pst.executeUpdate();
 
     // Menampilkan pesan sukses dengan username
-    String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username;
+  String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password;
     JOptionPane.showMessageDialog(null, successMessage);
 
     // Menutup form saat akun berhasil dibuat
