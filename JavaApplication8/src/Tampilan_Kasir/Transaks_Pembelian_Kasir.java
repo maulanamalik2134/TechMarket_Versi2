@@ -1,5 +1,6 @@
 package Tampilan_Kasir;
 
+import Tampilan_Awal.Login;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -94,7 +95,7 @@ public Transaks_Pembelian_Kasir() {
         int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             this.setVisible(false);
-            new Transaks_Penjualan_Kasir().setVisible(true);
+            new Login().setVisible(true);
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
 

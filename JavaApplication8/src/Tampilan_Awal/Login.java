@@ -223,6 +223,41 @@ public void login() {
     int delaySeconds = 0; // Waktu penundaan awal (detik)
     int currentAttempt = 0; // Jumlah penundaan saat ini
 
+    // Check if it's within the allowed login time range (6 PM to 9 PM)
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    int hour = cal.get(java.util.Calendar.HOUR_OF_DAY);
+    if (hour < 7 || hour > 21) {
+        JOptionPane.showMessageDialog(null, "Maaf, saat ini hanya dapat login antara pukul 07:00 pagi hingga 22:00 malam.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Rest of your code for checking username and password...
+
+} catch (SQLException e) {
+    // Tangani kesalahan koneksi atau eksekusi SQL
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(null, "Terjadi Kesalahan: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
+}
+        try {
+    // Ambil input username dan password dari pengguna
+    String username = txt_username.getText();
+    String password = new String(txt_password.getPassword());
+
+    // Lakukan koneksi ke database
+    java.sql.Connection conn = (Connection)Config.configDB();
+
+    // Buat query untuk memeriksa username dan password yang cocok
+    String checkUserPassSql = "SELECT * FROM akun WHERE username = ? AND password = ?";
+    java.sql.PreparedStatement checkUserPassPst = conn.prepareStatement(checkUserPassSql);
+    checkUserPassPst.setString(1, username);
+    checkUserPassPst.setString(2, password);
+    java.sql.ResultSet checkUserPassRs = checkUserPassPst.executeQuery();
+
+    int maxAttempts = 15; // Jumlah maksimum penundaan
+    int delayMinutes = 0; // Waktu penundaan awal (menit)
+    int delaySeconds = 0; // Waktu penundaan awal (detik)
+    int currentAttempt = 0; // Jumlah penundaan saat ini
+
     if (!checkUserPassRs.next()) {
         // Cek jika username dan password salah
         boolean isUsernameCorrect = false;
