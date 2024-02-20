@@ -226,8 +226,8 @@ public void login() {
     // Check if it's within the allowed login time range (6 PM to 9 PM)
     java.util.Calendar cal = java.util.Calendar.getInstance();
     int hour = cal.get(java.util.Calendar.HOUR_OF_DAY);
-    if (hour < 7 || hour > 21) {
-        JOptionPane.showMessageDialog(null, "Maaf, saat ini hanya dapat login antara pukul 07:00 pagi hingga 22:00 malam.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    if (hour < 05 || hour > 22) {
+        JOptionPane.showMessageDialog(null, "Maaf, saat ini hanya dapat login antara pukul 05:00 pagi hingga 22:00 sore.", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
