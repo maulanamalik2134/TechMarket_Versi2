@@ -37,9 +37,12 @@ public Supplier() {
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
 
-    // Jadwalkan tugas untuk memperbarui tanggal dan waktu saat ini setiap detik
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    executor.scheduleAtFixedRate(() -> {
+    executor.scheduleAtFixedRate(new Runnable() {
+        @Override
+        public void run() {
+            setTanggalDanWaktuSekarang();
+        }
     }, 0, 1, TimeUnit.SECONDS);
 
     // Set tanggal dan waktu saat ini
@@ -387,19 +390,13 @@ private void tabel_supplier() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu dashboard?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Dashboard().setVisible(true);
-        }
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu akun?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Akun().setVisible(true);
-        }
     }//GEN-LAST:event_btn_akunActionPerformed
 
     private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
@@ -407,67 +404,43 @@ private void tabel_supplier() {
     }//GEN-LAST:event_btn_supplierActionPerformed
 
     private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu barang?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Barang().setVisible(true);
-        }
     }//GEN-LAST:event_btn_barangActionPerformed
 
     private void btn_opnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opnameActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu opname?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Opname().setVisible(true);
-        }
     }//GEN-LAST:event_btn_opnameActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu return?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Return().setVisible(true);
-        }
     }//GEN-LAST:event_btn_returnActionPerformed
 
     private void btn_absenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_absenActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu absen?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Absen_Admin().setVisible(true);
-        }
     }//GEN-LAST:event_btn_absenActionPerformed
 
     private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu oprasional?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Oprasional().setVisible(true);
-        }
     }//GEN-LAST:event_btn_oprasionalActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu transaksi?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Menu_Transaksi_Admin().setVisible(true);
-        }
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu transaksi?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Menu_Laporan().setVisible(true);
-        }
     }//GEN-LAST:event_btn_laporanActionPerformed
 
     private void btn_logout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logout2ActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Login().setVisible(true);
-        }
     }//GEN-LAST:event_btn_logout2ActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
@@ -505,6 +478,12 @@ private void tabel_supplier() {
 
         Connection conn = Config.configDB();
 
+        // Mengecek apakah username, telepon, dan alamat sudah diisi
+        if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
+            return;
+        }
+
         // Mengecek panjang username, alamat, dan telepon
         if (username.length() < 5 || username.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
@@ -514,12 +493,6 @@ private void tabel_supplier() {
             return;
         } else if (telepon.length() < 11 || telepon.length() > 13) {
             JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 11 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Mengecek apakah telepon hanya mengandung angka
-        if (!telepon.matches("\\d+")) {
-            JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh berisi angka");
             return;
         }
 
@@ -543,8 +516,9 @@ private void tabel_supplier() {
             pst.setString(4, idsupplier);
             pst.execute();
 
-            // Tampilkan notifikasi sukses
-            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+            // Tampilkan notifikasi sukses dengan username, nomor telepon, dan alamat
+            String successMessage = "Data berhasil diubah!\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat;
+            JOptionPane.showMessageDialog(null, successMessage, "Berhasil", JOptionPane.INFORMATION_MESSAGE);
 
             // Perbarui tabel supplier, ID supplier, dan kosongkan input
             tabel_supplier();
@@ -587,12 +561,6 @@ private void tabel_supplier() {
         return;
     }
 
-    // Mengecek apakah telepon hanya mengandung angka
-    if (!telepon.matches("\\d+")) {
-        JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh berisi angka");
-        return;
-    }
-
     // Mengecek apakah username dan telepon sudah ada dalam database
     String checkSql = "SELECT COUNT(*) FROM supplier WHERE nama_supplier = ? OR telepon = ?";
     PreparedStatement checkPst = conn.prepareStatement(checkSql);
@@ -607,33 +575,31 @@ private void tabel_supplier() {
         }
     }
 
-    // Simpan data ke database
-    String insertSql = "INSERT INTO supplier (id_supplier, nama_supplier, telepon, alamat) VALUES (?, ?, ?, ?)";
-    PreparedStatement insertPst = conn.prepareStatement(insertSql);
-    insertPst.setInt(1, idakun);
-    insertPst.setString(2, username);
-    insertPst.setString(3, telepon);
-    insertPst.setString(4, alamat);
-    insertPst.execute();
+    // Tampilkan dialog konfirmasi untuk menyimpan data
+    int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+    if (confirm == JOptionPane.YES_OPTION) {
+        // Simpan data ke database
+        String insertSql = "INSERT INTO supplier (id_supplier, nama_supplier, telepon, alamat) VALUES (?, ?, ?, ?)";
+        PreparedStatement insertPst = conn.prepareStatement(insertSql);
+        insertPst.setInt(1, idakun);
+        insertPst.setString(2, username);
+        insertPst.setString(3, telepon);
+        insertPst.setString(4, alamat);
+        insertPst.execute();
 
-    // Menampilkan pesan sukses dengan username
-    String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username;
-    JOptionPane.showMessageDialog(null, successMessage);
+        // Menampilkan pesan sukses dengan username
+        String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat;
+        JOptionPane.showMessageDialog(null, successMessage);
 
-    // Refresh tabel supplier
-    tabel_supplier();
-    txt_idsupplier.setText(getNextIdSupplier()); // Update ID supplier berikutnya setelah penyimpanan berhasil
-    // Kosongkan input
-    kosong1();
+        // Refresh tabel supplier
+        tabel_supplier();
+        txt_idsupplier.setText(getNextIdSupplier()); // Update ID supplier berikutnya setelah penyimpanan berhasil
+        // Kosongkan input
+        kosong1();
+    }
 } catch (Exception e) {
     JOptionPane.showMessageDialog(null, "Gagal menyimpan data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
-
-// Perbarui tabel supplier
-tabel_supplier();
-
-// Kosongkan input
-kosong1();
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed

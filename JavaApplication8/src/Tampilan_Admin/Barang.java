@@ -47,8 +47,11 @@ public Barang() {
 
     // Jadwalkan tugas untuk memperbarui tanggal dan waktu saat ini setiap detik
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    executor.scheduleAtFixedRate(() -> {
-        setTanggalDanWaktuSekarang();
+    executor.scheduleAtFixedRate(new Runnable() {
+        @Override
+        public void run() {
+            setTanggalDanWaktuSekarang();
+        }
     }, 0, 1, TimeUnit.SECONDS);
 
     // Set tanggal dan waktu saat ini
@@ -463,27 +466,18 @@ private void tabel_Barang() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu dashboard?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Dashboard().setVisible(true);
-        }
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu akun?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Akun().setVisible(true);
-        }
     }//GEN-LAST:event_btn_akunActionPerformed
 
     private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu supplier?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Supplier().setVisible(true);
-        }
     }//GEN-LAST:event_btn_supplierActionPerformed
 
     private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
@@ -491,59 +485,38 @@ private void tabel_Barang() {
     }//GEN-LAST:event_btn_barangActionPerformed
 
     private void btn_opnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opnameActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu opname?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Opname().setVisible(true);
-        }
     }//GEN-LAST:event_btn_opnameActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu return?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Return().setVisible(true);
-        }
     }//GEN-LAST:event_btn_returnActionPerformed
 
     private void btn_absenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_absenActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu absen?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Absen_Admin().setVisible(true);
-        }
     }//GEN-LAST:event_btn_absenActionPerformed
 
     private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu oprasional?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Oprasional().setVisible(true);
-        }
     }//GEN-LAST:event_btn_oprasionalActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu transaksi?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Menu_Transaksi_Admin().setVisible(true);
-        }
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu transaksi?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Menu_Laporan().setVisible(true);
-        }
     }//GEN-LAST:event_btn_laporanActionPerformed
 
     private void btn_logout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logout2ActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Login().setVisible(true);
-        }
     }//GEN-LAST:event_btn_logout2ActionPerformed
 
     private void txt_namasupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namasupplierActionPerformed
@@ -612,7 +585,31 @@ private void tabel_Barang() {
         String idbarang = txt_idbarang.getText(); // ID barang
 
         Connection conn = Config.configDB();
-
+        
+        // Mengecek apakah semua kolom sudah diisi
+    if (namabarang.isEmpty() || hargajual.isEmpty() || hargabeli.isEmpty() || kategori.isEmpty() || stok.isEmpty() || tanggal.isEmpty() || namasupplier.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
+        return;
+    }
+    
+    // Mengecek panjang inputan
+        if (namabarang.length() < 5 || namabarang.length() > 40) {
+            JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 40 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (hargajual.length() < 4 || hargajual.length() > 8) {
+            JOptionPane.showMessageDialog(null, "Panjang harga jual harus antara 4 hingga 8 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (hargabeli.length() < 4 || hargabeli.length() > 8) {
+            JOptionPane.showMessageDialog(null, "Panjang harga beli harus antara 4 hingga 8 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (stok.length() < 0 || stok.length() > 4) {
+            JOptionPane.showMessageDialog(null, "Panjang stok harus antara 0 hingga 4 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (namasupplier.length() < 5 || namasupplier.length() > 30) {
+            JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+       
         // Update data barang dengan informasi yang diedit
         String sql = "UPDATE barang SET nama_barang=?, harga_jual=?, harga_beli=?, kategori=?, stok=?, tanggal=?, nama_supplier=? WHERE id_barang=?";
         PreparedStatement pst = conn.prepareStatement(sql);
@@ -626,8 +623,9 @@ private void tabel_Barang() {
         pst.setString(8, idbarang);
         pst.executeUpdate();
 
-        // Tampilkan notifikasi sukses
-        JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+        // Menampilkan pesan sukses
+        String successMessage = "Data Barang Berhasil Ditambahkan!\nNama Barang: " + namabarang + "\nHarga Jual: " + hargajual + "\nHarga Beli: " + hargabeli + "\nKategori: " + kategori + "\nStok: " + stok + "\nTanggal Masuk: " + tanggal + "\nNama Supplier: " + namasupplier;
+        JOptionPane.showMessageDialog(null, successMessage);
 
         // Perbarui tabel barang dan kosongkan input
         tabel_Barang();
@@ -641,69 +639,81 @@ private void tabel_Barang() {
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
-        try {
-    // Mendapatkan nilai dari inputan form
-    String idbarang = txt_idbarang.getText(); // ID barang
-    String namabarang = txt_namabarang.getText(); // Nama barang
-    String hargajual = txt_hargajual.getText(); // Harga jual
-    String hargabeli = txt_hargabeli.getText(); // Harga beli
-    String kategori = (String) cmb_kategori.getSelectedItem(); // Kategori
-    String stok = txt_stok.getText(); // Stok
-    String tanggal = txt_tanggalmasuk.getText(); // Tanggal masuk
-    String namasupplier = txt_namasupplier.getText(); // Nama supplier
+        int konfirmasi = JOptionPane.showConfirmDialog(null, "Apakah Anda ingin menambahkan barang?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+if (konfirmasi == JOptionPane.YES_OPTION) {
+    try {
+        // Mendapatkan nilai dari inputan form
+        String idbarang = txt_idbarang.getText(); // ID barang
+        String namabarang = txt_namabarang.getText(); // Nama barang
+        String hargajual = txt_hargajual.getText(); // Harga jual
+        String hargabeli = txt_hargabeli.getText(); // Harga beli
+        String kategori = (String) cmb_kategori.getSelectedItem(); // Kategori
+        String stok = txt_stok.getText(); // Stok
+        String tanggal = txt_tanggalmasuk.getText(); // Tanggal masuk
+        String namasupplier = txt_namasupplier.getText(); // Nama supplier
 
-    // Membuat koneksi ke database
-    Connection conn = Config.configDB();
+        // Membuat koneksi ke database
+        Connection conn = Config.configDB();
 
-    // Mengecek apakah semua kolom sudah diisi
-    if (namabarang.isEmpty() || hargajual.isEmpty() || hargabeli.isEmpty() || kategori.isEmpty() || stok.isEmpty() || tanggal.isEmpty() || namasupplier.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
-        return;
+        // Mengecek apakah semua kolom sudah diisi
+        if (namabarang.isEmpty() || hargajual.isEmpty() || hargabeli.isEmpty() || kategori.isEmpty() || stok.isEmpty() || tanggal.isEmpty() || namasupplier.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
+            return;
+        }
+
+        // Mengecek panjang inputan
+        if (namabarang.length() < 5 || namabarang.length() > 40) {
+            JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 40 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (hargajual.length() < 4 || hargajual.length() > 8) {
+            JOptionPane.showMessageDialog(null, "Panjang harga jual harus antara 4 hingga 8 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (hargabeli.length() < 4 || hargabeli.length() > 8) {
+            JOptionPane.showMessageDialog(null, "Panjang harga beli harus antara 4 hingga 8 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (stok.length() < 0 || stok.length() > 4) {
+            JOptionPane.showMessageDialog(null, "Panjang stok harus antara 0 hingga 4 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (namasupplier.length() < 5 || namasupplier.length() > 30) {
+            JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Simpan data ke database
+        String insertSql = "INSERT INTO barang (id_barang, nama_barang, harga_jual, harga_beli, kategori, stok, tanggal, nama_supplier) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement insertPst = conn.prepareStatement(insertSql);
+        insertPst.setString(1, idbarang);
+        insertPst.setString(2, namabarang);
+        insertPst.setString(3, hargajual);
+        insertPst.setString(4, hargabeli);
+        insertPst.setString(5, kategori);
+        insertPst.setString(6, stok);
+        insertPst.setString(7, tanggal);
+        insertPst.setString(8, namasupplier);
+        insertPst.execute();
+
+        // Menampilkan pesan sukses
+        String successMessage = "Data Barang Berhasil Ditambahkan!\nNama Barang: " + namabarang + "\nHarga Jual: " + hargajual + "\nHarga Beli: " + hargabeli + "\nKategori: " + kategori + "\nStok: " + stok + "\nTanggal Masuk: " + tanggal + "\nNama Supplier: " + namasupplier;
+        JOptionPane.showMessageDialog(null, successMessage);
+
+        // Refresh tabel barang
+        tabel_Barang();
+        txt_idbarang.setText(getNextIdBarang()); // Update ID barang berikutnya setelah penyimpanan berhasil
+
+        // Kosongkan input
+        kosong1();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal menyimpan data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    // Mengecek panjang inputan
-    if (namabarang.length() < 5 || namabarang.length() > 50 || stok.length() < 1 || namasupplier.length() < 5 || namasupplier.length() > 30) {
-        JOptionPane.showMessageDialog(null, "Panjang inputan tidak valid");
-        return;
-    }
-
-    // Mengecek apakah stok hanya mengandung angka
-    if (!stok.matches("\\d+")) {
-        JOptionPane.showMessageDialog(null, "Stok hanya boleh berisi angka");
-        return;
-    }
-
-    // Simpan data ke database
-    String insertSql = "INSERT INTO barang (id_barang, nama_barang, harga_jual, harga_beli, kategori, stok, tanggal, nama_supplier) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    PreparedStatement insertPst = conn.prepareStatement(insertSql);
-    insertPst.setString(1, idbarang);
-    insertPst.setString(2, namabarang);
-    insertPst.setString(3, hargajual);
-    insertPst.setString(4, hargabeli);
-    insertPst.setString(5, kategori);
-    insertPst.setString(6, stok);
-    insertPst.setString(7, tanggal);
-    insertPst.setString(8, namasupplier);
-    insertPst.execute();
-
-    // Menampilkan pesan sukses
-    JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-
-    // Refresh tabel barang
+    // Perbarui tabel barang
     tabel_Barang();
-    txt_idbarang.setText(getNextIdBarang()); // Update ID barang berikutnya setelah penyimpanan berhasil
 
     // Kosongkan input
     kosong1();
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Gagal menyimpan data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+} else {
+    JOptionPane.showMessageDialog(null, "Penambahan barang dibatalkan");
 }
-
-// Perbarui tabel barang
-tabel_Barang();
-
-// Kosongkan input
-kosong1();
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
