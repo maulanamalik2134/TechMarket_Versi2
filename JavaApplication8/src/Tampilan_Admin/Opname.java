@@ -172,7 +172,7 @@ private void tabel_Opname() {
         getContentPane().add(lbl_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 450, 50));
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        bab.setText("Hai Admin, Selamat Datang Di Laporan Opname");
+        bab.setText("Hai Admin, Selamat Datang Di Opname");
         getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 1120, 50));
 
         btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));

@@ -75,7 +75,7 @@ public Menu_Transaksi_Admin() {
         getContentPane().add(subbab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 1060, 100));
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        bab.setText("Hai Admin, Selamat Di Menu Transaksi ");
+        bab.setText("Hai Admin, Selamat Datang Di Menu Transaksi ");
         getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 1120, 50));
 
         btn_transaksipenjualan.setContentAreaFilled(false);
@@ -250,91 +250,58 @@ public Menu_Transaksi_Admin() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-    if (result == JOptionPane.YES_OPTION) {
-        this.setVisible(false);
+    this.setVisible(false);
         new Login().setVisible(true);
-    }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void btn_transaksipenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipenjualanActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai transaksi penjualan. Lanjutkan?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-    if (result == JOptionPane.YES_OPTION) {
-        this.setVisible(false);
+    this.setVisible(false);
         new Transaksi_Penjualan_Admin().setVisible(true);
-    }
     }//GEN-LAST:event_btn_transaksipenjualanActionPerformed
 
     private void btn_transaksipembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipembelianActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai transaksi pembelian. Lanjutkan?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-    if (result == JOptionPane.YES_OPTION) {
-        this.setVisible(false);
+    this.setVisible(false);
         new Transaksi_Pembelian_Admin().setVisible(true);
-    }
     }//GEN-LAST:event_btn_transaksipembelianActionPerformed
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu dashboard?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Dashboard().setVisible(true);
-        }
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu akun?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Akun().setVisible(true);
-        }
     }//GEN-LAST:event_btn_akunActionPerformed
 
     private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu supplier?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Supplier().setVisible(true);
-        }
     }//GEN-LAST:event_btn_supplierActionPerformed
 
     private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu barang?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Barang().setVisible(true);
-        }
     }//GEN-LAST:event_btn_barangActionPerformed
 
     private void btn_opnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opnameActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu opname?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Opname().setVisible(true);
-        }
     }//GEN-LAST:event_btn_opnameActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu return?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Return().setVisible(true);
-        }
     }//GEN-LAST:event_btn_returnActionPerformed
 
     private void btn_absenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_absenActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu absen?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Absen_Admin().setVisible(true);
-        }
     }//GEN-LAST:event_btn_absenActionPerformed
 
     private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu oprasional?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Oprasional().setVisible(true);
-        }
     }//GEN-LAST:event_btn_oprasionalActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
@@ -342,11 +309,8 @@ public Menu_Transaksi_Admin() {
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Anda akan memulai menu laporan?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
+        this.setVisible(false);
             new Menu_Laporan().setVisible(true);
-        }
     }//GEN-LAST:event_btn_laporanActionPerformed
 
     public static void main(String args[]) {

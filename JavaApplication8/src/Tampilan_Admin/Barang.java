@@ -693,7 +693,7 @@ if (konfirmasi == JOptionPane.YES_OPTION) {
         }
 
         // Simpan data ke database
-        String insertSql = "INSERT INTO barang (id_barang, nama_barang, harga_jual, harga_beli, kategori, stok, tanggal, id_supplier, nama_supplier) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO barang (id_barang, nama_barang, harga_jual, harga_beli, kategori, stok, tanggal, id_supplier, nama_supplier) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setString(1, idbarang);
         insertPst.setString(2, namabarang);
