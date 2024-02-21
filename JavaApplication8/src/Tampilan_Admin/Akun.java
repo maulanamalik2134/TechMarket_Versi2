@@ -180,7 +180,7 @@ private void tabel_akun() {
         getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, -1));
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        bab.setText("Hai Admin, Selamat Di Akun");
+        bab.setText("Hai Admin, Selamat Datang Di Data Akun");
         getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 1120, 50));
 
         btn_logout.setBackground(new java.awt.Color(255, 255, 255));

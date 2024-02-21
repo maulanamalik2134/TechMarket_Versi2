@@ -105,10 +105,11 @@ private void tabel_Barang() {
     model.addColumn("Kategori");
     model.addColumn("Stok");
     model.addColumn("Tanggal");
+    model.addColumn("Id Supplier");
     model.addColumn("Nama Supplier");
 
     try {
-        String sql = "SELECT barang.id_barang, barang.nama_barang, barang.harga_jual, barang.harga_beli, barang.kategori, barang.stok, barang.tanggal, barang.nama_supplier FROM barang";
+        String sql = "SELECT barang.id_barang, barang.nama_barang, barang.harga_jual, barang.harga_beli, barang.kategori, barang.stok, barang.tanggal, barang.id_supplier, barang.nama_supplier FROM barang";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -122,6 +123,7 @@ private void tabel_Barang() {
                 res.getString("kategori"),
                 res.getString("stok"),
                 res.getString("tanggal"),
+                res.getString("id_supplier"),
                 res.getString("nama_supplier"),
             });
         }
@@ -167,9 +169,10 @@ private void tabel_Barang() {
         lbl_namabarang = new javax.swing.JLabel();
         txt_namabarang = new javax.swing.JFormattedTextField();
         lbl_image = new javax.swing.JLabel();
+        lbl_hargajual1 = new javax.swing.JLabel();
         txt_idsupplier = new javax.swing.JFormattedTextField();
-        txt_tanggalmasuk = new javax.swing.JFormattedTextField();
         txt_idbarang = new javax.swing.JFormattedTextField();
+        txt_tanggalmasuk = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -180,7 +183,7 @@ private void tabel_Barang() {
         getContentPane().add(lbl_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 450, 50));
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        bab.setText("Hai Admin, Selamat Di Barang");
+        bab.setText("Hai Admin, Selamat Datang Di Data Barang");
         getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 1120, 50));
 
         btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
@@ -449,18 +452,23 @@ private void tabel_Barang() {
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        txt_idsupplier.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_idsupplierKeyReleased(evt);
+        lbl_hargajual1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_hargajual1.setText("Id Supplier");
+        getContentPane().add(lbl_hargajual1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, -1, -1));
+
+        txt_idsupplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_idsupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_idsupplierActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, 140, -1));
-
-        txt_tanggalmasuk.setText("jFormattedTextField1");
-        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 200, 240, -1));
+        getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 140, -1));
 
         txt_idbarang.setText("jFormattedTextField1");
-        getContentPane().add(txt_idbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
+        getContentPane().add(txt_idbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, -1, 30));
+
+        txt_tanggalmasuk.setText("jFormattedTextField1");
+        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 240, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -560,7 +568,10 @@ private void tabel_Barang() {
             txt_tanggalmasuk.setText(tabel_barang.getValueAt(baris, 6) == null ? "" : tabel_barang.getValueAt(baris, 6).toString());
             
             // set nilai namabarang
-            txt_namasupplier.setText(tabel_barang.getValueAt(baris,7) == null ? "" : tabel_barang.getValueAt(baris, 7).toString());
+            txt_idsupplier.setText(tabel_barang.getValueAt(baris,7) == null ? "" : tabel_barang.getValueAt(baris, 7).toString());
+            
+            // set nilai namabarang
+            txt_namasupplier.setText(tabel_barang.getValueAt(baris,7) == null ? "" : tabel_barang.getValueAt(baris, 8).toString());
           
         }
         catch(SQLException ex){
@@ -581,8 +592,8 @@ private void tabel_Barang() {
         String stok = txt_stok.getText(); // Stok
         String tanggal = txt_tanggalmasuk.getText(); // Tanggal masuk
         String namasupplier = txt_namasupplier.getText(); // Nama supplier
-        String idsupplier = txt_idsupplier.getText(); // ID supplier
         String idbarang = txt_idbarang.getText(); // ID barang
+        String idsupplier = txt_idsupplier.getText(); // ID supplier
 
         Connection conn = Config.configDB();
         
@@ -611,7 +622,7 @@ private void tabel_Barang() {
         }
        
         // Update data barang dengan informasi yang diedit
-        String sql = "UPDATE barang SET nama_barang=?, harga_jual=?, harga_beli=?, kategori=?, stok=?, tanggal=?, nama_supplier=? WHERE id_barang=?";
+        String sql = "UPDATE barang SET nama_barang=?, harga_jual=?, harga_beli=?, kategori=?, stok=?, tanggal=?, id_supplier=?, nama_supplier=? WHERE id_barang=?";
         PreparedStatement pst = conn.prepareStatement(sql);
         pst.setString(1, namabarang);
         pst.setString(2, hargajual);
@@ -619,12 +630,13 @@ private void tabel_Barang() {
         pst.setString(4, kategori);
         pst.setString(5, stok);
         pst.setString(6, tanggal);
-        pst.setString(7, namasupplier);
-        pst.setString(8, idbarang);
+        pst.setString(7, idsupplier);
+        pst.setString(8, namasupplier);
+        pst.setString(9, idbarang);
         pst.executeUpdate();
 
         // Menampilkan pesan sukses
-        String successMessage = "Data Barang Berhasil Ditambahkan!\nNama Barang: " + namabarang + "\nHarga Jual: " + hargajual + "\nHarga Beli: " + hargabeli + "\nKategori: " + kategori + "\nStok: " + stok + "\nTanggal Masuk: " + tanggal + "\nNama Supplier: " + namasupplier;
+        String successMessage = "Data Barang Berhasil Diubah!\nNama Barang: " + namabarang + "\nHarga Jual: " + hargajual + "\nHarga Beli: " + hargabeli + "\nKategori: " + kategori + "\nStok: " + stok + "\nTanggal Masuk: " + tanggal + "\nNama Supplier: " + namasupplier;
         JOptionPane.showMessageDialog(null, successMessage);
 
         // Perbarui tabel barang dan kosongkan input
@@ -650,6 +662,7 @@ if (konfirmasi == JOptionPane.YES_OPTION) {
         String kategori = (String) cmb_kategori.getSelectedItem(); // Kategori
         String stok = txt_stok.getText(); // Stok
         String tanggal = txt_tanggalmasuk.getText(); // Tanggal masuk
+        String idsupplier= txt_idsupplier.getText(); // Tanggal masuk
         String namasupplier = txt_namasupplier.getText(); // Nama supplier
 
         // Membuat koneksi ke database
@@ -680,7 +693,7 @@ if (konfirmasi == JOptionPane.YES_OPTION) {
         }
 
         // Simpan data ke database
-        String insertSql = "INSERT INTO barang (id_barang, nama_barang, harga_jual, harga_beli, kategori, stok, tanggal, nama_supplier) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO barang (id_barang, nama_barang, harga_jual, harga_beli, kategori, stok, tanggal, id_supplier, nama_supplier) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setString(1, idbarang);
         insertPst.setString(2, namabarang);
@@ -689,7 +702,8 @@ if (konfirmasi == JOptionPane.YES_OPTION) {
         insertPst.setString(5, kategori);
         insertPst.setString(6, stok);
         insertPst.setString(7, tanggal);
-        insertPst.setString(8, namasupplier);
+        insertPst.setString(8, idsupplier);
+        insertPst.setString(9, namasupplier);
         insertPst.execute();
 
         // Menampilkan pesan sukses
@@ -777,9 +791,9 @@ try {
 }
     }//GEN-LAST:event_txt_namasupplierKeyReleased
 
-    private void txt_idsupplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_idsupplierKeyReleased
-
-    }//GEN-LAST:event_txt_idsupplierKeyReleased
+    private void txt_idsupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idsupplierActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_idsupplierActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -836,6 +850,7 @@ try {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_hargabeli;
     private javax.swing.JLabel lbl_hargajual;
+    private javax.swing.JLabel lbl_hargajual1;
     private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_kategori;
     private javax.swing.JLabel lbl_namabarang;

@@ -148,7 +148,7 @@ private void tabel_supplier() {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        bab.setText("Hai Admin, Selamat Di Supplier");
+        bab.setText("Hai Admin, Selamat datang Di Data Supplier");
         getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 1120, 50));
 
         lbl_tanggal.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N

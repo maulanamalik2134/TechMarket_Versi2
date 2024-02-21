@@ -598,7 +598,7 @@ if (confirm == JOptionPane.YES_OPTION) {
         } else if (jumlahsistem.length() < 0 || jumlahsistem.length() > 3) {
             JOptionPane.showMessageDialog(null, "Panjang jumlah sistem harus antara 0 hingga 3 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (selisih.length() < 3 || selisih.length() > 30) {
+        } else if (selisih.length() < 0 || selisih.length() > 3) {
             JOptionPane.showMessageDialog(null, "Panjang selisih harus antara 0 hingga 3 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (keterangan.length() < 5 || keterangan.length() > 30) {
@@ -666,8 +666,8 @@ if (confirm == JOptionPane.YES_OPTION) {
         } else if (jumlahsistem.length() < 0 || jumlahsistem.length() > 3) {
             JOptionPane.showMessageDialog(null, "Panjang jumlah sistem harus antara 0 hingga 3 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (selisih.length() < 3 || selisih.length() > 30) {
-            JOptionPane.showMessageDialog(null, "Panjang selisih harus antara 3 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (selisih.length() < 0 || selisih.length() > 3) {
+            JOptionPane.showMessageDialog(null, "Panjang selisih harus antara 0 hingga 3 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (keterangan.length() < 5 || keterangan.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang keterangan harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);

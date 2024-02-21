@@ -78,10 +78,10 @@ public Absen() {
         btn_absen = new javax.swing.JButton();
         btn_cancel = new javax.swing.JButton();
         cmb_absen = new javax.swing.JComboBox<>();
-        txt_tanggal1 = new javax.swing.JLabel();
         lbl_image = new javax.swing.JLabel();
         txt_idakun = new javax.swing.JLabel();
         txt_idabsen = new javax.swing.JLabel();
+        txt_tanggal1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,9 +142,6 @@ public Absen() {
         cmb_absen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hadir", "Ijin", "sakit", "Alpa" }));
         getContentPane().add(cmb_absen, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 280, 300, 40));
 
-        txt_tanggal1.setText("jLabel2");
-        getContentPane().add(txt_tanggal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 400, -1, -1));
-
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Fornend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
 
@@ -153,6 +150,9 @@ public Absen() {
 
         txt_idabsen.setText("jLabel1");
         getContentPane().add(txt_idabsen, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 264, 220, 60));
+
+        txt_tanggal1.setText("jLabel2");
+        getContentPane().add(txt_tanggal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 400, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
