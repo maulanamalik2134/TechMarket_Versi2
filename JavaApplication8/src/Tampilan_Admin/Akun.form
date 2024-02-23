@@ -631,5 +631,15 @@
         </Constraint>
       </Constraints>
     </Component>
+    <Component class="javax.swing.JFormattedTextField" name="txt_tanggalmasuk">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="580" y="180" width="-1" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
   </SubComponents>
 </Form>

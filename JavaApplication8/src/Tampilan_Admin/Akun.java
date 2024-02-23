@@ -35,12 +35,19 @@ public void setTanggalDanWaktuSekarang() {
     lbl_tanggal.setText(formattedDateTime);
 }
 
+public void setTanggalDanWaktu() {
+    LocalDateTime dateTime = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", new Locale("id", "ID"));
+    String formattedDate = dateTime.format(formatter);
+    txt_tanggalmasuk.setText(formattedDate);
+}
+
 public Akun() {
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
 
-    // Mengatur penjadwalan untuk memperbarui tanggal dan waktu secara periodik
+    // Jadwalkan tugas untuk memperbarui tanggal dan waktu saat ini setiap detik
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(new Runnable() {
         @Override
@@ -49,7 +56,11 @@ public Akun() {
         }
     }, 0, 1, TimeUnit.SECONDS);
 
-    // Mengisi tabel akun dan menginisialisasi formulir akun baru
+    // Set tanggal dan waktu saat ini
+    setTanggalDanWaktuSekarang();
+    setTanggalDanWaktu();
+    
+    // Mengisi tabel barang dan menginisialisasi formulir barang baru
     tabel_akun();
     txt_idakun.setText(getNextIdAkun());
     kosong1();
@@ -96,10 +107,11 @@ private void tabel_akun() {
     model.addColumn("Gmail");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
+    model.addColumn("Tanggal");
 
     try {
         int no = 1;
-        String sql = "SELECT akun.id_akun, akun.username, akun.password, akun.role, akun.gmail, akun.telepon, akun.alamat FROM akun";
+        String sql = "SELECT akun.id_akun, akun.username, akun.password, akun.role, akun.gmail, akun.telepon, akun.alamat , akun.tanggal FROM akun";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -113,6 +125,7 @@ private void tabel_akun() {
                 res.getString("gmail"),
                 res.getString("telepon"),
                 res.getString("alamat"),
+                res.getString("tanggal"),
             });
         }
         tabel_akun.setModel(model);
@@ -158,6 +171,7 @@ private void tabel_akun() {
         lbl_role = new javax.swing.JLabel();
         lbl_image = new javax.swing.JLabel();
         txt_idakun = new javax.swing.JFormattedTextField();
+        txt_tanggalmasuk = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -425,6 +439,9 @@ private void tabel_akun() {
         txt_idakun.setText("jFormattedTextField1");
         getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
 
+        txt_tanggalmasuk.setText("jFormattedTextField1");
+        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -503,10 +520,11 @@ private void tabel_akun() {
     int idakun = Integer.parseInt(txt_idakun.getText());
     String username = txt_username.getText();
     String password = txt_password.getText();
+    String role = cmb_role.getSelectedItem().toString();
     String gmail = txt_gmail.getText();
     String alamat = txt_alamat.getText();
     String telepon = txt_telepon.getText();
-    String role = cmb_role.getSelectedItem().toString();
+    String tanggal = txt_tanggalmasuk.getText();
 
     // Membuat koneksi ke database
     Connection conn = Config.configDB();
@@ -530,8 +548,8 @@ private void tabel_akun() {
     } else if (alamat.length() < 5 || alamat.length() > 30) {
         JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
         return;
-    } else if (telepon.length() < 11 || telepon.length() > 13) {
-        JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 11 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    } else if (telepon.length() < 1 || telepon.length() > 13) {
+        JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
@@ -582,8 +600,8 @@ private void tabel_akun() {
             JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
             return;
         }
-        if (checkAdminRs.next() && checkAdminRs.getInt(1) >= 8) {
-            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Delapan Akun Kasir");
+        if (checkAdminRs.next() && checkAdminRs.getInt(1) >= 4) {
+            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada 4 Akun Kasir");
             return;
         }
     }
@@ -592,7 +610,7 @@ private void tabel_akun() {
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
         // Simpan data ke database
-        String insertSql = "INSERT INTO akun (id_akun, username, password, role, gmail, telepon, alamat) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO akun (id_akun, username, password, role, gmail, telepon, alamat, tanggal) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setInt(1, idakun);
         insertPst.setString(2, username);
@@ -601,10 +619,11 @@ private void tabel_akun() {
         insertPst.setString(5, gmail);
         insertPst.setString(6, telepon);
         insertPst.setString(7, alamat);
+        insertPst.setString(8, tanggal);
         insertPst.execute();
 
         // Menampilkan pesan sukses dengan username, password, role, gmail, telepon, dan alamat
-        String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nGmail: " + gmail + "\nTelepon: " + telepon + "\nAlamat: " + alamat;
+        String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nGmail: " + gmail + "\nTelepon: " + telepon + "\nAlamat: " + alamat + "\ntanggal: " + tanggal;
         JOptionPane.showMessageDialog(null, successMessage);
 
         // Refresh tabel akun
@@ -619,7 +638,7 @@ private void tabel_akun() {
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
-        try {
+       try {
     // Tampilkan dialog konfirmasi untuk mengedit data
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
@@ -629,6 +648,7 @@ private void tabel_akun() {
         String gmail = txt_gmail.getText();
         String telepon = txt_telepon.getText();
         String alamat = txt_alamat.getText();
+        String tanggal = txt_tanggalmasuk.getText();
         String idakun = txt_idakun.getText();
         
         Connection conn = Config.configDB();
@@ -652,8 +672,8 @@ private void tabel_akun() {
         } else if (alamat.length() < 5 || alamat.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (telepon.length() < 11 || telepon.length() > 13) {
-            JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 11 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (telepon.length() < 1 || telepon.length() > 13) {
+            JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -679,56 +699,29 @@ private void tabel_akun() {
             return;
         }
 
-        // Mengecek jumlah akun dengan role Admin dan Kasir
-        if (role.equals("Admin")) {
-            String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
-            PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
-            ResultSet checkAdminRs = checkAdminPst.executeQuery();
-            if (checkAdminRs.next() && checkAdminRs.getInt(1) > 0) {
-                JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
-                return;
-            }
-            if (checkAdminRs.next() && checkAdminRs.getInt(1) >= 8) {
-                JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Delapan Akun Kasir");
-                return;
-            }
-        }
+        // Tampilkan dialog konfirmasi untuk menyimpan data
+        int confirmSave = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan perubahan ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirmSave == JOptionPane.YES_OPTION) {
+            // Update data akun dengan informasi yang diedit
+            String sql = "UPDATE akun SET username=?, password=?, gmail=?, telepon=?, alamat=? , tanggal=? WHERE Id_akun=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, password);
+            pst.setString(3, gmail);
+            pst.setString(4, telepon);
+            pst.setString(5, alamat);
+            pst.setString(6, tanggal);
+            pst.setString(7, idakun);
+            pst.execute();
 
-        // Periksa apakah username yang diedit sudah ada dalam database
-        String sqlCheck = "SELECT * FROM akun WHERE username=? AND Id_akun!=?";
-        PreparedStatement pstCheck = conn.prepareStatement(sqlCheck);
-        pstCheck.setString(1, username);
-        pstCheck.setString(2, idakun);
-        ResultSet rsCheck = pstCheck.executeQuery();
+            // Tampilkan notifikasi sukses dengan username, password, role, gmail, telepon, dan alamat
+            String successMessage = "Data berhasil diubah!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nGmail: " + gmail + "\nTelepon: " + telepon + "\nAlamat: " + alamat + "\nTanggal: " + tanggal;
+            JOptionPane.showMessageDialog(null, successMessage, "Berhasil", JOptionPane.INFORMATION_MESSAGE);
 
-        if (rsCheck.next()) {
-            // Tampilkan notifikasi jika username sudah ada dalam database
-            JOptionPane.showMessageDialog(null, "Username sudah ada dalam database", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            // Tampilkan dialog konfirmasi untuk menyimpan data
-            int confirmSave = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan perubahan ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-            if (confirmSave == JOptionPane.YES_OPTION) {
-                // Update data akun dengan informasi yang diedit
-                String sql = "UPDATE akun SET username=?, password=?, role=?, gmail=?, telepon=?, alamat=? WHERE Id_akun=?";
-                PreparedStatement pst = conn.prepareStatement(sql);
-                pst.setString(1, username);
-                pst.setString(2, password);
-                pst.setString(3, role);
-                pst.setString(4, gmail);
-                pst.setString(5, telepon);
-                pst.setString(6, alamat);
-                pst.setString(7, idakun);
-                pst.execute();
-
-                // Tampilkan notifikasi sukses dengan username, password, role, gmail, telepon, dan alamat
-                String successMessage = "Data berhasil diubah!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nGmail: " + gmail + "\nTelepon: " + telepon + "\nAlamat: " + alamat;
-                JOptionPane.showMessageDialog(null, successMessage, "Berhasil", JOptionPane.INFORMATION_MESSAGE);
-
-                // Perbarui tabel akun, ID akun, dan kosongkan input
-                tabel_akun();
-                txt_idakun.setText(getNextIdAkun());
-                kosong1();
-            }
+            // Perbarui tabel akun, ID akun, dan kosongkan input
+            tabel_akun();
+            txt_idakun.setText(getNextIdAkun());
+            kosong1();
         }
     }
 } catch (Exception e) {
@@ -751,7 +744,7 @@ private void tabel_akun() {
         
         // Tampilkan notifikasi sukses
         JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-        
+       
         // Generate ID baru untuk akun selanjutnya
         txt_idakun.setText(getNextIdAkun());
     }
@@ -759,10 +752,8 @@ private void tabel_akun() {
     // Tampilkan notifikasi gagal
     JOptionPane.showMessageDialog(null, "Gagal menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
-
 // Perbarui tabel akun
 tabel_akun();
-
 // Kosongkan input
 kosong1();
     }//GEN-LAST:event_btn_hapusActionPerformed
@@ -793,6 +784,9 @@ txt_telepon.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.ge
 
 // Set nilai alamat
 txt_alamat.setText(tabel_akun.getValueAt(baris, 6) == null ? "" : tabel_akun.getValueAt(baris, 6).toString());
+
+// set nilai tanggal
+txt_tanggalmasuk.setText(tabel_akun.getValueAt(baris, 7) == null ? "" : tabel_akun.getValueAt(baris, 7).toString());
     }//GEN-LAST:event_tabel_akunMouseClicked
 
     public static void main(String args[]) {
@@ -859,6 +853,7 @@ txt_alamat.setText(tabel_akun.getValueAt(baris, 6) == null ? "" : tabel_akun.get
     private javax.swing.JFormattedTextField txt_gmail;
     private javax.swing.JFormattedTextField txt_idakun;
     private javax.swing.JFormattedTextField txt_password;
+    private javax.swing.JFormattedTextField txt_tanggalmasuk;
     private javax.swing.JFormattedTextField txt_telepon;
     private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables

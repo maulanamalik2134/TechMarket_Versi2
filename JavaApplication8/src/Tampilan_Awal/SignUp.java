@@ -19,22 +19,23 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class SignUp extends javax.swing.JFrame {
-    
-    String Tanggal; // Variabel untuk menyimpan tanggal
-private DefaultTableModel model; // Model tabel default
+private DefaultTableModel model;
 
-/**
- * Mengatur tanggal dan waktu saat ini.
- */
+// Mengatur tanggal dan waktu saat ini
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
-    String formattedDate = dateTime.format(formatter);
-
+    String formattedDateTime = dateTime.format(formatter);
+    lbl_tanggal.setText(formattedDateTime);
     String lokasiToko = "Jl. Raya Situbondo, Blk. Gardu, Cindogo, Tapen, Kabupaten Bondowoso, Jawa Timur 68282"; // Lokasi toko
-
-    lbl_tanggal.setText(formattedDate); // Mengatur label tanggal dengan tanggal yang diformat
     lbl_lokasi.setText(lokasiToko); // Mengatur label lokasi dengan lokasi toko
+}
+
+public void setTanggalDanWaktu() {
+    LocalDateTime dateTime = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", new Locale("id", "ID"));
+    String formattedDate = dateTime.format(formatter);
+    txt_tanggalmasuk.setText(formattedDate);
 }
 
 public SignUp() {
@@ -48,6 +49,7 @@ public SignUp() {
         @Override
         public void run() {
             setTanggalDanWaktuSekarang();
+            setTanggalDanWaktu();
         }
     }, 0, 1, TimeUnit.SECONDS);
 
@@ -69,7 +71,6 @@ public SignUp() {
         e.printStackTrace();
     }
 }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -89,6 +90,7 @@ public SignUp() {
         txt_username = new javax.swing.JFormattedTextField();
         cmb_role = new javax.swing.JComboBox<>();
         lbl_image = new javax.swing.JLabel();
+        txt_tanggalmasuk = new javax.swing.JFormattedTextField();
         txt_idakun = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -180,6 +182,14 @@ public SignUp() {
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Fornend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
 
+        txt_tanggalmasuk.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_tanggalmasuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_tanggalmasukActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 300, 40));
+
         txt_idakun.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_idakun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +206,7 @@ public SignUp() {
     }//GEN-LAST:event_txt_idakunActionPerformed
 
     private void chk_showpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_showpasswordActionPerformed
-        // Mengatur karakter echo pada field password
+// Mengatur karakter echo pada field password
 if (chk_showpassword.isSelected()) {
     txt_password.setEchoChar((char)0); // Menghilangkan karakter echo
 } else {
@@ -216,6 +226,7 @@ if (chk_showpassword.isSelected()) {
     // Mendapatkan nilai dari inputan form
     int id_akun = Integer.parseInt(txt_idakun.getText());
     String username = txt_username.getText();
+    String tanggal = txt_tanggalmasuk.getText();
     String password = new String(txt_password.getPassword());
     String konfirmasi = new String(txt_konfirmasipassword.getPassword());
     String role = cmb_role.getSelectedItem().toString();
@@ -223,119 +234,74 @@ if (chk_showpassword.isSelected()) {
     // Membuat koneksi ke database
     Connection conn = Config.configDB();
 
-    // Mengecek apakah username sudah ada
-    String checkUserSql = "SELECT COUNT(*) FROM akun WHERE username = ?";
-    PreparedStatement checkUserPst = conn.prepareStatement(checkUserSql);
-    checkUserPst.setString(1, username);
-    ResultSet checkUserRs = checkUserPst.executeQuery();
-    if (checkUserRs.next() && checkUserRs.getInt(1) > 0) {
-        JOptionPane.showMessageDialog(null, "Username Sudah Ada");
-        return;
-    }
-
-    // Mengecek apakah password sudah digunakan sebelumnya
-    String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
-    PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
-    checkPassPst.setString(1, password);
-    ResultSet checkPassRs = checkPassPst.executeQuery();
-    if (checkPassRs.next() && checkPassRs.getInt(1) > 0) {
-        JOptionPane.showMessageDialog(null, "Password Sudah Digunakan");
-        return;
+    // Mengecek apakah username sudah ada atau password sudah digunakan sebelumnya
+    String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ?";
+    PreparedStatement checkPst = conn.prepareStatement(checkSql);
+    checkPst.setString(1, username);
+    checkPst.setString(2, password);
+    ResultSet checkRs = checkPst.executeQuery();
+    if (checkRs.next()) {
+        int count = checkRs.getInt(1);
+        if (count > 0) {
+            JOptionPane.showMessageDialog(null, "Username atau Password Sudah Digunakan");
+            return;
+        }
     }
 
     // Validasi inputan form
-    if (username.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username harus diisi");
+    if (username.isEmpty() || password.isEmpty() || konfirmasi.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
         return;
-    }
-
-    if (password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password harus diisi");
+    } else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
+        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
         return;
-    }
-
-    if (konfirmasi.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Konfirmasi Password harus diisi");
-        return;
-    }
-
-    if (username.length() < 5 || username.length() > 15) {
-        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter");
-        return;
-    }
-
-    if (username.contains(" ")) {
-        JOptionPane.showMessageDialog(null, "Username Tidak boleh Mengandung Spasi");
-        return;
-    }
-
-    Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
-    Matcher usernameMatcher = usernamePattern.matcher(username);
-    if (!usernameMatcher.matches()) {
-        JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
-        return;
-    }
-
-    if (password.length() < 5 || password.length() > 15) {
-        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter");
-        return;
-    }
-
-    if (password.contains(" ")) {
-        JOptionPane.showMessageDialog(null, "Password Tidak boleh Mengandung Spasi");
-        return;
-    }
-
-    Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$");
-    Matcher passwordMatcher = passwordPattern.matcher(password);
-    if (!passwordMatcher.matches()) {
-        JOptionPane.showMessageDialog(null, "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol");
-        return;
-    }
-
-    if (password.contains("username") || password.contains("Telepon")) {
-        JOptionPane.showMessageDialog(null, "Password tidak boleh mengandung informasi pribadi");
-        return;
-    }
-
-    String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
-    for (String commonPassword : commonPasswords) {
-        if (password.equalsIgnoreCase(commonPassword)) {
-            JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
+    } else {
+        Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
+        Matcher usernameMatcher = usernamePattern.matcher(username);
+        if (!usernameMatcher.matches()) {
+            JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
             return;
         }
     }
 
-    if (!password.equals(konfirmasi)) {
+    if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$") || password.contains("username") || password.contains("Telepon")) {
+        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
+        return;
+    } else if (!password.equals(konfirmasi)) {
         JOptionPane.showMessageDialog(null, "Konfirmasi Password Tidak Sesuai");
         return;
+    } else {
+        String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
+        for (String commonPassword : commonPasswords) {
+            if (password.equalsIgnoreCase(commonPassword)) {
+                JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
+                return;
+            }
+        }
     }
 
     if (role.equals("Admin")) {
-        String checkSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
-        PreparedStatement checkPst = conn.prepareStatement(checkSql);
-        ResultSet checkRs = checkPst.executeQuery();
-        if (checkRs.next() && checkRs.getInt(1) > 0) {
-            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
-            return;
-        }
-        if (checkRs.next() && checkRs.getInt(1) >= 8) {
-            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Delapan Akun Kasir");
+        String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
+        PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
+        ResultSet checkAdminRs = checkAdminPst.executeQuery();
+        if (checkAdminRs.next() && (checkAdminRs.getInt(1) > 0 || checkAdminRs.getInt(1) >= 4)) {
+            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin dan Maksimal 4 Akun Kasir");
             return;
         }
     }
 
     // Menyimpan akun baru ke database
-    String sql = "INSERT INTO akun (id_akun, username, password, role) VALUES (?, ?, ?, ?)";
+    String sql = "INSERT INTO akun (id_akun, username, password, role, tanggal) VALUES (?, ?, ?, ?, ?)";
     PreparedStatement pst = conn.prepareStatement(sql);
     pst.setInt(1, id_akun);
     pst.setString(2, username);
     pst.setString(3, password);
     pst.setString(4, role);
+    pst.setString(5, tanggal);
     pst.executeUpdate();
 
     // Menampilkan pesan sukses dengan username
-  String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password;
+    String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nTanggal: " + tanggal;
     JOptionPane.showMessageDialog(null, successMessage);
 
     // Menutup form saat akun berhasil dibuat
@@ -357,6 +323,10 @@ if (chk_showpassword.isSelected()) {
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usernameActionPerformed
+
+    private void txt_tanggalmasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tanggalmasukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_tanggalmasukActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -389,6 +359,7 @@ if (chk_showpassword.isSelected()) {
                 new SignUp().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -407,6 +378,7 @@ if (chk_showpassword.isSelected()) {
     private javax.swing.JFormattedTextField txt_idakun;
     private javax.swing.JPasswordField txt_konfirmasipassword;
     private javax.swing.JPasswordField txt_password;
+    private javax.swing.JFormattedTextField txt_tanggalmasuk;
     private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }

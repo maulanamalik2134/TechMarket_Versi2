@@ -20,22 +20,23 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Forgot extends javax.swing.JFrame {
+private DefaultTableModel model;
 
-    String Tanggal; // Variabel untuk menyimpan tanggal
-private DefaultTableModel model; // Model tabel default
-
-/**
- * Mengatur tanggal dan waktu saat ini.
- */
+// Mengatur tanggal dan waktu saat ini
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
-    String formattedDate = dateTime.format(formatter);
-
+    String formattedDateTime = dateTime.format(formatter);
+    lbl_tanggal.setText(formattedDateTime);
     String lokasiToko = "Jl. Raya Situbondo, Blk. Gardu, Cindogo, Tapen, Kabupaten Bondowoso, Jawa Timur 68282"; // Lokasi toko
-
-    lbl_tanggal.setText(formattedDate); // Mengatur label tanggal dengan tanggal yang diformat
     lbl_lokasi.setText(lokasiToko); // Mengatur label lokasi dengan lokasi toko
+}
+
+public void setTanggalDanWaktu() {
+    LocalDateTime dateTime = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", new Locale("id", "ID"));
+    String formattedDate = dateTime.format(formatter);
+    txt_tanggalmasuk.setText(formattedDate);
 }
 
 public Forgot() {
@@ -43,7 +44,7 @@ public Forgot() {
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
 
-    // Mengatur penjadwalan untuk memperbarui tanggal dan waktu secara periodik
+    // Jadwalkan tugas untuk memperbarui tanggal dan waktu saat ini setiap detik
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(new Runnable() {
         @Override
@@ -51,6 +52,10 @@ public Forgot() {
             setTanggalDanWaktuSekarang();
         }
     }, 0, 1, TimeUnit.SECONDS);
+
+    // Set tanggal dan waktu saat ini
+    setTanggalDanWaktuSekarang();
+    setTanggalDanWaktu();
 }
 
     @SuppressWarnings("unchecked")
@@ -70,6 +75,7 @@ public Forgot() {
         btn_cancel = new javax.swing.JButton();
         btn_forgot = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
+        txt_tanggalmasuk = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -151,6 +157,14 @@ public Forgot() {
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Fornend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
 
+        txt_tanggalmasuk.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_tanggalmasuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_tanggalmasukActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 300, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -182,75 +196,52 @@ if (chk_showpassword.isSelected()) {
     private void btn_forgotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_forgotActionPerformed
         try {
     String email = txt_email.getText();
+    String tanggal = txt_tanggalmasuk.getText();
     String newPassword = new String(txt_password.getPassword());
     String confirmPassword = new String(txt_konfirmasipassword.getPassword());
 
-    // Cek apakah email sudah diisi
-    if (email.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Email Harus Diisi");
+    if (email.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Email, Password, dan Konfirmasi Password harus diisi");
         return;
-    }
-    
-    // Cek apakah password sudah diisi
-    if (newPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password harus diisi");
+    } else if (newPassword.length() < 5 || newPassword.length() > 15) {
+        JOptionPane.showMessageDialog(null, "Password harus diisi dengan panjang minimal 5 karakter dan maksimal 15 karakter");
         return;
-    }
-    
-    // Cek apakah konfirmasi password sudah diisi
-    if (confirmPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Konfirmasi Password harus diisi");
-        return;
-    }
-    
-    // Validasi panjang dan karakter password
-    if (newPassword.length() < 5 || newPassword.length() > 15) {
-        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter");
-        return;
-    }
-    
-    // Mengandung huruf besar, huruf kecil, angka, dan simbol
-    Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$");
-    Matcher matcher = pattern.matcher(newPassword);
-    if (!matcher.matches()) {
-        JOptionPane.showMessageDialog(null, "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol");
-        return;
-    }
-    
-    // Tidak mengandung informasi pribadi
-    if (newPassword.contains("username") || newPassword.contains("Telepon")) {
-        JOptionPane.showMessageDialog(null, "Password tidak boleh mengandung informasi pribadi");
-        return;
-    }
-    
-    // Tidak menggunakan kata-kata umum
-    String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
-    for (String commonPassword : commonPasswords) {
-        if (newPassword.equalsIgnoreCase(commonPassword)) {
-            JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
+    } else {
+        Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$");
+        Matcher matcher = pattern.matcher(newPassword);
+        if (!matcher.matches()) {
+            JOptionPane.showMessageDialog(null, "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol");
             return;
+        } else if (newPassword.contains("username") || newPassword.contains("Telepon")) {
+            JOptionPane.showMessageDialog(null, "Password tidak boleh mengandung informasi pribadi");
+            return;
+        } else {
+            String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
+            for (String commonPassword : commonPasswords) {
+                if (newPassword.equalsIgnoreCase(commonPassword)) {
+                    JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
+                    return;
+                }
+            }
+            if (!confirmPassword.equals(newPassword)) {
+                JOptionPane.showMessageDialog(null, "Konfirmasi Password Tidak Sesuai");
+                return;
+            } else if (newPassword.contains(" ")) {
+                JOptionPane.showMessageDialog(null, "Password tidak boleh mengandung spasi");
+                return;
+            } else {
+                // Lanjutkan dengan proses reset password
+            }
         }
-    }
-    
-    // Cek kesesuaian password dengan konfirmasi password
-    if (!confirmPassword.equals(confirmPassword)) {
-        JOptionPane.showMessageDialog(null, "Konfirmasi Password Tidak Sesuai");
-        return;
-    }
-    
-    // Validasi tidak ada spasi dalam password
-    if (newPassword.contains(" ")) {
-        JOptionPane.showMessageDialog(null, "Password Tidak boleh Mengandung Spasi");
-        return;
     }
 
     Connection conn = null;
     try {
-        conn = (Connection)Config.configDB();
+        conn = Config.configDB();
     } catch (SQLException ex) {
         Logger.getLogger(Forgot.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
+
     // Cek apakah password sudah digunakan
     String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
     PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
@@ -260,7 +251,7 @@ if (chk_showpassword.isSelected()) {
         JOptionPane.showMessageDialog(null, "Password Sudah Digunakan");
         return;
     }
-    
+
     // Cek apakah username dan email ada di database
     String checkUserEmailSql = "SELECT COUNT(*) FROM akun WHERE gmail = ?";
     PreparedStatement checkUserEmailPst = conn.prepareStatement(checkUserEmailSql);
@@ -268,14 +259,15 @@ if (chk_showpassword.isSelected()) {
     ResultSet checkUserEmailRs = checkUserEmailPst.executeQuery();
     if (checkUserEmailRs.next() && checkUserEmailRs.getInt(1) > 0) {
         // jika ya, update password di database
-        String updateSql = "UPDATE akun SET password = ? , gmail = ?";
+        String updateSql = "UPDATE akun SET password = ? , gmail = ? , tanggal = ?";
         PreparedStatement updatePst = conn.prepareStatement(updateSql);
         updatePst.setString(1, newPassword);
         updatePst.setString(2, email);
+        updatePst.setString(3, tanggal);
         updatePst.executeUpdate();
 
-        JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nGmail: " + email + "\nPassword Baru: " + newPassword);
-        
+        JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nGmail: " + email + "\nPassword Baru: " + newPassword + "\nTanggal: " + tanggal);
+
         // tutup form reset password dan buka form login
         this.setVisible(false);
         new Login().setVisible(true);
@@ -288,9 +280,10 @@ if (chk_showpassword.isSelected()) {
 }
     }//GEN-LAST:event_btn_forgotActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void txt_tanggalmasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tanggalmasukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_tanggalmasukActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -338,5 +331,6 @@ if (chk_showpassword.isSelected()) {
     private javax.swing.JFormattedTextField txt_email;
     private javax.swing.JPasswordField txt_konfirmasipassword;
     private javax.swing.JPasswordField txt_password;
+    private javax.swing.JFormattedTextField txt_tanggalmasuk;
     // End of variables declaration//GEN-END:variables
 }

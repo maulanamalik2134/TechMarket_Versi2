@@ -24,8 +24,7 @@ import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 public class Login extends javax.swing.JFrame {
-    
-    String Tanggal; // Variabel untuk menyimpan tanggal
+String tanggal; // Variabel untuk menyimpan tanggal
 private DefaultTableModel model; // Model tabel default
 
 /**

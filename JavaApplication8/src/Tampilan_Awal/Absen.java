@@ -192,10 +192,10 @@ public Absen() {
     } else {
         // Cek apakah sudah melewati waktu absen
         LocalTime startTime = LocalTime.parse("07:00"); // Waktu mulai absen
-        LocalTime endTime = LocalTime.parse("18:00"); // Waktu akhir absen
+        LocalTime endTime = LocalTime.parse("09:00"); // Waktu akhir absen
         
         if (currentTime.isBefore(startTime) || currentTime.isAfter(endTime)) { // Jika waktu saat ini sebelum waktu mulai absen atau setelah waktu akhir absen
-            JOptionPane.showMessageDialog(null, "Waktu absen telah berakhir. Silakan absen antara jam 07:00 - 17:00."); // Tampilkan pesan bahwa waktu absen telah berakhir
+            JOptionPane.showMessageDialog(null, "Waktu absen telah berakhir. Silakan absen antara jam 07:00 - 09:00."); // Tampilkan pesan bahwa waktu absen telah berakhir
             new Login().setVisible(true); // Tampilkan tampilan login
             dispose(); // Menutup tampilan absen
         } else {
