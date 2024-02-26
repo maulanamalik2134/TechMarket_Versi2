@@ -35,13 +35,6 @@ public void setTanggalDanWaktuSekarang() {
     lbl_tanggal.setText(formattedDateTime);
 }
 
-public void setTanggalDanWaktu() {
-    LocalDateTime dateTime = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", new Locale("id", "ID"));
-    String formattedDate = dateTime.format(formatter);
-    txt_tanggalmasuk.setText(formattedDate);
-}
-
 public Akun() {
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -49,17 +42,13 @@ public Akun() {
 
     // Jadwalkan tugas untuk memperbarui tanggal dan waktu saat ini setiap detik
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    executor.scheduleAtFixedRate(new Runnable() {
-        @Override
-        public void run() {
-            setTanggalDanWaktuSekarang();
-        }
+    executor.scheduleAtFixedRate(() -> {
+        setTanggalDanWaktuSekarang();
     }, 0, 1, TimeUnit.SECONDS);
 
     // Set tanggal dan waktu saat ini
     setTanggalDanWaktuSekarang();
-    setTanggalDanWaktu();
-    
+
     // Mengisi tabel barang dan menginisialisasi formulir barang baru
     tabel_akun();
     txt_idakun.setText(getNextIdAkun());
@@ -104,14 +93,13 @@ private void tabel_akun() {
     model.addColumn("Username");
     model.addColumn("Password");
     model.addColumn("Role");
-    model.addColumn("Gmail");
+    model.addColumn("Email");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
-    model.addColumn("Tanggal");
 
     try {
         int no = 1;
-        String sql = "SELECT akun.id_akun, akun.username, akun.password, akun.role, akun.gmail, akun.telepon, akun.alamat , akun.tanggal FROM akun";
+        String sql = "SELECT akun.id_akun, akun.username, akun.password, akun.role, akun.email, akun.telepon, akun.alamat FROM akun";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -122,10 +110,9 @@ private void tabel_akun() {
                 res.getString("username"),
                 res.getString("password"),
                 res.getString("role"),
-                res.getString("gmail"),
+                res.getString("email"),
                 res.getString("telepon"),
                 res.getString("alamat"),
-                res.getString("tanggal"),
             });
         }
         tabel_akun.setModel(model);
@@ -140,18 +127,8 @@ private void tabel_akun() {
     private void initComponents() {
 
         lbl_tanggal = new javax.swing.JLabel();
-        btn_akun = new javax.swing.JButton();
         bab = new javax.swing.JLabel();
         btn_logout = new javax.swing.JButton();
-        btn_supplier = new javax.swing.JButton();
-        btn_barang = new javax.swing.JButton();
-        btn_opname = new javax.swing.JButton();
-        btn_return = new javax.swing.JButton();
-        btn_absen = new javax.swing.JButton();
-        btn_transaksi = new javax.swing.JButton();
-        btn_dashboard = new javax.swing.JButton();
-        btn_laporan = new javax.swing.JButton();
-        btn_oprasional = new javax.swing.JButton();
         txt_username = new javax.swing.JFormattedTextField();
         lbl_gmail = new javax.swing.JLabel();
         lbl_telepon = new javax.swing.JLabel();
@@ -169,6 +146,13 @@ private void tabel_akun() {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel_akun = new javax.swing.JTable();
         lbl_role = new javax.swing.JLabel();
+        btn_dashboard = new javax.swing.JButton();
+        btn_datamaster = new javax.swing.JButton();
+        btn_transaksi = new javax.swing.JButton();
+        btn_return = new javax.swing.JButton();
+        btn_opname = new javax.swing.JButton();
+        btn_oprasional = new javax.swing.JButton();
+        btn_laporan = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
         txt_idakun = new javax.swing.JFormattedTextField();
         txt_tanggalmasuk = new javax.swing.JFormattedTextField();
@@ -180,18 +164,6 @@ private void tabel_akun() {
         lbl_tanggal.setForeground(new java.awt.Color(255, 255, 255));
         lbl_tanggal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(lbl_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 450, 50));
-
-        btn_akun.setBackground(new java.awt.Color(255, 255, 255));
-        btn_akun.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_akun.setForeground(new java.awt.Color(255, 255, 255));
-        btn_akun.setText("Akun");
-        btn_akun.setContentAreaFilled(false);
-        btn_akun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_akunActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, -1));
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         bab.setText("Hai Admin, Selamat Datang Di Data Akun");
@@ -208,114 +180,6 @@ private void tabel_akun() {
             }
         });
         getContentPane().add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, 200, -1));
-
-        btn_supplier.setBackground(new java.awt.Color(255, 255, 255));
-        btn_supplier.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_supplier.setForeground(new java.awt.Color(255, 255, 255));
-        btn_supplier.setText("supplier");
-        btn_supplier.setContentAreaFilled(false);
-        btn_supplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_supplierActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, -1));
-
-        btn_barang.setBackground(new java.awt.Color(255, 255, 255));
-        btn_barang.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_barang.setForeground(new java.awt.Color(255, 255, 255));
-        btn_barang.setText("Barang");
-        btn_barang.setContentAreaFilled(false);
-        btn_barang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_barangActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, -1));
-
-        btn_opname.setBackground(new java.awt.Color(255, 255, 255));
-        btn_opname.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_opname.setForeground(new java.awt.Color(255, 255, 255));
-        btn_opname.setText("Opname");
-        btn_opname.setContentAreaFilled(false);
-        btn_opname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_opnameActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_opname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, -1));
-
-        btn_return.setBackground(new java.awt.Color(255, 255, 255));
-        btn_return.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_return.setForeground(new java.awt.Color(255, 255, 255));
-        btn_return.setText("Return");
-        btn_return.setContentAreaFilled(false);
-        btn_return.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_returnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, -1));
-
-        btn_absen.setBackground(new java.awt.Color(255, 255, 255));
-        btn_absen.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_absen.setForeground(new java.awt.Color(255, 255, 255));
-        btn_absen.setText("Absen");
-        btn_absen.setContentAreaFilled(false);
-        btn_absen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_absenActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_absen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, -1));
-
-        btn_transaksi.setBackground(new java.awt.Color(255, 255, 255));
-        btn_transaksi.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
-        btn_transaksi.setText("Transaksi");
-        btn_transaksi.setContentAreaFilled(false);
-        btn_transaksi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_transaksiActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 200, -1));
-
-        btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
-        btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
-        btn_dashboard.setText("Dashboard");
-        btn_dashboard.setContentAreaFilled(false);
-        btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_dashboardActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 200, -1));
-
-        btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
-        btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
-        btn_laporan.setText("Laporan");
-        btn_laporan.setContentAreaFilled(false);
-        btn_laporan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_laporanActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 200, -1));
-
-        btn_oprasional.setBackground(new java.awt.Color(255, 255, 255));
-        btn_oprasional.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_oprasional.setForeground(new java.awt.Color(255, 255, 255));
-        btn_oprasional.setText("Oprasional");
-        btn_oprasional.setContentAreaFilled(false);
-        btn_oprasional.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_oprasionalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_oprasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 200, -1));
 
         txt_username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_username.addActionListener(new java.awt.event.ActionListener() {
@@ -406,18 +270,18 @@ private void tabel_akun() {
 
         tabel_akun.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id Akun", "Username", "Password", "Role", "Gmail", "Telepon", "Alamat"
+                "Id Akun", "Username", "Password", "Role", "Gmail", "Telepon", "Alamat", "Tanggal_dibuat", "Terakhir_login"
             }
         ));
         tabel_akun.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -432,6 +296,90 @@ private void tabel_akun() {
         lbl_role.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_role.setText("Role");
         getContentPane().add(lbl_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 100, -1, -1));
+
+        btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
+        btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
+        btn_dashboard.setText("Dashboard");
+        btn_dashboard.setContentAreaFilled(false);
+        btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dashboardActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 200, -1));
+
+        btn_datamaster.setBackground(new java.awt.Color(255, 255, 255));
+        btn_datamaster.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_datamaster.setForeground(new java.awt.Color(255, 255, 255));
+        btn_datamaster.setText("Data Master");
+        btn_datamaster.setContentAreaFilled(false);
+        btn_datamaster.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_datamasterActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_datamaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, -1));
+
+        btn_transaksi.setBackground(new java.awt.Color(255, 255, 255));
+        btn_transaksi.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
+        btn_transaksi.setText("Transaksi");
+        btn_transaksi.setContentAreaFilled(false);
+        btn_transaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_transaksiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 200, -1));
+
+        btn_return.setBackground(new java.awt.Color(255, 255, 255));
+        btn_return.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_return.setForeground(new java.awt.Color(255, 255, 255));
+        btn_return.setText("Return");
+        btn_return.setContentAreaFilled(false);
+        btn_return.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_returnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, -1));
+
+        btn_opname.setBackground(new java.awt.Color(255, 255, 255));
+        btn_opname.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_opname.setForeground(new java.awt.Color(255, 255, 255));
+        btn_opname.setText("Opname");
+        btn_opname.setContentAreaFilled(false);
+        btn_opname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_opnameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_opname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 200, -1));
+
+        btn_oprasional.setBackground(new java.awt.Color(255, 255, 255));
+        btn_oprasional.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_oprasional.setForeground(new java.awt.Color(255, 255, 255));
+        btn_oprasional.setText("Oprasional");
+        btn_oprasional.setContentAreaFilled(false);
+        btn_oprasional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_oprasionalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_oprasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
+
+        btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
+        btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
+        btn_laporan.setText("Laporan");
+        btn_laporan.setContentAreaFilled(false);
+        btn_laporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_laporanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 200, -1));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -452,55 +400,6 @@ private void tabel_akun() {
             new Login().setVisible(true);
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
-
-    private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
-        this.setVisible(false);
-            new Barang().setVisible(true);
-    }//GEN-LAST:event_btn_barangActionPerformed
-
-    private void btn_opnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opnameActionPerformed
-        this.setVisible(false);
-            new Opname().setVisible(true);
-    }//GEN-LAST:event_btn_opnameActionPerformed
-
-    private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        this.setVisible(false);
-            new Dashboard().setVisible(true);
-    }//GEN-LAST:event_btn_dashboardActionPerformed
-
-    private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed
-
-    }//GEN-LAST:event_btn_akunActionPerformed
-
-    private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
-        this.setVisible(false);
-            new Supplier().setVisible(true);
-    }//GEN-LAST:event_btn_supplierActionPerformed
-
-    private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
-        this.setVisible(false);
-            new Return().setVisible(true);
-    }//GEN-LAST:event_btn_returnActionPerformed
-
-    private void btn_absenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_absenActionPerformed
-        this.setVisible(false);
-            new Absen_Admin().setVisible(true);
-    }//GEN-LAST:event_btn_absenActionPerformed
-
-    private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
-        this.setVisible(false);
-            new Oprasional().setVisible(true);
-    }//GEN-LAST:event_btn_oprasionalActionPerformed
-
-    private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
-        this.setVisible(false);
-            new Menu_Transaksi_Admin().setVisible(true);
-    }//GEN-LAST:event_btn_transaksiActionPerformed
-
-    private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
-        this.setVisible(false);
-            new Menu_Laporan().setVisible(true);
-    }//GEN-LAST:event_btn_laporanActionPerformed
 
     private void txt_teleponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_teleponActionPerformed
         // TODO add your handling code here:
@@ -524,7 +423,6 @@ private void tabel_akun() {
     String gmail = txt_gmail.getText();
     String alamat = txt_alamat.getText();
     String telepon = txt_telepon.getText();
-    String tanggal = txt_tanggalmasuk.getText();
 
     // Membuat koneksi ke database
     Connection conn = Config.configDB();
@@ -542,10 +440,10 @@ private void tabel_akun() {
     } else if (password.length() < 5 || password.length() > 15) {
         JOptionPane.showMessageDialog(null, "Panjang password harus antara 5 hingga 15 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
         return;
-    } else if (gmail.length() < 5 || gmail.length() > 30) {
+    } else if (gmail.length() < 1 || gmail.length() > 30) {
         JOptionPane.showMessageDialog(null, "Panjang gmail harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
         return;
-    } else if (alamat.length() < 5 || alamat.length() > 30) {
+    } else if (alamat.length() < 1 || alamat.length() > 30) {
         JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
         return;
     } else if (telepon.length() < 1 || telepon.length() > 13) {
@@ -553,35 +451,11 @@ private void tabel_akun() {
         return;
     }
 
-    // Mengecek apakah username hanya mengandung karakter yang diizinkan
-    Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
-    Matcher usernameMatcher = usernamePattern.matcher(username);
-    if (!usernameMatcher.matches()) {
-        JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
-        return;
-    }
-
-    // Mengecek apakah password memenuhi kriteria keamanan
-    Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$");
-    Matcher passwordMatcher = passwordPattern.matcher(password);
-    if (!passwordMatcher.matches()) {
-        JOptionPane.showMessageDialog(null, "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol");
-        return;
-    }
-
-    // Mengecek apakah gmail diakhiri dengan @gmail.com
-    if (!gmail.endsWith("@gmail.com")) {
-        JOptionPane.showMessageDialog(null, "Alamat email harus diakhiri dengan @gmail.com");
-        return;
-    }
-
     // Mengecek apakah username, password, gmail, dan telepon sudah ada dalam database
-    String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ? OR gmail = ? OR telepon = ?";
+    String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ?";
     PreparedStatement checkPst = conn.prepareStatement(checkSql);
     checkPst.setString(1, username);
     checkPst.setString(2, password);
-    checkPst.setString(3, gmail);
-    checkPst.setString(4, telepon);
     ResultSet checkRs = checkPst.executeQuery();
     if (checkRs.next()) {
         int count = checkRs.getInt(1);
@@ -604,13 +478,17 @@ private void tabel_akun() {
             JOptionPane.showMessageDialog(null, "Hanya Bisa Ada 4 Akun Kasir");
             return;
         }
+        if (checkAdminRs.next() && checkAdminRs.getInt(1) >= 4) {
+            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada 4 Akun Karyawan");
+            return;
+        }
     }
 
     // Tampilkan dialog konfirmasi untuk menyimpan data
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
         // Simpan data ke database
-        String insertSql = "INSERT INTO akun (id_akun, username, password, role, gmail, telepon, alamat, tanggal) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO akun (id_akun, username, password, role, email, telepon, alamat) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setInt(1, idakun);
         insertPst.setString(2, username);
@@ -619,12 +497,10 @@ private void tabel_akun() {
         insertPst.setString(5, gmail);
         insertPst.setString(6, telepon);
         insertPst.setString(7, alamat);
-        insertPst.setString(8, tanggal);
         insertPst.execute();
 
-        // Menampilkan pesan sukses dengan username, password, role, gmail, telepon, dan alamat
-        String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nGmail: " + gmail + "\nTelepon: " + telepon + "\nAlamat: " + alamat + "\ntanggal: " + tanggal;
-        JOptionPane.showMessageDialog(null, successMessage);
+        // Tampilkan notifikasi sukses
+        JOptionPane.showMessageDialog(null, "Data berhasil ditambah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
         // Refresh tabel akun
         tabel_akun();
@@ -644,15 +520,13 @@ private void tabel_akun() {
     if (confirm == JOptionPane.YES_OPTION) {
         String username = txt_username.getText();
         String password = txt_password.getText();
-        String role = (String) cmb_role.getSelectedItem();
         String gmail = txt_gmail.getText();
         String telepon = txt_telepon.getText();
         String alamat = txt_alamat.getText();
-        String tanggal = txt_tanggalmasuk.getText();
         String idakun = txt_idakun.getText();
-        
+
         Connection conn = Config.configDB();
-        
+
         // Mengecek apakah username, password, gmail, telepon, dan alamat sudah diisi
         if (username.isEmpty() || password.isEmpty() || gmail.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
@@ -666,10 +540,10 @@ private void tabel_akun() {
         } else if (password.length() < 5 || password.length() > 15) {
             JOptionPane.showMessageDialog(null, "Panjang password harus antara 5 hingga 15 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (gmail.length() < 5 || gmail.length() > 30) {
+        } else if (gmail.length() < 1 || gmail.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang gmail harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (alamat.length() < 5 || alamat.length() > 30) {
+        } else if (alamat.length() < 1 || alamat.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (telepon.length() < 1 || telepon.length() > 13) {
@@ -677,46 +551,22 @@ private void tabel_akun() {
             return;
         }
 
-        // Mengecek apakah username hanya mengandung karakter yang diizinkan
-        Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
-        Matcher usernameMatcher = usernamePattern.matcher(username);
-        if (!usernameMatcher.matches()) {
-            JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
-            return;
-        }
-
-        // Mengecek apakah password memenuhi kriteria keamanan
-        Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$");
-        Matcher passwordMatcher = passwordPattern.matcher(password);
-        if (!passwordMatcher.matches()) {
-            JOptionPane.showMessageDialog(null, "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol");
-            return;
-        }
-
-        // Mengecek apakah gmail diakhiri dengan @gmail.com
-        if (!gmail.endsWith("@gmail.com")) {
-            JOptionPane.showMessageDialog(null, "Alamat email harus diakhiri dengan @gmail.com");
-            return;
-        }
-
         // Tampilkan dialog konfirmasi untuk menyimpan data
         int confirmSave = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan perubahan ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
         if (confirmSave == JOptionPane.YES_OPTION) {
             // Update data akun dengan informasi yang diedit
-            String sql = "UPDATE akun SET username=?, password=?, gmail=?, telepon=?, alamat=? , tanggal=? WHERE Id_akun=?";
+            String sql = "UPDATE akun SET username=?, password=?, email=?, telepon=?, alamat=? WHERE Id_akun=?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, password);
             pst.setString(3, gmail);
             pst.setString(4, telepon);
             pst.setString(5, alamat);
-            pst.setString(6, tanggal);
-            pst.setString(7, idakun);
+            pst.setString(6, idakun);
             pst.execute();
 
-            // Tampilkan notifikasi sukses dengan username, password, role, gmail, telepon, dan alamat
-            String successMessage = "Data berhasil diubah!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nGmail: " + gmail + "\nTelepon: " + telepon + "\nAlamat: " + alamat + "\nTanggal: " + tanggal;
-            JOptionPane.showMessageDialog(null, successMessage, "Berhasil", JOptionPane.INFORMATION_MESSAGE);
+            // Tampilkan notifikasi sukses
+            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
             // Perbarui tabel akun, ID akun, dan kosongkan input
             tabel_akun();
@@ -741,10 +591,10 @@ private void tabel_akun() {
         java.sql.PreparedStatement pstbarang = conn.prepareStatement(sqlbarang);
         pstbarang.setString(1, txt_idakun.getText());
         pstbarang.executeUpdate();
-        
+
         // Tampilkan notifikasi sukses
         JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-       
+
         // Generate ID baru untuk akun selanjutnya
         txt_idakun.setText(getNextIdAkun());
     }
@@ -752,8 +602,10 @@ private void tabel_akun() {
     // Tampilkan notifikasi gagal
     JOptionPane.showMessageDialog(null, "Gagal menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
+
 // Perbarui tabel akun
 tabel_akun();
+
 // Kosongkan input
 kosong1();
     }//GEN-LAST:event_btn_hapusActionPerformed
@@ -785,9 +637,42 @@ txt_telepon.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.ge
 // Set nilai alamat
 txt_alamat.setText(tabel_akun.getValueAt(baris, 6) == null ? "" : tabel_akun.getValueAt(baris, 6).toString());
 
-// set nilai tanggal
-txt_tanggalmasuk.setText(tabel_akun.getValueAt(baris, 7) == null ? "" : tabel_akun.getValueAt(baris, 7).toString());
     }//GEN-LAST:event_tabel_akunMouseClicked
+
+    private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
+this.setVisible(false);
+        new Dashboard().setVisible(true);
+    }//GEN-LAST:event_btn_dashboardActionPerformed
+
+    private void btn_datamasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datamasterActionPerformed
+this.setVisible(false);
+        new Menu_master().setVisible(true);
+    }//GEN-LAST:event_btn_datamasterActionPerformed
+
+    private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
+        this.setVisible(false);
+        new Menu_Transaksi_Admin().setVisible(true);
+    }//GEN-LAST:event_btn_transaksiActionPerformed
+
+    private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
+        this.setVisible(false);
+        new Return().setVisible(true);
+    }//GEN-LAST:event_btn_returnActionPerformed
+
+    private void btn_opnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opnameActionPerformed
+        this.setVisible(false);
+        new Opname().setVisible(true);
+    }//GEN-LAST:event_btn_opnameActionPerformed
+
+    private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
+        this.setVisible(false);
+        new Oprasional().setVisible(true);
+    }//GEN-LAST:event_btn_oprasionalActionPerformed
+
+    private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
+        this.setVisible(false);
+        new Menu_Laporan().setVisible(true);
+    }//GEN-LAST:event_btn_laporanActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -824,10 +709,8 @@ txt_tanggalmasuk.setText(tabel_akun.getValueAt(baris, 7) == null ? "" : tabel_ak
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bab;
-    private javax.swing.JButton btn_absen;
-    private javax.swing.JButton btn_akun;
-    private javax.swing.JButton btn_barang;
     private javax.swing.JButton btn_dashboard;
+    private javax.swing.JButton btn_datamaster;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_laporan;
@@ -835,7 +718,6 @@ txt_tanggalmasuk.setText(tabel_akun.getValueAt(baris, 7) == null ? "" : tabel_ak
     private javax.swing.JButton btn_opname;
     private javax.swing.JButton btn_oprasional;
     private javax.swing.JButton btn_return;
-    private javax.swing.JButton btn_supplier;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JComboBox<String> cmb_role;

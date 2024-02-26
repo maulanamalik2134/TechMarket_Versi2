@@ -41,6 +41,14 @@ public void setTanggalDanWaktuSekarang() {
     lbl_lokasi.setText(lokasiToko); // Mengatur label lokasi dengan lokasi toko
 }
 
+
+public void setTanggalDanWaktu() {
+    LocalDateTime dateTime = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", new Locale("id", "ID"));
+    String formattedDate = dateTime.format(formatter);
+    lbl_tanggalmasuk.setText(formattedDate);
+}
+
 int failedAttempts = 0; // Jumlah percobaan login yang gagal
 boolean isBlocked = false; // Status blokir akun
 
@@ -55,6 +63,7 @@ public Login() {
         @Override
         public void run() {
             setTanggalDanWaktuSekarang();
+            setTanggalDanWaktu();
         }
     }, 0, 1, TimeUnit.SECONDS);
 }
@@ -89,6 +98,7 @@ public void login() {
         lbl_tanggal = new javax.swing.JLabel();
         lbl_lokasi = new javax.swing.JLabel();
         lbl_image = new javax.swing.JLabel();
+        lbl_tanggalmasuk = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -181,6 +191,11 @@ public void login() {
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Fornend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
+
+        lbl_tanggalmasuk.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        lbl_tanggalmasuk.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_tanggalmasuk.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(lbl_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 450, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -433,6 +448,7 @@ public void login() {
     private javax.swing.JLabel lbl_lokasi;
     private javax.swing.JLabel lbl_password;
     private javax.swing.JLabel lbl_tanggal;
+    private javax.swing.JLabel lbl_tanggalmasuk;
     private javax.swing.JLabel lbl_username;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JFormattedTextField txt_username;

@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Dashboard extends javax.swing.JFrame {
+public class Dashboard1 extends javax.swing.JFrame {
   String Tanggal; // Variabel untuk menyimpan tanggal
 private DefaultTableModel model; // Model tabel default
 
@@ -32,7 +32,7 @@ public void setTanggalDanWaktuSekarang() {
     lbl_tanggal.setText(formattedDate); // Mengatur label tanggal dengan tanggal yang diformat
 }
 
-public Dashboard() {
+public Dashboard1() {
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
@@ -512,7 +512,7 @@ private void label_barang() {
         getContentPane().add(bab8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 540, 50));
 
         btn_next.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        btn_next.setText("Next >");
+        btn_next.setText("< Next ");
         btn_next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_nextActionPerformed(evt);
@@ -570,7 +570,7 @@ private void label_barang() {
 
     private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
         this.setVisible(false);
-            new Dashboard1().setVisible(true);
+            new Dashboard().setVisible(true);
     }//GEN-LAST:event_btn_nextActionPerformed
 
     public static void main(String args[]) {
@@ -587,20 +587,21 @@ private void label_barang() {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Dashboard1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Dashboard1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Dashboard1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Dashboard1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+                new Dashboard1().setVisible(true);
             }
         });
     }
