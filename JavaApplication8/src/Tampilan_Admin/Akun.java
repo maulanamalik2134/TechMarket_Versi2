@@ -3,7 +3,6 @@ package Tampilan_Admin;
 import Config.Config;
 import Tampilan_Awal.Absen;
 import Tampilan_Awal.Login;
-import Tampilan_Kasir.Menu_Transaks_Kasir;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -147,6 +146,10 @@ private void tabel_akun() {
         btn_return = new javax.swing.JButton();
         btn_opname = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
+        btn_supplier = new javax.swing.JButton();
+        btn_pelanggan = new javax.swing.JButton();
+        btn_barang = new javax.swing.JButton();
+        btn_akun = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
         txt_idakun = new javax.swing.JFormattedTextField();
         txt_tanggalmasuk = new javax.swing.JFormattedTextField();
@@ -160,8 +163,9 @@ private void tabel_akun() {
         getContentPane().add(lbl_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 450, 50));
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        bab.setForeground(new java.awt.Color(255, 255, 255));
         bab.setText("Hai Admin, Selamat Datang Di Data Akun");
-        getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 1120, 50));
+        getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1120, 50));
 
         btn_logout.setBackground(new java.awt.Color(255, 255, 255));
         btn_logout.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
@@ -218,8 +222,9 @@ private void tabel_akun() {
         getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 120, 160, 30));
 
         btn_tambah.setBackground(new java.awt.Color(0, 153, 0));
-        btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_tambah.setForeground(new java.awt.Color(51, 51, 51));
+        btn_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Plus Math (1).png"))); // NOI18N
         btn_tambah.setText("Tambah");
         btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
@@ -227,10 +232,11 @@ private void tabel_akun() {
                 btn_tambahActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 180, -1, -1));
+        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 160, 130, 30));
 
         btn_edit.setBackground(new java.awt.Color(153, 153, 0));
-        btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Pencil (1).png"))); // NOI18N
         btn_edit.setText("Edit");
         btn_edit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_edit.addActionListener(new java.awt.event.ActionListener() {
@@ -238,10 +244,11 @@ private void tabel_akun() {
                 btn_editActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 180, -1, -1));
+        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 160, 130, 30));
 
-        btn_hapus.setBackground(new java.awt.Color(153, 0, 0));
-        btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_hapus.setBackground(new java.awt.Color(255, 255, 255));
+        btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete (1).png"))); // NOI18N
         btn_hapus.setText("Hapus");
         btn_hapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
@@ -249,7 +256,7 @@ private void tabel_akun() {
                 btn_hapusActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 180, -1, -1));
+        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 160, 130, 30));
 
         tabel_akun.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,7 +281,7 @@ private void tabel_akun() {
         });
         jScrollPane1.setViewportView(tabel_akun);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 250, 1070, 410));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 200, 1070, 460));
 
         lbl_role.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_role.setText("Role");
@@ -352,6 +359,46 @@ private void tabel_akun() {
             }
         });
         getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
+
+        btn_supplier.setBackground(new java.awt.Color(255, 255, 255));
+        btn_supplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_supplier.setText("Data Supplier");
+        btn_supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_supplierActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 180, 30));
+
+        btn_pelanggan.setBackground(new java.awt.Color(255, 255, 255));
+        btn_pelanggan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_pelanggan.setText("Data Pelanggan");
+        btn_pelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pelangganActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_pelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 180, 30));
+
+        btn_barang.setBackground(new java.awt.Color(255, 255, 255));
+        btn_barang.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_barang.setText("Data Barang");
+        btn_barang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_barangActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, 180, -1));
+
+        btn_akun.setBackground(new java.awt.Color(255, 255, 255));
+        btn_akun.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_akun.setText("Data Akun");
+        btn_akun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_akunActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 180, 30));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -666,23 +713,22 @@ txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.get
     }//GEN-LAST:event_tabel_akunMouseClicked
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-this.setVisible(false);
+        this.setVisible(false);
         new Dashboard().setVisible(true);
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_datamasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datamasterActionPerformed
-this.setVisible(false);
-        new Menu_master().setVisible(true);
+
     }//GEN-LAST:event_btn_datamasterActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
         this.setVisible(false);
-        new Menu_Transaksi_Admin().setVisible(true);
+        new Transaksi_Penjualan_Admin().setVisible(true);
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
         this.setVisible(false);
-        new Return().setVisible(true);
+        new Return_Pelanggan().setVisible(true);
     }//GEN-LAST:event_btn_returnActionPerformed
 
     private void btn_opnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opnameActionPerformed
@@ -692,8 +738,28 @@ this.setVisible(false);
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
         this.setVisible(false);
-        new Menu_Laporan().setVisible(true);
+        new Laporan_Penjualan().setVisible(true);
     }//GEN-LAST:event_btn_laporanActionPerformed
+
+    private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
+        this.setVisible(false);
+        new Supplier().setVisible(true);
+    }//GEN-LAST:event_btn_supplierActionPerformed
+
+    private void btn_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pelangganActionPerformed
+        this.setVisible(false);
+        new Pelanggan().setVisible(true);
+    }//GEN-LAST:event_btn_pelangganActionPerformed
+
+    private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
+        this.setVisible(false);
+        new Barang().setVisible(true);
+    }//GEN-LAST:event_btn_barangActionPerformed
+
+    private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed
+        this.setVisible(false);
+        new Akun().setVisible(true);
+    }//GEN-LAST:event_btn_akunActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -730,6 +796,8 @@ this.setVisible(false);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bab;
+    private javax.swing.JButton btn_akun;
+    private javax.swing.JButton btn_barang;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_datamaster;
     private javax.swing.JButton btn_edit;
@@ -737,7 +805,9 @@ this.setVisible(false);
     private javax.swing.JButton btn_laporan;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_opname;
+    private javax.swing.JButton btn_pelanggan;
     private javax.swing.JButton btn_return;
+    private javax.swing.JButton btn_supplier;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JComboBox<String> cmb_role;

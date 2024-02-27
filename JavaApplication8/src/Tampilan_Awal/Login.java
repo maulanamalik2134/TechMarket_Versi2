@@ -2,7 +2,7 @@ package Tampilan_Awal;
 
 import Config.Config;
 import Tampilan_Admin.Dashboard;
-import Tampilan_Kasir.Menu_Transaks_Kasir;
+import Tampilan_Kasir.Transaksi_Penjualan_Kasir;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -374,7 +374,7 @@ public void login() {
         } else if (role.equals("Kasir")) {
             JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Kasir.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             // Buka halaman menu transaksi kasir
-            new Menu_Transaks_Kasir().setVisible(true);
+            new Transaksi_Penjualan_Kasir().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Role Tidak Valid", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;

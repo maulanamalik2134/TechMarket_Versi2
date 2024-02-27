@@ -163,19 +163,21 @@ private void tabel_Barang() {
         cmb_satuan = new javax.swing.JComboBox<>();
         lbl_hargajual1 = new javax.swing.JLabel();
         txt_idsupplier = new javax.swing.JFormattedTextField();
+        lbl_hargajual2 = new javax.swing.JLabel();
+        txt_merek = new javax.swing.JFormattedTextField();
         btn_dashboard = new javax.swing.JButton();
         btn_datamaster = new javax.swing.JButton();
         btn_transaksi = new javax.swing.JButton();
         btn_return = new javax.swing.JButton();
-        btn_opname1 = new javax.swing.JButton();
+        btn_opname = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
-        btn_oprasional = new javax.swing.JButton();
-        lbl_hargajual2 = new javax.swing.JLabel();
-        txt_merek = new javax.swing.JFormattedTextField();
+        btn_akun = new javax.swing.JButton();
+        btn_supplier = new javax.swing.JButton();
+        btn_pelanggan = new javax.swing.JButton();
+        btn_barang = new javax.swing.JButton();
         lbl_image1 = new javax.swing.JLabel();
-        txt_tanggalmasuk = new javax.swing.JFormattedTextField();
         txt_idbarang = new javax.swing.JFormattedTextField();
-        btn_tambah1 = new javax.swing.JButton();
+        txt_tanggalmasuk = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -186,8 +188,9 @@ private void tabel_Barang() {
         getContentPane().add(lbl_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 450, 50));
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        bab.setForeground(new java.awt.Color(255, 255, 255));
         bab.setText("Hai Admin, Selamat Datang Di Data Barang");
-        getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 1120, 50));
+        getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1120, 50));
 
         btn_logout2.setBackground(new java.awt.Color(255, 255, 255));
         btn_logout2.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
@@ -261,38 +264,38 @@ private void tabel_Barang() {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 260, 1070, 400));
 
-        btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_edit.setForeground(new java.awt.Color(153, 153, 0));
+        btn_edit.setBackground(new java.awt.Color(255, 255, 255));
+        btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Pencil (1).png"))); // NOI18N
         btn_edit.setText("Edit");
-        btn_edit.setContentAreaFilled(false);
         btn_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_editActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, -1, -1));
+        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 220, 140, 30));
 
-        btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_tambah.setForeground(new java.awt.Color(0, 204, 0));
+        btn_tambah.setBackground(new java.awt.Color(255, 255, 255));
+        btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Plus Math (1).png"))); // NOI18N
         btn_tambah.setText("Tambah");
-        btn_tambah.setContentAreaFilled(false);
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_tambahActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 220, -1, -1));
+        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 220, 140, -1));
 
-        btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_hapus.setForeground(new java.awt.Color(153, 0, 0));
+        btn_hapus.setBackground(new java.awt.Color(255, 255, 255));
+        btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete (1).png"))); // NOI18N
         btn_hapus.setText("Hapus");
-        btn_hapus.setContentAreaFilled(false);
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_hapusActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 220, -1, -1));
+        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 220, 140, -1));
 
         txt_stok.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_stok.addActionListener(new java.awt.event.ActionListener() {
@@ -351,11 +354,25 @@ private void tabel_Barang() {
         });
         getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 140, -1));
 
+        lbl_hargajual2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_hargajual2.setText("Harga Jual");
+        getContentPane().add(lbl_hargajual2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
+
+        txt_merek.setText("Samsung");
+        txt_merek.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_merek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_merekActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_merek, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, 140, -1));
+
         btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setText("Dashboard");
         btn_dashboard.setContentAreaFilled(false);
+        btn_dashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_dashboardActionPerformed(evt);
@@ -399,17 +416,17 @@ private void tabel_Barang() {
         });
         getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, -1));
 
-        btn_opname1.setBackground(new java.awt.Color(255, 255, 255));
-        btn_opname1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_opname1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_opname1.setText("Opname");
-        btn_opname1.setContentAreaFilled(false);
-        btn_opname1.addActionListener(new java.awt.event.ActionListener() {
+        btn_opname.setBackground(new java.awt.Color(255, 255, 255));
+        btn_opname.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_opname.setForeground(new java.awt.Color(255, 255, 255));
+        btn_opname.setText("Opname");
+        btn_opname.setContentAreaFilled(false);
+        btn_opname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_opname1ActionPerformed(evt);
+                btn_opnameActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_opname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 200, -1));
+        getContentPane().add(btn_opname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 200, -1));
 
         btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
@@ -421,52 +438,56 @@ private void tabel_Barang() {
                 btn_laporanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 200, -1));
+        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
 
-        btn_oprasional.setBackground(new java.awt.Color(255, 255, 255));
-        btn_oprasional.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_oprasional.setForeground(new java.awt.Color(255, 255, 255));
-        btn_oprasional.setText("Oprasional");
-        btn_oprasional.setContentAreaFilled(false);
-        btn_oprasional.addActionListener(new java.awt.event.ActionListener() {
+        btn_akun.setBackground(new java.awt.Color(255, 255, 255));
+        btn_akun.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_akun.setText("Data Akun");
+        btn_akun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_oprasionalActionPerformed(evt);
+                btn_akunActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_oprasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
+        getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 180, 30));
 
-        lbl_hargajual2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_hargajual2.setText("Harga Jual");
-        getContentPane().add(lbl_hargajual2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
-
-        txt_merek.setText("Samsung");
-        txt_merek.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        txt_merek.addActionListener(new java.awt.event.ActionListener() {
+        btn_supplier.setBackground(new java.awt.Color(255, 255, 255));
+        btn_supplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_supplier.setText("Data Supplier");
+        btn_supplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_merekActionPerformed(evt);
+                btn_supplierActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_merek, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, 140, -1));
+        getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 180, 30));
+
+        btn_pelanggan.setBackground(new java.awt.Color(255, 255, 255));
+        btn_pelanggan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_pelanggan.setText("Data Pelanggan");
+        btn_pelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pelangganActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_pelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 180, 30));
+
+        btn_barang.setBackground(new java.awt.Color(255, 255, 255));
+        btn_barang.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_barang.setText("Data Barang");
+        btn_barang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_barangActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, 180, 30));
 
         lbl_image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        txt_tanggalmasuk.setText("jFormattedTextField1");
-        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 240, -1));
-
         txt_idbarang.setText("jFormattedTextField1");
         getContentPane().add(txt_idbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, -1, 30));
 
-        btn_tambah1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_tambah1.setForeground(new java.awt.Color(0, 204, 0));
-        btn_tambah1.setText("Tambah");
-        btn_tambah1.setContentAreaFilled(false);
-        btn_tambah1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_tambah1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_tambah1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 220, -1, -1));
+        txt_tanggalmasuk.setText("jFormattedTextField1");
+        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 240, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -809,6 +830,10 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_idsupplierActionPerformed
 
+    private void txt_merekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_merekActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_merekActionPerformed
+
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
         this.setVisible(false);
         new Dashboard().setVisible(true);
@@ -816,41 +841,48 @@ try {
 
     private void btn_datamasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datamasterActionPerformed
         this.setVisible(false);
-        new Menu_master().setVisible(true);
+        new Akun().setVisible(true);
     }//GEN-LAST:event_btn_datamasterActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
         this.setVisible(false);
-        new Menu_Transaksi_Admin().setVisible(true);
+        new Transaksi_Penjualan_Admin().setVisible(true);
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
         this.setVisible(false);
-        new Return().setVisible(true);
+        new Return_Pelanggan().setVisible(true);
     }//GEN-LAST:event_btn_returnActionPerformed
+
+    private void btn_opnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opnameActionPerformed
+        this.setVisible(false);
+        new Opname().setVisible(true);
+    }//GEN-LAST:event_btn_opnameActionPerformed
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
         this.setVisible(false);
-        new Menu_Laporan().setVisible(true);
+        new Laporan_Penjualan().setVisible(true);
     }//GEN-LAST:event_btn_laporanActionPerformed
 
-    private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
+    private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed
         this.setVisible(false);
-        new Oprasional().setVisible(true);
-    }//GEN-LAST:event_btn_oprasionalActionPerformed
+        new Akun().setVisible(true);
+    }//GEN-LAST:event_btn_akunActionPerformed
 
-    private void btn_opname1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opname1ActionPerformed
+    private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
         this.setVisible(false);
-        new Opname().setVisible(true);
-    }//GEN-LAST:event_btn_opname1ActionPerformed
+        new Supplier().setVisible(true);
+    }//GEN-LAST:event_btn_supplierActionPerformed
 
-    private void btn_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_tambah1ActionPerformed
+    private void btn_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pelangganActionPerformed
+        this.setVisible(false);
+        new Pelanggan().setVisible(true);
+    }//GEN-LAST:event_btn_pelangganActionPerformed
 
-    private void txt_merekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_merekActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_merekActionPerformed
+    private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
+        this.setVisible(false);
+        new Barang().setVisible(true);
+    }//GEN-LAST:event_btn_barangActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -889,17 +921,19 @@ try {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bab;
+    private javax.swing.JButton btn_akun;
+    private javax.swing.JButton btn_barang;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_datamaster;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_laporan;
     private javax.swing.JButton btn_logout2;
-    private javax.swing.JButton btn_opname1;
-    private javax.swing.JButton btn_oprasional;
+    private javax.swing.JButton btn_opname;
+    private javax.swing.JButton btn_pelanggan;
     private javax.swing.JButton btn_return;
+    private javax.swing.JButton btn_supplier;
     private javax.swing.JButton btn_tambah;
-    private javax.swing.JButton btn_tambah1;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JComboBox<String> cmb_kategori;
     private javax.swing.JComboBox<String> cmb_satuan;
