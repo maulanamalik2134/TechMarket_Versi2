@@ -146,6 +146,7 @@ public SignUp() {
 
         btn_register.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_register.setText("REGISTER");
+        btn_register.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registerActionPerformed(evt);
@@ -155,6 +156,7 @@ public SignUp() {
 
         btn_cancel.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_cancel.setText("CANCEL");
+        btn_cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelActionPerformed(evt);
@@ -291,17 +293,16 @@ if (chk_showpassword.isSelected()) {
     }
 
     // Menyimpan akun baru ke database
-    String sql = "INSERT INTO akun (id_akun, username, password, role, tanggal) VALUES (?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO akun (id_akun, username, password, role) VALUES (?, ?, ?, ?)";
     PreparedStatement pst = conn.prepareStatement(sql);
     pst.setInt(1, id_akun);
     pst.setString(2, username);
     pst.setString(3, password);
     pst.setString(4, role);
-    pst.setString(5, tanggal);
     pst.executeUpdate();
 
     // Menampilkan pesan sukses dengan username
-    String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nTanggal: " + tanggal;
+    String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role;
     JOptionPane.showMessageDialog(null, successMessage);
 
     // Menutup form saat akun berhasil dibuat

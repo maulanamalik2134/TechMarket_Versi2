@@ -65,8 +65,8 @@ public Forgot() {
         lbl_lokasi = new javax.swing.JLabel();
         lbl_tanggal = new javax.swing.JLabel();
         Lbl_forgot = new javax.swing.JLabel();
-        lbl_email = new javax.swing.JLabel();
-        txt_email = new javax.swing.JFormattedTextField();
+        Username = new javax.swing.JLabel();
+        txt_username = new javax.swing.JFormattedTextField();
         txt_konfirmasipassword = new javax.swing.JPasswordField();
         chk_showpassword = new javax.swing.JCheckBox();
         lbl_password = new javax.swing.JLabel();
@@ -96,18 +96,18 @@ public Forgot() {
         Lbl_forgot.setText("FORGOT");
         getContentPane().add(Lbl_forgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 130, 400, -1));
 
-        lbl_email.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_email.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_email.setText("Email");
-        getContentPane().add(lbl_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 200, -1, -1));
+        Username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        Username.setForeground(new java.awt.Color(255, 255, 255));
+        Username.setText("Username");
+        getContentPane().add(Username, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 200, -1, -1));
 
-        txt_email.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt_email.addActionListener(new java.awt.event.ActionListener() {
+        txt_username.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_emailActionPerformed(evt);
+                txt_usernameActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 300, 40));
+        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 300, 40));
 
         txt_konfirmasipassword.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         getContentPane().add(txt_konfirmasipassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 380, 300, 40));
@@ -138,6 +138,7 @@ public Forgot() {
 
         btn_cancel.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_cancel.setText("CANCEL");
+        btn_cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelActionPerformed(evt);
@@ -147,6 +148,7 @@ public Forgot() {
 
         btn_forgot.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_forgot.setText("FORGOT");
+        btn_forgot.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_forgot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_forgotActionPerformed(evt);
@@ -168,9 +170,9 @@ public Forgot() {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
+    private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_emailActionPerformed
+    }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void chk_showpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_showpasswordActionPerformed
         /// Mengatur karakter echo pada field password
@@ -195,13 +197,12 @@ if (chk_showpassword.isSelected()) {
 
     private void btn_forgotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_forgotActionPerformed
         try {
-    String email = txt_email.getText();
-    String tanggal = txt_tanggalmasuk.getText();
     String newPassword = new String(txt_password.getPassword());
+    String username = new String(txt_username.getText());
     String confirmPassword = new String(txt_konfirmasipassword.getPassword());
 
-    if (email.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Email, Password, dan Konfirmasi Password harus diisi");
+    if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Password dan Konfirmasi Password harus diisi");
         return;
     } else if (newPassword.length() < 5 || newPassword.length() > 15) {
         JOptionPane.showMessageDialog(null, "Password harus diisi dengan panjang minimal 5 karakter dan maksimal 15 karakter");
@@ -242,6 +243,16 @@ if (chk_showpassword.isSelected()) {
         Logger.getLogger(Forgot.class.getName()).log(Level.SEVERE, null, ex);
     }
 
+    // Cek apakah username ditemukan dalam database
+    String checkUserSql = "SELECT COUNT(*) FROM akun WHERE username = ?";
+    PreparedStatement checkUserPst = conn.prepareStatement(checkUserSql);
+    checkUserPst.setString(1, username);
+    ResultSet checkUserRs = checkUserPst.executeQuery();
+    if (!checkUserRs.next() || checkUserRs.getInt(1) == 0) {
+        JOptionPane.showMessageDialog(null, "Username Tidak Ditemukan. Silakan Cek Kembali Username Anda.");
+        return;
+    }
+
     // Cek apakah password sudah digunakan
     String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
     PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
@@ -252,29 +263,18 @@ if (chk_showpassword.isSelected()) {
         return;
     }
 
-    // Cek apakah username dan email ada di database
-    String checkUserEmailSql = "SELECT COUNT(*) FROM akun WHERE gmail = ?";
-    PreparedStatement checkUserEmailPst = conn.prepareStatement(checkUserEmailSql);
-    checkUserEmailPst.setString(1, email);
-    ResultSet checkUserEmailRs = checkUserEmailPst.executeQuery();
-    if (checkUserEmailRs.next() && checkUserEmailRs.getInt(1) > 0) {
-        // jika ya, update password di database
-        String updateSql = "UPDATE akun SET password = ? , gmail = ? , tanggal = ?";
-        PreparedStatement updatePst = conn.prepareStatement(updateSql);
-        updatePst.setString(1, newPassword);
-        updatePst.setString(2, email);
-        updatePst.setString(3, tanggal);
-        updatePst.executeUpdate();
+    // Update password di database
+    String updateSql = "UPDATE akun SET password = ? WHERE username = ?";
+    PreparedStatement updatePst = conn.prepareStatement(updateSql);
+    updatePst.setString(1, newPassword);
+    updatePst.setString(2, username);
+    updatePst.executeUpdate();
 
-        JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nGmail: " + email + "\nPassword Baru: " + newPassword + "\nTanggal: " + tanggal);
+    JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nPassword Baru: " + newPassword);
 
-        // tutup form reset password dan buka form login
-        this.setVisible(false);
-        new Login().setVisible(true);
-    } else {
-        // jika tidak, tampilkan pesan error
-        JOptionPane.showMessageDialog(null, "Email Tidak Ditemukan. Silakan Cek Kembali Dan Email Yang Benar.");
-    }
+    // Tutup form reset password dan buka form login
+    this.setVisible(false);
+    new Login().setVisible(true);
 } catch (SQLException ex) {
     Logger.getLogger(Forgot.class.getName()).log(Level.SEVERE, null, ex);
 }
@@ -319,18 +319,18 @@ if (chk_showpassword.isSelected()) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Lbl_forgot;
+    private javax.swing.JLabel Username;
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_forgot;
     private javax.swing.JCheckBox chk_showpassword;
-    private javax.swing.JLabel lbl_email;
     private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_konfirmasipassword;
     private javax.swing.JLabel lbl_lokasi;
     private javax.swing.JLabel lbl_password;
     private javax.swing.JLabel lbl_tanggal;
-    private javax.swing.JFormattedTextField txt_email;
     private javax.swing.JPasswordField txt_konfirmasipassword;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JFormattedTextField txt_tanggalmasuk;
+    private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }

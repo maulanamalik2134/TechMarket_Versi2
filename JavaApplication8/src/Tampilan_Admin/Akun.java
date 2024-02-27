@@ -393,6 +393,35 @@ private void tabel_akun() {
 
     // Membuat koneksi ke database
     Connection conn = Config.configDB();
+    
+    // Validasi inputan form
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
+        return;
+    } else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
+        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
+        return;
+    } else {
+        Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
+        Matcher usernameMatcher = usernamePattern.matcher(username);
+        if (!usernameMatcher.matches()) {
+            JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
+            return;
+        }
+    }
+
+    if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$") || password.contains("username") || password.contains("Telepon")) {
+        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
+        return;
+    } else {
+        String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
+        for (String commonPassword : commonPasswords) {
+            if (password.equalsIgnoreCase(commonPassword)) {
+                JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
+                return;
+            }
+        }
+    }
 
     // Mengecek apakah username, password, telepon, dan alamat sudah diisi
 if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
@@ -498,11 +527,34 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
 
             Connection conn = Config.configDB();
 
-            // Mengecek apakah username, password, telepon, dan alamat sudah diisi
-            if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
+            // Validasi inputan form
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
+        return;
+    } else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
+        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
+        return;
+    } else {
+        Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
+        Matcher usernameMatcher = usernamePattern.matcher(username);
+        if (!usernameMatcher.matches()) {
+            JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
+            return;
+        }
+    }
+
+    if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$") || password.contains("username") || password.contains("Telepon")) {
+        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
+        return;
+    } else {
+        String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
+        for (String commonPassword : commonPasswords) {
+            if (password.equalsIgnoreCase(commonPassword)) {
+                JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
                 return;
             }
+        }
+    }
 
             // Mengecek apakah username, password, telepon, dan alamat sudah diisi
 if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {

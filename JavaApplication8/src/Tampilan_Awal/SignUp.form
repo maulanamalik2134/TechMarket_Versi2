@@ -172,6 +172,9 @@
           <Font name="Microsoft Sans Serif" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="REGISTER"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_registerActionPerformed"/>
@@ -188,6 +191,9 @@
           <Font name="Microsoft Sans Serif" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="CANCEL"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cancelActionPerformed"/>

@@ -27,9 +27,6 @@ public class Login extends javax.swing.JFrame {
 String tanggal; // Variabel untuk menyimpan tanggal
 private DefaultTableModel model; // Model tabel default
 
-/**
- * Mengatur tanggal dan waktu saat ini.
- */
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
@@ -143,6 +140,7 @@ public void login() {
 
         Btn_absen.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         Btn_absen.setText("ABSEN");
+        Btn_absen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_absen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_absenActionPerformed(evt);
@@ -163,6 +161,7 @@ public void login() {
 
         btn_login.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_login.setText("LOGIN");
+        btn_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_loginActionPerformed(evt);
@@ -172,6 +171,7 @@ public void login() {
 
         btn_register.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_register.setText("REGISTER");
+        btn_register.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registerActionPerformed(evt);
