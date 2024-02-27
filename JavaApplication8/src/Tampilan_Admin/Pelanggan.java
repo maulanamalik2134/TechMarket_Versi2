@@ -78,7 +78,6 @@ private String getNextIdPelanggan() {
 // Mengosongkan input untuk membuat akun baru
 private void kosong1() {
     txt_username.setText(null);
-    txt_email.setText(null);
     txt_telepon.setText(null);
     txt_alamat.setText(null);
 }
@@ -88,13 +87,12 @@ private void tabel_supplier() {
     model = new DefaultTableModel();
     model.addColumn("Id Pelanggan");
     model.addColumn("Nama Pelanggan");
-    model.addColumn("Email");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
 
     try {
         int no = 1;
-        String sql = "SELECT pelanggan.id_pelanggan, pelanggan.nama_pelanggan, pelanggan.email, pelanggan.telepon, pelanggan.alamat FROM pelanggan";
+        String sql = "SELECT pelanggan.id_pelanggan, pelanggan.nama_pelanggan, pelanggan.telepon, pelanggan.alamat FROM pelanggan";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -103,7 +101,6 @@ private void tabel_supplier() {
             model.addRow(new Object[]{
                 res.getString("id_pelanggan"),
                 res.getString("nama_pelanggan"),
-                res.getString("email"),
                 res.getString("telepon"),
                 res.getString("alamat"),
             });
@@ -131,8 +128,6 @@ private void tabel_supplier() {
         btn_tambah = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
         txt_telepon = new javax.swing.JFormattedTextField();
-        lbl_username1 = new javax.swing.JLabel();
-        txt_email = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel_supplier = new javax.swing.JTable();
         btn_dashboard = new javax.swing.JButton();
@@ -140,7 +135,6 @@ private void tabel_supplier() {
         btn_transaksi = new javax.swing.JButton();
         btn_return = new javax.swing.JButton();
         btn_opname1 = new javax.swing.JButton();
-        btn_oprasional = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
         txt_idakun1 = new javax.swing.JFormattedTextField();
@@ -193,38 +187,38 @@ private void tabel_supplier() {
         txt_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 310, -1));
 
+        btn_edit.setBackground(new java.awt.Color(153, 153, 0));
         btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_edit.setForeground(new java.awt.Color(153, 153, 0));
         btn_edit.setText("Edit");
-        btn_edit.setContentAreaFilled(false);
+        btn_edit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_editActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, -1, -1));
+        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 170, -1, -1));
 
+        btn_tambah.setBackground(new java.awt.Color(51, 153, 0));
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_tambah.setForeground(new java.awt.Color(0, 204, 0));
         btn_tambah.setText("Tambah");
-        btn_tambah.setContentAreaFilled(false);
+        btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_tambahActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 220, -1, -1));
+        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 170, -1, -1));
 
+        btn_hapus.setBackground(new java.awt.Color(153, 0, 0));
         btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_hapus.setForeground(new java.awt.Color(153, 0, 0));
         btn_hapus.setText("Hapus");
-        btn_hapus.setContentAreaFilled(false);
+        btn_hapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_hapusActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 220, -1, -1));
+        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 170, -1, -1));
 
         txt_telepon.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_telepon.addActionListener(new java.awt.event.ActionListener() {
@@ -233,18 +227,6 @@ private void tabel_supplier() {
             }
         });
         getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 140, -1));
-
-        lbl_username1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_username1.setText("Email");
-        getContentPane().add(lbl_username1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
-
-        txt_email.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        txt_email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_emailActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 310, -1));
 
         tabel_supplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -269,7 +251,7 @@ private void tabel_supplier() {
         });
         jScrollPane1.setViewportView(tabel_supplier);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 270, 1070, 390));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 230, 1070, 430));
 
         btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
@@ -331,18 +313,6 @@ private void tabel_supplier() {
         });
         getContentPane().add(btn_opname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 200, -1));
 
-        btn_oprasional.setBackground(new java.awt.Color(255, 255, 255));
-        btn_oprasional.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_oprasional.setForeground(new java.awt.Color(255, 255, 255));
-        btn_oprasional.setText("Oprasional");
-        btn_oprasional.setContentAreaFilled(false);
-        btn_oprasional.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_oprasionalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_oprasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
-
         btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
@@ -353,7 +323,7 @@ private void tabel_supplier() {
                 btn_laporanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 200, -1));
+        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -383,30 +353,31 @@ private void tabel_supplier() {
     if (confirm == JOptionPane.YES_OPTION) {
         String username = txt_username.getText();
         String telepon = txt_telepon.getText();
-        String email = txt_email.getText();
         String alamat = txt_alamat.getText();
         String idsupplier = txt_idpelanggan.getText();
 
         Connection conn = Config.configDB();
 
-        // Mengecek apakah username, telepon, dan alamat sudah diisi
-        if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty() || email.isEmpty()) {
+        if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
             return;
-        }
-
-        // Mengecek panjang username, alamat, dan telepon
-        if (username.length() < 5 || username.length() > 30) {
+        } else if (username.length() < 5 || username.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!username.matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(null, "Username harus terdiri dari huruf dan spasi saja.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (alamat.length() < 1 || alamat.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 1 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
+        } else if (!alamat.matches("[a-zA-Z0-9- ]+")) {
+            JOptionPane.showMessageDialog(null, "Alamat hanya boleh terdiri dari huruf, angka, spasi, atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
         } else if (telepon.length() < 1 || telepon.length() > 13) {
             JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (email.length() < 1 || email.length() > 30) {
-            JOptionPane.showMessageDialog(null, "Panjang email harus antara 1 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (!telepon.matches("[0-9-]+")) {
+            JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -422,13 +393,12 @@ private void tabel_supplier() {
             JOptionPane.showMessageDialog(null, "Username sudah ada dalam database", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // Update data supplier dengan informasi yang diedit
-            String sql = "UPDATE pelanggan SET nama_pelanggan=?, email=?, telepon=?, alamat=? WHERE Id_pelanggan=?";
+            String sql = "UPDATE pelanggan SET nama_pelanggan=?, telepon=?, alamat=? WHERE Id_pelanggan=?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, username);
-            pst.setString(2, email);
-            pst.setString(3, telepon);
-            pst.setString(4, alamat);
-            pst.setString(5, idsupplier);
+            pst.setString(2, telepon);
+            pst.setString(3, alamat);
+            pst.setString(4, idsupplier);
             pst.execute();
 
             // Tampilkan notifikasi sukses
@@ -453,31 +423,32 @@ private void tabel_supplier() {
     String username = txt_username.getText();
     String alamat = txt_alamat.getText();
     String telepon = txt_telepon.getText();
-    String email = txt_email.getText();
 
     // Membuat koneksi ke database
     Connection conn = Config.configDB();
 
-    // Mengecek apakah username, telepon, dan alamat sudah diisi
-    if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty() || email.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
-        return;
-    }
-
-    // Mengecek panjang username, alamat, dan telepon
-    if (username.length() < 5 || username.length() > 30) {
-        JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    } else if (alamat.length() < 1 || alamat.length() > 30) {
-        JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    } else if (telepon.length() < 1 || telepon.length() > 13) {
-        JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 11 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    } else if (email.length() < 1 || email.length() > 30) {
-        JOptionPane.showMessageDialog(null, "Panjang email harus antara 1 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+    if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
+            return;
+        } else if (username.length() < 5 || username.length() > 30) {
+            JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!username.matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(null, "Username harus terdiri dari huruf dan spasi saja.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (alamat.length() < 1 || alamat.length() > 30) {
+            JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 1 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!alamat.matches("[a-zA-Z0-9- ]+")) {
+            JOptionPane.showMessageDialog(null, "Alamat hanya boleh terdiri dari huruf, angka, spasi, atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (telepon.length() < 1 || telepon.length() > 13) {
+            JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!telepon.matches("[0-9-]+")) {
+            JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
     // Mengecek apakah username dan telepon sudah ada dalam database
     String checkSql = "SELECT COUNT(*) FROM pelanggan WHERE nama_pelanggan = ?";
@@ -496,13 +467,12 @@ private void tabel_supplier() {
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
         // Simpan data ke database
-        String insertSql = "INSERT INTO pelanggan (id_pelanggan, nama_pelanggan, email, telepon, alamat) VALUES (?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO pelanggan (id_pelanggan, nama_pelanggan, telepon, alamat) VALUES (?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setInt(1, idakun);
         insertPst.setString(2, username);
-        insertPst.setString(3, email);
-        insertPst.setString(4, telepon);
-        insertPst.setString(5, alamat);
+        insertPst.setString(3, telepon);
+        insertPst.setString(4, alamat);
         insertPst.execute();
 
         // Tampilkan notifikasi sukses
@@ -553,10 +523,6 @@ kosong1();
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_teleponActionPerformed
 
-    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_emailActionPerformed
-
     private void tabel_supplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_supplierMouseClicked
         int baris = tabel_supplier.rowAtPoint(evt.getPoint());
 
@@ -569,14 +535,11 @@ kosong1();
         // Set nilai username
         txt_username.setText(tabel_supplier.getValueAt(baris, 1) == null ? "" : tabel_supplier.getValueAt(baris, 1).toString());
 
-        // Set nilai username
-        txt_email.setText(tabel_supplier.getValueAt(baris, 2) == null ? "" : tabel_supplier.getValueAt(baris, 2).toString());
-
         // Set nilai telepon
-        txt_telepon.setText(tabel_supplier.getValueAt(baris, 3) == null ? "" : tabel_supplier.getValueAt(baris, 3).toString());
+        txt_telepon.setText(tabel_supplier.getValueAt(baris, 2) == null ? "" : tabel_supplier.getValueAt(baris, 2).toString());
 
         // Set nilai alamat
-        txt_alamat.setText(tabel_supplier.getValueAt(baris, 4) == null ? "" : tabel_supplier.getValueAt(baris, 4).toString());
+        txt_alamat.setText(tabel_supplier.getValueAt(baris, 3) == null ? "" : tabel_supplier.getValueAt(baris, 3).toString());
     }//GEN-LAST:event_tabel_supplierMouseClicked
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
@@ -603,11 +566,6 @@ kosong1();
         this.setVisible(false);
         new Opname().setVisible(true);
     }//GEN-LAST:event_btn_opname1ActionPerformed
-
-    private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
-        this.setVisible(false);
-        new Oprasional().setVisible(true);
-    }//GEN-LAST:event_btn_oprasionalActionPerformed
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
         this.setVisible(false);
@@ -658,7 +616,6 @@ kosong1();
     private javax.swing.JButton btn_laporan;
     private javax.swing.JButton btn_logout2;
     private javax.swing.JButton btn_opname1;
-    private javax.swing.JButton btn_oprasional;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
@@ -668,10 +625,8 @@ kosong1();
     private javax.swing.JLabel lbl_tanggal;
     private javax.swing.JLabel lbl_telepon;
     private javax.swing.JLabel lbl_username;
-    private javax.swing.JLabel lbl_username1;
     private javax.swing.JTable tabel_supplier;
     private javax.swing.JFormattedTextField txt_alamat;
-    private javax.swing.JFormattedTextField txt_email;
     private javax.swing.JFormattedTextField txt_idakun1;
     private javax.swing.JFormattedTextField txt_idpelanggan;
     private javax.swing.JFormattedTextField txt_telepon;

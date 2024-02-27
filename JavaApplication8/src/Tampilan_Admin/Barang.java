@@ -89,10 +89,11 @@ private String getNextIdBarang() {
 private void kosong1() {
     txt_namabarang.setText(null);
     txt_hargajual.setText(null);
-    cmb_satuan.setSelectedItem(null);
-    txt_namasupplier.setText(null);
-    txt_stok.setText(null);
-    cmb_kategori.setSelectedItem(null);
+//    cmb_satuan.setSelectedItem(null);
+//    txt_namasupplier.setText(null);
+//    txt_stok.setText(null);
+//     txt_merek.setText(null);
+//    cmb_kategori.setSelectedItem(null);
 }
 
 // Mengisi tabel barang
@@ -101,6 +102,7 @@ private void tabel_Barang() {
     model.addColumn("Id Barang");
     model.addColumn("Nama Barang");
     model.addColumn("Kategori");
+    model.addColumn("Merek");
     model.addColumn("Satuan");
     model.addColumn("Harga");
     model.addColumn("Stok");
@@ -109,7 +111,7 @@ private void tabel_Barang() {
     model.addColumn("Tanggal Masuk");
 
     try {
-        String sql = "SELECT barang.id_barang, barang.nama_barang, barang.kategori, barang.satuan, barang.harga, barang.stok, barang.id_supplier, barang.nama_supplier, barang.tanggal_masuk FROM barang";
+        String sql = "SELECT barang.id_barang, barang.nama_barang, barang.kategori, barang.merek, barang.satuan, barang.harga, barang.stok, barang.id_supplier, barang.nama_supplier, barang.tanggal_masuk FROM barang";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -119,6 +121,7 @@ private void tabel_Barang() {
                 res.getString("id_barang"),
                 res.getString("nama_barang"),
                 res.getString("kategori"),
+                res.getString("merek"),
                 res.getString("satuan"),
                 res.getString("harga"),
                 res.getString("stok"),
@@ -167,9 +170,12 @@ private void tabel_Barang() {
         btn_opname1 = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
         btn_oprasional = new javax.swing.JButton();
+        lbl_hargajual2 = new javax.swing.JLabel();
+        txt_merek = new javax.swing.JFormattedTextField();
         lbl_image1 = new javax.swing.JLabel();
         txt_tanggalmasuk = new javax.swing.JFormattedTextField();
         txt_idbarang = new javax.swing.JFormattedTextField();
+        btn_tambah1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -199,6 +205,7 @@ private void tabel_Barang() {
         lbl_namasupplier.setText("Nama Supplier");
         getContentPane().add(lbl_namasupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
+        txt_namasupplier.setText("Pt Elektronik");
         txt_namasupplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_namasupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,8 +220,8 @@ private void tabel_Barang() {
         getContentPane().add(txt_namasupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 310, -1));
 
         lbl_hargajual.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_hargajual.setText("Harga Jual");
-        getContentPane().add(lbl_hargajual, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
+        lbl_hargajual.setText("Merek");
+        getContentPane().add(lbl_hargajual, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 160, -1, -1));
 
         lbl_stok.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_stok.setText("Stok");
@@ -235,7 +242,16 @@ private void tabel_Barang() {
             new String [] {
                 "Id Supplier", "Nama Supplier", "Telepon", "Alamat"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabel_barang.getTableHeader().setReorderingAllowed(false);
         tabel_barang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabel_barangMouseClicked(evt);
@@ -326,6 +342,7 @@ private void tabel_Barang() {
         lbl_hargajual1.setText("Id Supplier");
         getContentPane().add(lbl_hargajual1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, -1, -1));
 
+        txt_idsupplier.setText("1");
         txt_idsupplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_idsupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,6 +435,19 @@ private void tabel_Barang() {
         });
         getContentPane().add(btn_oprasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
 
+        lbl_hargajual2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_hargajual2.setText("Harga Jual");
+        getContentPane().add(lbl_hargajual2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
+
+        txt_merek.setText("Samsung");
+        txt_merek.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_merek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_merekActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_merek, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, 140, -1));
+
         lbl_image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -426,6 +456,17 @@ private void tabel_Barang() {
 
         txt_idbarang.setText("jFormattedTextField1");
         getContentPane().add(txt_idbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, -1, 30));
+
+        btn_tambah1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_tambah1.setForeground(new java.awt.Color(0, 204, 0));
+        btn_tambah1.setText("Tambah");
+        btn_tambah1.setContentAreaFilled(false);
+        btn_tambah1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambah1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_tambah1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 220, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -458,24 +499,28 @@ private void tabel_Barang() {
             // Set nilai username
             cmb_kategori.setSelectedItem(tabel_barang.getValueAt(baris, 2) == null ? "" : tabel_barang.getValueAt(baris, 2).toString());
             
+            // Set nilai username
+            txt_merek.setText(tabel_barang.getValueAt(baris, 3) == null ? "" : tabel_barang.getValueAt(baris, 3).toString());
+            
+            
             // Set nilai telepon
-            cmb_satuan.setSelectedItem(tabel_barang.getValueAt(baris, 3) == null ? "" : tabel_barang.getValueAt(baris, 3).toString(
+            cmb_satuan.setSelectedItem(tabel_barang.getValueAt(baris, 4) == null ? "" : tabel_barang.getValueAt(baris, 4).toString(
             ));
             
             // Set nilai username
-            txt_hargajual.setText(tabel_barang.getValueAt(baris, 4) == null ? "" : tabel_barang.getValueAt(baris, 4).toString());
+            txt_hargajual.setText(tabel_barang.getValueAt(baris, 5) == null ? "" : tabel_barang.getValueAt(baris, 5).toString());
             // Set nilai username
             
-            txt_stok.setText(tabel_barang.getValueAt(baris, 5) == null ? "" : tabel_barang.getValueAt(baris, 5).toString());
+            txt_stok.setText(tabel_barang.getValueAt(baris, 6) == null ? "" : tabel_barang.getValueAt(baris, 6).toString());
             
             // Set nilai username
-            txt_idsupplier.setText(tabel_barang.getValueAt(baris, 6) == null ? "" : tabel_barang.getValueAt(baris, 6).toString());
+            txt_idsupplier.setText(tabel_barang.getValueAt(baris, 7) == null ? "" : tabel_barang.getValueAt(baris, 7).toString());
             
             // set nilai namabarang
-            txt_namasupplier.setText(tabel_barang.getValueAt(baris,7) == null ? "" : tabel_barang.getValueAt(baris, 7).toString());
+            txt_namasupplier.setText(tabel_barang.getValueAt(baris,8) == null ? "" : tabel_barang.getValueAt(baris, 8).toString());
             
             // set nilai namabarang
-            txt_tanggalmasuk.setText(tabel_barang.getValueAt(baris,8) == null ? "" : tabel_barang.getValueAt(baris, 8).toString());
+            txt_tanggalmasuk.setText(tabel_barang.getValueAt(baris,9) == null ? "" : tabel_barang.getValueAt(baris, 9).toString());
           
         }
         catch(SQLException ex){
@@ -498,46 +543,86 @@ private void tabel_Barang() {
         String namasupplier = txt_namasupplier.getText(); // Nama supplier
         String idbarang = txt_idbarang.getText(); // ID barang
         String idsupplier = txt_idsupplier.getText(); // ID supplier
+        String merek  = txt_merek.getText(); // ID supplier
 
         Connection conn = Config.configDB();
         
-        // Mengecek apakah semua kolom sudah diisi
-    if (namabarang.isEmpty() || hargajual.isEmpty() || stok.isEmpty() || namasupplier.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
-        return;
-    }
-    
-    // Mengecek panjang inputan
-        if (namabarang.length() < 5 || namabarang.length() > 40) {
-            JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 40 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        // Validasi inputan
+        if (namabarang.isEmpty() || merek.isEmpty() || hargajual.isEmpty() || stok.isEmpty() || namasupplier.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (namabarang.length() < 5 || namabarang.length() > 50) {
+            JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 50 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!namabarang.matches("[a-zA-Z0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf dan angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (merek.length() < 1 || merek.length() > 10) {
+            JOptionPane.showMessageDialog(null, "Panjang merek harus antara 1 hingga 10 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!merek.matches("^[a-zA-Z]+$")) {
+            JOptionPane.showMessageDialog(null, "Merek hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (hargajual.length() < 4 || hargajual.length() > 8) {
             JOptionPane.showMessageDialog(null, "Panjang harga jual harus antara 4 hingga 8 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (stok.length() < 0 || stok.length() > 4) {
-            JOptionPane.showMessageDialog(null, "Panjang stok harus antara 0 hingga 4 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (!hargajual.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Harga jual hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (stok.length() < 1 || stok.length() > 3) {
+            JOptionPane.showMessageDialog(null, "Panjang stok harus antara 1 hingga 3 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!stok.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Stok hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (namasupplier.length() < 5 || namasupplier.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
+        } else if (!namasupplier.matches("^[a-zA-Z]+$")) {
+            JOptionPane.showMessageDialog(null, "Nama supplier hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
         }
        
+        // Cek apakah ada barang lain dengan nama, kategori, harga, dan merek yang sama kecuali barang yang sedang diedit
+        String checkSql = "SELECT * FROM barang WHERE nama_barang = ? AND kategori = ? AND harga = ? AND merek = ? AND id_barang != ?";
+        PreparedStatement checkPst = conn.prepareStatement(checkSql);
+        checkPst.setString(1, namabarang);
+        checkPst.setString(2, kategori);
+        checkPst.setString(3, hargajual);
+        checkPst.setString(4, merek);
+        checkPst.setString(5, idbarang);
+        ResultSet rs = checkPst.executeQuery();
+
+        if (rs.next()) {
+            JOptionPane.showMessageDialog(null, "Barang dengan nama, kategori, harga, dan merek yang sama sudah ada di database", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Stop execution if duplicate entry is found
+        }
+
         // Update data barang dengan informasi yang diedit
-        String sql = "UPDATE barang SET nama_barang=?, harga_jual=?, kategori=?, satuan=?, harga=?, stok=?, id_supplier=?, nama_supplier=?, tanggal_masuk=? WHERE id_barang=?";
+        String sql = "UPDATE barang SET nama_barang=?, kategori=?, merek=?, satuan=?, harga=?, stok=?, id_supplier=?, nama_supplier=?, tanggal_masuk=? WHERE id_barang=?";
         PreparedStatement pst = conn.prepareStatement(sql);
         pst.setString(1, namabarang);
         pst.setString(2, kategori);
-        pst.setString(3, satuan);
-        pst.setString(4, hargajual);
-        pst.setString(5, stok);
-        pst.setString(6, idsupplier);
-        pst.setString(7, namasupplier);
-        pst.setString(8, tanggal);
-        pst.setString(9, idbarang);
+        pst.setString(3, merek);
+        pst.setString(4, satuan);
+        pst.setString(5, hargajual);
+        pst.setString(6, stok);
+        pst.setString(7, idsupplier);
+        pst.setString(8, namasupplier);
+        pst.setString(9, tanggal);
+        pst.setString(10, idbarang);
         pst.executeUpdate();
 
         // Tampilkan notifikasi sukses
-        JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE); 
+        String notif = "Data berhasil diedit\n\n"
+                + "Nama Barang: " + namabarang + "\n"
+                + "Harga Jual: " + hargajual + "\n"
+                + "Kategori: " + kategori + "\n"
+                + "Merek: " + merek + "\n"
+                + "Satuan: " + satuan + "\n"
+                + "Stok: " + stok + "\n"
+                + "Nama Supplier: " + namasupplier;
+        JOptionPane.showMessageDialog(null, notif, "Sukses", JOptionPane.INFORMATION_MESSAGE); 
 
         // Perbarui tabel barang dan kosongkan input
         tabel_Barang();
@@ -562,49 +647,88 @@ if (konfirmasi == JOptionPane.YES_OPTION) {
         String kategori = (String) cmb_kategori.getSelectedItem(); // Kategori
         String stok = txt_stok.getText(); // Stok
         String tanggal = txt_tanggalmasuk.getText(); // Tanggal masuk
-        String idsupplier= txt_idsupplier.getText(); // Tanggal masuk
+        String idsupplier = txt_idsupplier.getText(); // Tanggal masuk
         String namasupplier = txt_namasupplier.getText(); // Nama supplier
+        String merek = txt_merek.getText(); // Nama supplier
 
-        // Membuat koneksi ke database
-        Connection conn = Config.configDB();
-
-        // Mengecek apakah semua kolom sudah diisi
-        if (namabarang.isEmpty() || hargajual.isEmpty() ||  stok.isEmpty() ||  namasupplier.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
+        // Validasi inputan
+        if (namabarang.isEmpty() || merek.isEmpty() || hargajual.isEmpty() || stok.isEmpty() || namasupplier.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        }
-
-        // Mengecek panjang inputan
-        if (namabarang.length() < 5 || namabarang.length() > 40) {
-            JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 40 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (namabarang.length() < 5 || namabarang.length() > 50) {
+            JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 50 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!namabarang.matches("[a-zA-Z0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf dan angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (merek.length() < 1 || merek.length() > 10) {
+            JOptionPane.showMessageDialog(null, "Panjang merek harus antara 1 hingga 10 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!merek.matches("^[a-zA-Z]+$")) {
+            JOptionPane.showMessageDialog(null, "Merek hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (hargajual.length() < 4 || hargajual.length() > 8) {
             JOptionPane.showMessageDialog(null, "Panjang harga jual harus antara 4 hingga 8 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (stok.length() < 0 || stok.length() > 4) {
-            JOptionPane.showMessageDialog(null, "Panjang stok harus antara 0 hingga 4 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (!hargajual.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Harga jual hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (stok.length() < 1 || stok.length() > 3) {
+            JOptionPane.showMessageDialog(null, "Panjang stok harus antara 1 hingga 3 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!stok.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Stok hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (namasupplier.length() < 5 || namasupplier.length() > 30) {
             JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
+        } else if (!namasupplier.matches("^[a-zA-Z]+$")) {
+            JOptionPane.showMessageDialog(null, "Nama supplier hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Membuat koneksi ke database
+        Connection conn = Config.configDB();
+
+        // Cek apakah barang dengan nama, kategori, harga, dan merek yang sama sudah ada di database
+        String checkSql = "SELECT * FROM barang WHERE nama_barang = ? AND kategori = ? AND harga = ? AND merek = ?";
+        PreparedStatement checkPst = conn.prepareStatement(checkSql);
+        checkPst.setString(1, namabarang);
+        checkPst.setString(2, kategori);
+        checkPst.setString(3, hargajual);
+        checkPst.setString(4, merek);
+        ResultSet rs = checkPst.executeQuery();
+
+        if (rs.next()) {
+            JOptionPane.showMessageDialog(null, "Barang dengan nama, kategori, harga, dan merek yang sama sudah ada di database", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Stop execution if duplicate entry is found
         }
 
         // Simpan data ke database
-        String insertSql = "INSERT INTO barang (id_barang, nama_barang, kategori, satuan, harga, stok, id_supplier, nama_supplier, tanggal_masuk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO barang (id_barang, nama_barang, kategori, merek, satuan, harga, stok, id_supplier, nama_supplier, tanggal_masuk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setString(1, idbarang);
         insertPst.setString(2, namabarang);
         insertPst.setString(3, kategori);
-        insertPst.setString(4, satuan);
-        insertPst.setString(5, hargajual);
-        insertPst.setString(6, stok);
-        insertPst.setString(7, idsupplier);
-        insertPst.setString(8, namasupplier);
-        insertPst.setString(9, tanggal);
+        insertPst.setString(4, merek);
+        insertPst.setString(5, satuan);
+        insertPst.setString(6, hargajual);
+        insertPst.setString(7, stok);
+        insertPst.setString(8, idsupplier);
+        insertPst.setString(9, namasupplier);
+        insertPst.setString(10, tanggal);
         insertPst.execute();
 
-        // Tampilkan notifikasi sukses
-        JOptionPane.showMessageDialog(null, "Data berhasil ditambah", "Sukses", JOptionPane.INFORMATION_MESSAGE); 
+        String notif = "Data berhasil ditambah\n\n"
+                + "Nama Barang: " + namabarang + "\n"
+                + "Harga Jual: " + hargajual + "\n"
+                + "Kategori: " + kategori + "\n"
+                + "Merek: " + merek + "\n"
+                + "Satuan: " + satuan + "\n"
+                + "Stok: " + stok + "\n"
+                + "Nama Supplier: " + namasupplier + "\n"
+                + "Tanggal Masuk: " + tanggal;
+        JOptionPane.showMessageDialog(null, notif, "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
         // Refresh tabel barang
         tabel_Barang();
@@ -615,12 +739,6 @@ if (konfirmasi == JOptionPane.YES_OPTION) {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Gagal menyimpan data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-
-    // Perbarui tabel barang
-    tabel_Barang();
-
-    // Kosongkan input
-    kosong1();
 } else {
     JOptionPane.showMessageDialog(null, "Penambahan barang dibatalkan");
 }
@@ -726,6 +844,14 @@ try {
         new Opname().setVisible(true);
     }//GEN-LAST:event_btn_opname1ActionPerformed
 
+    private void btn_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_tambah1ActionPerformed
+
+    private void txt_merekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_merekActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_merekActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -773,6 +899,7 @@ try {
     private javax.swing.JButton btn_oprasional;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_tambah;
+    private javax.swing.JButton btn_tambah1;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JComboBox<String> cmb_kategori;
     private javax.swing.JComboBox<String> cmb_satuan;
@@ -780,6 +907,7 @@ try {
     private javax.swing.JLabel lbl_hargabeli;
     private javax.swing.JLabel lbl_hargajual;
     private javax.swing.JLabel lbl_hargajual1;
+    private javax.swing.JLabel lbl_hargajual2;
     private javax.swing.JLabel lbl_image1;
     private javax.swing.JLabel lbl_kategori;
     private javax.swing.JLabel lbl_namabarang;
@@ -790,6 +918,7 @@ try {
     private javax.swing.JFormattedTextField txt_hargajual;
     private javax.swing.JFormattedTextField txt_idbarang;
     private javax.swing.JFormattedTextField txt_idsupplier;
+    private javax.swing.JFormattedTextField txt_merek;
     private javax.swing.JFormattedTextField txt_namabarang;
     private javax.swing.JFormattedTextField txt_namasupplier;
     private javax.swing.JFormattedTextField txt_stok;

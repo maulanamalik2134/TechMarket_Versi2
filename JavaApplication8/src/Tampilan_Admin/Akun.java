@@ -81,7 +81,6 @@ private void kosong1() {
     txt_username.setText(null);
     txt_password.setText(null);
     cmb_role.setSelectedItem(null);
-    txt_gmail.setText(null);
     txt_telepon.setText(null);
     txt_alamat.setText(null);
 }
@@ -93,13 +92,12 @@ private void tabel_akun() {
     model.addColumn("Username");
     model.addColumn("Password");
     model.addColumn("Role");
-    model.addColumn("Email");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
 
     try {
         int no = 1;
-        String sql = "SELECT akun.id_akun, akun.username, akun.password, akun.role, akun.email, akun.telepon, akun.alamat FROM akun";
+        String sql = "SELECT akun.id_akun, akun.username, akun.password, akun.role, akun.telepon, akun.alamat FROM akun";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -110,7 +108,6 @@ private void tabel_akun() {
                 res.getString("username"),
                 res.getString("password"),
                 res.getString("role"),
-                res.getString("email"),
                 res.getString("telepon"),
                 res.getString("alamat"),
             });
@@ -130,13 +127,11 @@ private void tabel_akun() {
         bab = new javax.swing.JLabel();
         btn_logout = new javax.swing.JButton();
         txt_username = new javax.swing.JFormattedTextField();
-        lbl_gmail = new javax.swing.JLabel();
         lbl_telepon = new javax.swing.JLabel();
         lbl_alamat = new javax.swing.JLabel();
         lbl_password = new javax.swing.JLabel();
         txt_password = new javax.swing.JFormattedTextField();
         txt_alamat = new javax.swing.JFormattedTextField();
-        txt_gmail = new javax.swing.JFormattedTextField();
         txt_telepon = new javax.swing.JFormattedTextField();
         lbl_username = new javax.swing.JLabel();
         cmb_role = new javax.swing.JComboBox<>();
@@ -151,7 +146,6 @@ private void tabel_akun() {
         btn_transaksi = new javax.swing.JButton();
         btn_return = new javax.swing.JButton();
         btn_opname = new javax.swing.JButton();
-        btn_oprasional = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
         txt_idakun = new javax.swing.JFormattedTextField();
@@ -189,17 +183,13 @@ private void tabel_akun() {
         });
         getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 160, -1));
 
-        lbl_gmail.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_gmail.setText("Gmail");
-        getContentPane().add(lbl_gmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 100, -1, -1));
-
         lbl_telepon.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_telepon.setText("Telepon");
-        getContentPane().add(lbl_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 100, -1, -1));
+        getContentPane().add(lbl_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 100, -1, -1));
 
         lbl_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_alamat.setText("Alamat");
-        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
+        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 100, -1, -1));
 
         lbl_password.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_password.setText("Password");
@@ -209,15 +199,7 @@ private void tabel_akun() {
         getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 160, -1));
 
         txt_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 310, -1));
-
-        txt_gmail.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        txt_gmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_gmailActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txt_gmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 120, 310, -1));
+        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 120, 250, -1));
 
         txt_telepon.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_telepon.addActionListener(new java.awt.event.ActionListener() {
@@ -225,63 +207,64 @@ private void tabel_akun() {
                 txt_teleponActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 120, 140, -1));
+        getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 120, 140, -1));
 
         lbl_username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_username.setText("Username");
         getContentPane().add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
 
         cmb_role.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir" }));
-        getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1221, 120, 100, 30));
+        cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir", "Karyawan", " " }));
+        getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 120, 160, 30));
 
+        btn_tambah.setBackground(new java.awt.Color(0, 153, 0));
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_tambah.setForeground(new java.awt.Color(0, 204, 0));
+        btn_tambah.setForeground(new java.awt.Color(51, 51, 51));
         btn_tambah.setText("Tambah");
-        btn_tambah.setContentAreaFilled(false);
+        btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_tambahActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 220, -1, -1));
+        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 180, -1, -1));
 
+        btn_edit.setBackground(new java.awt.Color(153, 153, 0));
         btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_edit.setForeground(new java.awt.Color(153, 153, 0));
         btn_edit.setText("Edit");
-        btn_edit.setContentAreaFilled(false);
+        btn_edit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_editActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, -1, -1));
+        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 180, -1, -1));
 
+        btn_hapus.setBackground(new java.awt.Color(153, 0, 0));
         btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_hapus.setForeground(new java.awt.Color(153, 0, 0));
         btn_hapus.setText("Hapus");
-        btn_hapus.setContentAreaFilled(false);
+        btn_hapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_hapusActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 220, -1, -1));
+        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 180, -1, -1));
 
         tabel_akun.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id Akun", "Username", "Password", "Role", "Gmail", "Telepon", "Alamat", "Tanggal_dibuat", "Terakhir_login"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         tabel_akun.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -291,17 +274,18 @@ private void tabel_akun() {
         });
         jScrollPane1.setViewportView(tabel_akun);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 260, 1070, 400));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 250, 1070, 410));
 
         lbl_role.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_role.setText("Role");
-        getContentPane().add(lbl_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 100, -1, -1));
+        getContentPane().add(lbl_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 100, -1, -1));
 
         btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setText("Dashboard");
         btn_dashboard.setContentAreaFilled(false);
+        btn_dashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_dashboardActionPerformed(evt);
@@ -357,18 +341,6 @@ private void tabel_akun() {
         });
         getContentPane().add(btn_opname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 200, -1));
 
-        btn_oprasional.setBackground(new java.awt.Color(255, 255, 255));
-        btn_oprasional.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_oprasional.setForeground(new java.awt.Color(255, 255, 255));
-        btn_oprasional.setText("Oprasional");
-        btn_oprasional.setContentAreaFilled(false);
-        btn_oprasional.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_oprasionalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_oprasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
-
         btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
@@ -379,7 +351,7 @@ private void tabel_akun() {
                 btn_laporanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 200, -1));
+        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -409,10 +381,6 @@ private void tabel_akun() {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usernameActionPerformed
 
-    private void txt_gmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_gmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_gmailActionPerformed
-
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         try {
     // Mendapatkan nilai dari inputan form
@@ -420,38 +388,43 @@ private void tabel_akun() {
     String username = txt_username.getText();
     String password = txt_password.getText();
     String role = cmb_role.getSelectedItem().toString();
-    String gmail = txt_gmail.getText();
     String alamat = txt_alamat.getText();
     String telepon = txt_telepon.getText();
 
     // Membuat koneksi ke database
     Connection conn = Config.configDB();
 
-    // Mengecek apakah username, password, gmail, telepon, dan alamat sudah diisi
-    if (username.isEmpty() || password.isEmpty() || gmail.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
-        return;
-    }
+    // Mengecek apakah username, password, telepon, dan alamat sudah diisi
+if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (username.length() < 5 || username.length() > 15) {
+    JOptionPane.showMessageDialog(null, "Panjang username harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!username.matches("^[a-zA-Z]+$")) {
+    JOptionPane.showMessageDialog(null, "Username hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (password.length() < 5 || password.length() > 15) {
+    JOptionPane.showMessageDialog(null, "Panjang password harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!password.matches("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-])[a-zA-Z0-9!@#$%^&*()_+=-]+$")) {
+    JOptionPane.showMessageDialog(null, "Password harus terdiri dari kombinasi huruf, angka, dan simbol seperti !@#$%^&*()_+=-", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (telepon.length() < 1 || telepon.length() > 13) {
+    JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!telepon.matches("[0-9-]+")) {
+    JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (alamat.length() < 5 || alamat.length() > 30) {
+    JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!alamat.matches("[a-zA-Z0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Alamat hanya boleh terdiri dari huruf dan angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-    // Mengecek panjang username, password, gmail, alamat, dan telepon
-    if (username.length() < 5 || username.length() > 15) {
-        JOptionPane.showMessageDialog(null, "Panjang username harus antara 5 hingga 15 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    } else if (password.length() < 5 || password.length() > 15) {
-        JOptionPane.showMessageDialog(null, "Panjang password harus antara 5 hingga 15 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    } else if (gmail.length() < 1 || gmail.length() > 30) {
-        JOptionPane.showMessageDialog(null, "Panjang gmail harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    } else if (alamat.length() < 1 || alamat.length() > 30) {
-        JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    } else if (telepon.length() < 1 || telepon.length() > 13) {
-        JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Mengecek apakah username, password, gmail, dan telepon sudah ada dalam database
+    // Mengecek apakah username, password, telepon sudah ada dalam database
     String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ?";
     PreparedStatement checkPst = conn.prepareStatement(checkSql);
     checkPst.setString(1, username);
@@ -488,19 +461,18 @@ private void tabel_akun() {
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
         // Simpan data ke database
-        String insertSql = "INSERT INTO akun (id_akun, username, password, role, email, telepon, alamat) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String insertSql = "INSERT INTO akun (id_akun, username, password, role, telepon, alamat) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setInt(1, idakun);
         insertPst.setString(2, username);
         insertPst.setString(3, password);
         insertPst.setString(4, role);
-        insertPst.setString(5, gmail);
-        insertPst.setString(6, telepon);
-        insertPst.setString(7, alamat);
+        insertPst.setString(5, telepon);
+        insertPst.setString(6, alamat);
         insertPst.execute();
 
         // Tampilkan notifikasi sukses
-        JOptionPane.showMessageDialog(null, "Data berhasil ditambah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Data berhasil ditambah:\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
         // Refresh tabel akun
         tabel_akun();
@@ -515,69 +487,74 @@ private void tabel_akun() {
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
        try {
-    // Tampilkan dialog konfirmasi untuk mengedit data
-    int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-    if (confirm == JOptionPane.YES_OPTION) {
-        String username = txt_username.getText();
-        String password = txt_password.getText();
-        String gmail = txt_gmail.getText();
-        String telepon = txt_telepon.getText();
-        String alamat = txt_alamat.getText();
-        String idakun = txt_idakun.getText();
+        // Tampilkan dialog konfirmasi untuk mengedit data
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            String username = txt_username.getText();
+            String password = txt_password.getText();
+            String telepon = txt_telepon.getText();
+            String alamat = txt_alamat.getText();
+            String idakun = txt_idakun.getText();
 
-        Connection conn = Config.configDB();
+            Connection conn = Config.configDB();
 
-        // Mengecek apakah username, password, gmail, telepon, dan alamat sudah diisi
-        if (username.isEmpty() || password.isEmpty() || gmail.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
-            return;
-        }
+            // Mengecek apakah username, password, telepon, dan alamat sudah diisi
+            if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
+                return;
+            }
 
-        // Mengecek panjang username, password, gmail, alamat, dan telepon
-        if (username.length() < 5 || username.length() > 15) {
-            JOptionPane.showMessageDialog(null, "Panjang username harus antara 5 hingga 15 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else if (password.length() < 5 || password.length() > 15) {
-            JOptionPane.showMessageDialog(null, "Panjang password harus antara 5 hingga 15 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else if (gmail.length() < 1 || gmail.length() > 30) {
-            JOptionPane.showMessageDialog(null, "Panjang gmail harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else if (alamat.length() < 1 || alamat.length() > 30) {
-            JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else if (telepon.length() < 1 || telepon.length() > 13) {
-            JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            // Mengecek apakah username, password, telepon, dan alamat sudah diisi
+if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (username.length() < 5 || username.length() > 15) {
+    JOptionPane.showMessageDialog(null, "Panjang username harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!username.matches("^[a-zA-Z]+$")) {
+    JOptionPane.showMessageDialog(null, "Username hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (password.length() < 5 || password.length() > 15) {
+    JOptionPane.showMessageDialog(null, "Panjang password harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!password.matches("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-])[a-zA-Z0-9!@#$%^&*()_+=-]+$")) {
+    JOptionPane.showMessageDialog(null, "Password harus terdiri dari kombinasi huruf, angka, dan simbol seperti !@#$%^&*()_+=-", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (telepon.length() < 1 || telepon.length() > 13) {
+    JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!telepon.matches("[0-9-]+")) {
+    JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (alamat.length() < 5 || alamat.length() > 30) {
+    JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!alamat.matches("[a-zA-Z0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Alamat hanya boleh terdiri dari huruf dan angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-        // Tampilkan dialog konfirmasi untuk menyimpan data
-        int confirmSave = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan perubahan ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-        if (confirmSave == JOptionPane.YES_OPTION) {
-            // Update data akun dengan informasi yang diedit
-            String sql = "UPDATE akun SET username=?, password=?, email=?, telepon=?, alamat=? WHERE Id_akun=?";
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, username);
-            pst.setString(2, password);
-            pst.setString(3, gmail);
-            pst.setString(4, telepon);
-            pst.setString(5, alamat);
-            pst.setString(6, idakun);
-            pst.execute();
+            // Update data ke database
+            String updateSql = "UPDATE akun SET username = ?, password = ?, telepon = ?, alamat = ? WHERE id_akun = ?";
+            PreparedStatement updatePst = conn.prepareStatement(updateSql);
+            updatePst.setString(1, username);
+            updatePst.setString(2, password);
+            updatePst.setString(3, telepon);
+            updatePst.setString(4, alamat);
+            updatePst.setString(5, idakun);
+            updatePst.executeUpdate();
 
             // Tampilkan notifikasi sukses
-            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data berhasil diupdate\n:Username: " + username + "\nPassword: " + password + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
-            // Perbarui tabel akun, ID akun, dan kosongkan input
+            // Refresh tabel akun
             tabel_akun();
-            txt_idakun.setText(getNextIdAkun());
+            // Kosongkan input
             kosong1();
         }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal mengupdate data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-} catch (Exception e) {
-    // Tampilkan notifikasi jika terjadi kesalahan saat mengubah data
-    JOptionPane.showMessageDialog(null, "Gagal mengubah data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
@@ -628,14 +605,11 @@ txt_password.setText(tabel_akun.getValueAt(baris, 2) == null ? "" : tabel_akun.g
 // Set nilai role
 cmb_role.setSelectedItem(tabel_akun.getValueAt(baris, 3) == null ? "" : tabel_akun.getValueAt(baris, 3).toString());
 
-// Set nilai gmail
-txt_gmail.setText(tabel_akun.getValueAt(baris, 4) == null ? "" : tabel_akun.getValueAt(baris, 4).toString());
-
 // Set nilai telepon
-txt_telepon.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.getValueAt(baris, 5).toString());
+txt_telepon.setText(tabel_akun.getValueAt(baris, 4) == null ? "" : tabel_akun.getValueAt(baris, 4).toString());
 
 // Set nilai alamat
-txt_alamat.setText(tabel_akun.getValueAt(baris, 6) == null ? "" : tabel_akun.getValueAt(baris, 6).toString());
+txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.getValueAt(baris, 5).toString());
 
     }//GEN-LAST:event_tabel_akunMouseClicked
 
@@ -663,11 +637,6 @@ this.setVisible(false);
         this.setVisible(false);
         new Opname().setVisible(true);
     }//GEN-LAST:event_btn_opnameActionPerformed
-
-    private void btn_oprasionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_oprasionalActionPerformed
-        this.setVisible(false);
-        new Oprasional().setVisible(true);
-    }//GEN-LAST:event_btn_oprasionalActionPerformed
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
         this.setVisible(false);
@@ -716,14 +685,12 @@ this.setVisible(false);
     private javax.swing.JButton btn_laporan;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_opname;
-    private javax.swing.JButton btn_oprasional;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JComboBox<String> cmb_role;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_alamat;
-    private javax.swing.JLabel lbl_gmail;
     private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_password;
     private javax.swing.JLabel lbl_role;
@@ -732,7 +699,6 @@ this.setVisible(false);
     private javax.swing.JLabel lbl_username;
     private javax.swing.JTable tabel_akun;
     private javax.swing.JFormattedTextField txt_alamat;
-    private javax.swing.JFormattedTextField txt_gmail;
     private javax.swing.JFormattedTextField txt_idakun;
     private javax.swing.JFormattedTextField txt_password;
     private javax.swing.JFormattedTextField txt_tanggalmasuk;
