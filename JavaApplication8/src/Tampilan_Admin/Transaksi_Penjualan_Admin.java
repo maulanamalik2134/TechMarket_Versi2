@@ -256,10 +256,10 @@ public Transaksi_Penjualan_Admin() {
         btn_cetak = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabel_barang = new javax.swing.JTable();
+        txt_idtransaksi = new javax.swing.JFormattedTextField();
         lbl_image = new javax.swing.JLabel();
         txt_tanggal = new javax.swing.JFormattedTextField();
         txt_idpelanggan = new javax.swing.JFormattedTextField();
-        txt_idtransaksi = new javax.swing.JFormattedTextField();
         txt_idakun = new javax.swing.JFormattedTextField();
         txt_idbarang = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -282,6 +282,7 @@ public Transaksi_Penjualan_Admin() {
         btn_logout2.setForeground(new java.awt.Color(255, 255, 255));
         btn_logout2.setText("Log Out");
         btn_logout2.setContentAreaFilled(false);
+        btn_logout2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_logout2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_logout2ActionPerformed(evt);
@@ -393,6 +394,7 @@ public Transaksi_Penjualan_Admin() {
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Plus Math (1).png"))); // NOI18N
         btn_tambah.setText("Tambah");
+        btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_tambahActionPerformed(evt);
@@ -404,6 +406,7 @@ public Transaksi_Penjualan_Admin() {
         btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete (1).png"))); // NOI18N
         btn_hapus.setText("Hapus");
+        btn_hapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_hapusActionPerformed(evt);
@@ -415,6 +418,7 @@ public Transaksi_Penjualan_Admin() {
         btn_bayar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_bayar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Cash.png"))); // NOI18N
         btn_bayar.setText("Bayar");
+        btn_bayar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_bayarActionPerformed(evt);
@@ -494,6 +498,7 @@ public Transaksi_Penjualan_Admin() {
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setText("Dashboard");
         btn_dashboard.setContentAreaFilled(false);
+        btn_dashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_dashboardActionPerformed(evt);
@@ -506,6 +511,7 @@ public Transaksi_Penjualan_Admin() {
         btn_datamaster.setForeground(new java.awt.Color(255, 255, 255));
         btn_datamaster.setText("Data Master");
         btn_datamaster.setContentAreaFilled(false);
+        btn_datamaster.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_datamaster.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_datamasterActionPerformed(evt);
@@ -518,6 +524,7 @@ public Transaksi_Penjualan_Admin() {
         btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setText("Transaksi");
         btn_transaksi.setContentAreaFilled(false);
+        btn_transaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_transaksiActionPerformed(evt);
@@ -530,6 +537,7 @@ public Transaksi_Penjualan_Admin() {
         btn_return.setForeground(new java.awt.Color(255, 255, 255));
         btn_return.setText("Return");
         btn_return.setContentAreaFilled(false);
+        btn_return.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_return.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_returnActionPerformed(evt);
@@ -542,6 +550,7 @@ public Transaksi_Penjualan_Admin() {
         btn_opname1.setForeground(new java.awt.Color(255, 255, 255));
         btn_opname1.setText("Opname");
         btn_opname1.setContentAreaFilled(false);
+        btn_opname1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_opname1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_opname1ActionPerformed(evt);
@@ -572,6 +581,7 @@ public Transaksi_Penjualan_Admin() {
         btn_transaksipembelian.setBackground(new java.awt.Color(255, 255, 255));
         btn_transaksipembelian.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_transaksipembelian.setText("Transaksi Pembelian");
+        btn_transaksipembelian.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_transaksipembelian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_transaksipembelianActionPerformed(evt);
@@ -583,6 +593,7 @@ public Transaksi_Penjualan_Admin() {
         btn_cari.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_cari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Search.png"))); // NOI18N
         btn_cari.setText("Cari");
+        btn_cari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_cari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cariActionPerformed(evt);
@@ -594,6 +605,7 @@ public Transaksi_Penjualan_Admin() {
         btn_cetak.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_cetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Print (1).png"))); // NOI18N
         btn_cetak.setText("Cetak\n");
+        btn_cetak.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btn_cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 220, 130, 30));
 
         tabel_barang.setModel(new javax.swing.table.DefaultTableModel(
@@ -616,6 +628,9 @@ public Transaksi_Penjualan_Admin() {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1032, 260, 290, 300));
 
+        txt_idtransaksi.setText("jFormattedTextField1");
+        getContentPane().add(txt_idtransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 190, -1, -1));
+
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -629,9 +644,6 @@ public Transaksi_Penjualan_Admin() {
             }
         });
         getContentPane().add(txt_idpelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 200, -1, -1));
-
-        txt_idtransaksi.setText("jFormattedTextField1");
-        getContentPane().add(txt_idtransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, -1, -1));
 
         txt_idakun.setText("jFormattedTextField3");
         getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 200, -1, -1));
@@ -764,7 +776,7 @@ try {
                 p.executeUpdate();
                 p.close();
             } catch (Exception e) {
-                System.out.println("Simpan Pembelian Error 1" + e);
+                System.out.println("Simpan Pembelian Error 1: " + e);
             }
 
             try {
@@ -774,13 +786,13 @@ try {
                     String sql = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_barang, nama_barang, harga_barang, satuan, jumlah, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement p = c.prepareStatement(sql);
                     
-                    p.setString(1, tabel.getValueAt(i, 0).toString());
-                    p.setString(2,  tabel.getValueAt(i, 1).toString());
-                    p.setString(3,  tabel.getValueAt(i, 2).toString());
-                    p.setString(4,  tabel.getValueAt(i, 3).toString());
-                    p.setString(5,  tabel.getValueAt(i, 4).toString());
-                    p.setString(6,  tabel.getValueAt(i, 5).toString());
-                    p.setString(7,  tabel.getValueAt(i, 6).toString());
+                    p.setInt(1, Integer.parseInt(Id_transaksi));
+                    p.setString(2,  tabel.getValueAt(i, 0).toString());
+                    p.setString(3,  tabel.getValueAt(i, 1).toString());
+                    p.setString(4,  tabel.getValueAt(i, 2).toString());
+                    p.setString(5,  tabel.getValueAt(i, 3).toString());
+                    p.setString(6,  tabel.getValueAt(i, 4).toString());
+                    p.setString(7,  tabel.getValueAt(i, 5).toString());
                     p.executeUpdate();
                     p.close();
                 }
@@ -790,6 +802,24 @@ try {
             clear1();
             utama();
             kosong();
+            try {
+                Connection c = Config.configDB();
+                String sql = "SELECT * FROM transaksi_penjualan ORDER BY id_transaksi DESC LIMIT 1";
+                System.out.println(sql);
+                java.sql.Statement stm = c.createStatement();
+                java.sql.ResultSet res = stm.executeQuery(sql);
+                if (res.next()) {
+                    String noBaru = String.valueOf(res.getInt("id_transaksi") + 1);
+                    txt_idtransaksi.setText(noBaru);
+                } else {
+                    txt_idtransaksi.setText("1");
+                }
+                res.close();
+                stm.close();
+                c.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 } catch (NumberFormatException e) {
@@ -856,8 +886,7 @@ try {
     }//GEN-LAST:event_btn_datamasterActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
-        this.setVisible(false);
-        new Transaksi_Penjualan_Admin().setVisible(true);
+
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
@@ -937,10 +966,6 @@ try {
     private void txt_bayarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_bayarKeyReleased
         int Total = Integer.parseInt(txt_total.getText());
         int Bayar = Integer.parseInt(txt_bayar.getText());
-//        if (Total == 0 || Bayar < Total || Bayar == 0) {
-//            txt_kembalian.setText("0");
-//            return;
-//        }
         String Hasil = "" + (Bayar - Total);
         txt_kembalian.setText(Hasil);
     }//GEN-LAST:event_txt_bayarKeyReleased
@@ -1062,7 +1087,6 @@ try {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bab;
-    private javax.swing.JButton btn_akun1;
     private javax.swing.JButton btn_bayar;
     private javax.swing.JButton btn_cari;
     private javax.swing.JButton btn_cetak;

@@ -174,7 +174,6 @@ private void tabel_Barang() {
         btn_akun = new javax.swing.JButton();
         btn_supplier = new javax.swing.JButton();
         btn_pelanggan = new javax.swing.JButton();
-        btn_barang = new javax.swing.JButton();
         lbl_image1 = new javax.swing.JLabel();
         txt_idbarang = new javax.swing.JFormattedTextField();
         txt_tanggalmasuk = new javax.swing.JFormattedTextField();
@@ -469,16 +468,6 @@ private void tabel_Barang() {
             }
         });
         getContentPane().add(btn_pelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 180, 30));
-
-        btn_barang.setBackground(new java.awt.Color(255, 255, 255));
-        btn_barang.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        btn_barang.setText("Data Barang");
-        btn_barang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_barangActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, 180, 30));
 
         lbl_image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -840,8 +829,7 @@ try {
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_datamasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datamasterActionPerformed
-        this.setVisible(false);
-        new Akun().setVisible(true);
+    
     }//GEN-LAST:event_btn_datamasterActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
@@ -878,11 +866,6 @@ try {
         this.setVisible(false);
         new Pelanggan().setVisible(true);
     }//GEN-LAST:event_btn_pelangganActionPerformed
-
-    private void btn_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barangActionPerformed
-        this.setVisible(false);
-        new Barang().setVisible(true);
-    }//GEN-LAST:event_btn_barangActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -922,7 +905,6 @@ try {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bab;
     private javax.swing.JButton btn_akun;
-    private javax.swing.JButton btn_barang;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_datamaster;
     private javax.swing.JButton btn_edit;

@@ -149,7 +149,6 @@ private void tabel_akun() {
         btn_supplier = new javax.swing.JButton();
         btn_pelanggan = new javax.swing.JButton();
         btn_barang = new javax.swing.JButton();
-        btn_akun = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
         txt_idakun = new javax.swing.JFormattedTextField();
         txt_tanggalmasuk = new javax.swing.JFormattedTextField();
@@ -221,7 +220,7 @@ private void tabel_akun() {
         cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir", "Karyawan", " " }));
         getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 120, 160, 30));
 
-        btn_tambah.setBackground(new java.awt.Color(0, 153, 0));
+        btn_tambah.setBackground(new java.awt.Color(255, 255, 255));
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_tambah.setForeground(new java.awt.Color(51, 51, 51));
         btn_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Plus Math (1).png"))); // NOI18N
@@ -234,7 +233,7 @@ private void tabel_akun() {
         });
         getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 160, 130, 30));
 
-        btn_edit.setBackground(new java.awt.Color(153, 153, 0));
+        btn_edit.setBackground(new java.awt.Color(255, 255, 255));
         btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Pencil (1).png"))); // NOI18N
         btn_edit.setText("Edit");
@@ -368,7 +367,7 @@ private void tabel_akun() {
                 btn_supplierActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 180, 30));
+        getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 180, 30));
 
         btn_pelanggan.setBackground(new java.awt.Color(255, 255, 255));
         btn_pelanggan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -378,7 +377,7 @@ private void tabel_akun() {
                 btn_pelangganActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_pelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 180, 30));
+        getContentPane().add(btn_pelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 180, 30));
 
         btn_barang.setBackground(new java.awt.Color(255, 255, 255));
         btn_barang.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -388,17 +387,7 @@ private void tabel_akun() {
                 btn_barangActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, 180, -1));
-
-        btn_akun.setBackground(new java.awt.Color(255, 255, 255));
-        btn_akun.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        btn_akun.setText("Data Akun");
-        btn_akun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_akunActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 180, 30));
+        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 180, -1));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -756,11 +745,6 @@ txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.get
         new Barang().setVisible(true);
     }//GEN-LAST:event_btn_barangActionPerformed
 
-    private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed
-        this.setVisible(false);
-        new Akun().setVisible(true);
-    }//GEN-LAST:event_btn_akunActionPerformed
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -796,7 +780,6 @@ txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.get
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bab;
-    private javax.swing.JButton btn_akun;
     private javax.swing.JButton btn_barang;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_datamaster;

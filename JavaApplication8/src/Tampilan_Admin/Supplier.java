@@ -137,7 +137,6 @@ private void tabel_supplier() {
         txt_username = new javax.swing.JFormattedTextField();
         lbl_username1 = new javax.swing.JLabel();
         btn_akun = new javax.swing.JButton();
-        btn_supplier = new javax.swing.JButton();
         btn_pelanggan = new javax.swing.JButton();
         btn_barang = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
@@ -206,7 +205,7 @@ private void tabel_supplier() {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 1070, 470));
 
-        btn_edit.setBackground(new java.awt.Color(153, 153, 0));
+        btn_edit.setBackground(new java.awt.Color(255, 255, 255));
         btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Pencil (1).png"))); // NOI18N
         btn_edit.setText("Edit");
@@ -217,7 +216,7 @@ private void tabel_supplier() {
         });
         getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 160, 130, -1));
 
-        btn_tambah.setBackground(new java.awt.Color(0, 153, 0));
+        btn_tambah.setBackground(new java.awt.Color(255, 255, 255));
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Plus Math (1).png"))); // NOI18N
         btn_tambah.setText("Tambah");
@@ -229,7 +228,7 @@ private void tabel_supplier() {
         });
         getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 160, 130, -1));
 
-        btn_hapus.setBackground(new java.awt.Color(153, 0, 0));
+        btn_hapus.setBackground(new java.awt.Color(255, 255, 255));
         btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete (1).png"))); // NOI18N
         btn_hapus.setText("Hapus");
@@ -343,16 +342,6 @@ private void tabel_supplier() {
         });
         getContentPane().add(btn_akun, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 180, 30));
 
-        btn_supplier.setBackground(new java.awt.Color(255, 255, 255));
-        btn_supplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        btn_supplier.setText("Data Supplier");
-        btn_supplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_supplierActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 180, 30));
-
         btn_pelanggan.setBackground(new java.awt.Color(255, 255, 255));
         btn_pelanggan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_pelanggan.setText("Data Pelanggan");
@@ -361,7 +350,7 @@ private void tabel_supplier() {
                 btn_pelangganActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_pelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 180, 30));
+        getContentPane().add(btn_pelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 180, 30));
 
         btn_barang.setBackground(new java.awt.Color(255, 255, 255));
         btn_barang.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -371,7 +360,7 @@ private void tabel_supplier() {
                 btn_barangActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, 180, 30));
+        getContentPane().add(btn_barang, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 180, 30));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -632,11 +621,6 @@ private void tabel_supplier() {
         new Akun().setVisible(true);
     }//GEN-LAST:event_btn_akunActionPerformed
 
-    private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
-        this.setVisible(false);
-        new Supplier().setVisible(true);
-    }//GEN-LAST:event_btn_supplierActionPerformed
-
     private void btn_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pelangganActionPerformed
         this.setVisible(false);
         new Pelanggan().setVisible(true);
@@ -693,7 +677,6 @@ private void tabel_supplier() {
     private javax.swing.JButton btn_opname1;
     private javax.swing.JButton btn_pelanggan;
     private javax.swing.JButton btn_return;
-    private javax.swing.JButton btn_supplier;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JScrollPane jScrollPane1;

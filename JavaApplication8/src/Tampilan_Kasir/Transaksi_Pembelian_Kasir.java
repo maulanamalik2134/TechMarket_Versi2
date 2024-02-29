@@ -1,5 +1,6 @@
-package Tampilan_Admin;
+package Tampilan_Kasir;
 
+import Tampilan_Admin.*;
 import Config.Config;
 import Tampilan_Awal.Login;
 import java.awt.List;
@@ -29,19 +30,46 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-public class Opname extends javax.swing.JFrame {
+public class Transaksi_Pembelian_Kasir extends javax.swing.JFrame {
 String Tanggal;
 private DefaultTableModel model;
 
+public void total() {
+    int Jumlahbaris = tabel.getRowCount();
+    int Subtotal = 0;
+    int Total = 0;
+    int Jumlah, Harga;
+    for (int i = 0; i < Jumlahbaris; i++) {
+        Total += Integer.parseInt(tabel.getValueAt(i, 6).toString());
+    }
+    txt_subtotal.setText(String.valueOf(Subtotal));
+    txt_total.setText(String.valueOf(Total));
+}
+
 public void loaddata() {
     DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+    int Jumlahbaris = tabel.getRowCount();
+    for (int i = 0; i < Jumlahbaris; i++) {
+        int idBarangTable = Integer.parseInt(tabel.getValueAt(i, 1).toString());
+        int idBarang = Integer.parseInt(txt_idbarang.getText());
+        if (idBarang == idBarangTable) { 
+            int jumlahTable  = Integer.parseInt(model.getValueAt(i,5).toString());
+            int subTotalTable  =Integer.parseInt( model.getValueAt(i,6).toString());
+            int jumlah  = Integer.parseInt(txt_jumlah.getText());
+            int subTotal  =Integer.parseInt(  txt_subtotal.getText());
+            model.setValueAt(jumlahTable+jumlah, i, 5);
+            model.setValueAt(subTotal+subTotalTable, i, 6);
+            return;
+        }
+    }
     model.addRow(new Object[]{
-        txt_idoprasional.getText(),
+        txt_idtransaksi.getText(),
         txt_idbarang.getText(),
         txt_namabarang.getText(),
-        txt_stoksistem.getText(),
-        txt_stokfisik.getText(),
-        txt_keterangan.getText()});
+        txt_hargajual.getText(),
+        cmb_satuan.getSelectedItem(),
+        txt_jumlah.getText(),
+        txt_subtotal.getText()});
 }
 
 public void kosong() {
@@ -54,35 +82,71 @@ public void kosong() {
 public void utama() {
     txt_idbarang.setText("");
     txt_namabarang.setText("");
-    txt_stoksistem.setText("");
-    txt_stokfisik.setText("");
-    txt_keterangan.setText("");
-    txt_idoprasional.setText("");
+    txt_hargajual.setText("");
+    cmb_satuan.setSelectedItem("");
+    txt_jumlah.setText("");
+    txt_subtotal.setText("");
+    txt_idtransaksi.setText("");
 }
 
 public void clear1() {
-    txt_idoprasional.setText("");
+    txt_idtransaksi.setText("");
     txt_idakun.setText("");
     txt_username.setText("");
-    txt_idbarang.setText("");
-    txt_keterangan.setText("");
+    txt_idsupplier.setText("");
+    txt_namasupplier.setText("");
     txt_tanggal.setText("");
-    txt_namabarang.setText("");
-    txt_stokfisik.setText("");
-    txt_stoksistem.setText("");
-    txt_keterangan.setText("");
+    cmb_metode.setSelectedItem("");
+    txt_total.setText("");
+    txt_bayar.setText("");
+    txt_kembalian.setText("");
 }
 
 public void clear2() {
     txt_idbarang.setText("");
     txt_namabarang.setText("");
-    txt_stoksistem.setText("");
-    txt_keterangan.setText("");
-    txt_stokfisik.setText("");
+    txt_hargajual.setText("");
+    cmb_satuan.setSelectedItem("");
+    txt_subtotal.setText("");
+    txt_jumlah.setText("");
+}
+
+public int getStok() {
+    int stok = 0;
+    try {
+        Connection conn = Config.configDB();
+        Statement statement = conn.createStatement();
+        String idBarang = txt_idbarang.getText();
+        ResultSet res = statement.executeQuery("SELECT stok FROM barang WHERE Id_barang = '" + idBarang + "'");
+
+        if (res.next()) {
+            stok = res.getInt("stok");
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal Mengambil Data: " + e.getMessage());
+    }
+    return stok;
 }
 
 public void tambahtransaksi() {
+    int jumlah, harga, total;
+    jumlah = Integer.valueOf(txt_jumlah.getText());
+    harga = Integer.valueOf(txt_hargajual.getText());
+
+    int stok = getStok();
+    if (stok == 0) {
+        JOptionPane.showMessageDialog(null, "Stok habis untuk transaksi ini");
+        return;
+    } else if (stok < jumlah) {
+        JOptionPane.showMessageDialog(null, "Stok tidak cukup untuk transaksi ini");
+        return;
+    } else if (stok <= 5) {
+        JOptionPane.showMessageDialog(null, "Stok menipis");
+    }
+
+    total = jumlah * harga;
     loaddata();
+    total();
     clear2();
     txt_idbarang.requestFocus();
 }
@@ -93,7 +157,7 @@ public void setTanggalDanWaktuSekarang() {
     String formattedDateTime = dateTime.format(formatter);
     txt_tanggal.setText(formattedDateTime);
 }
-// Mengatur tanggal dan waktu saat ini
+
 public void setTanggalDanWaktu() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
@@ -101,18 +165,19 @@ public void setTanggalDanWaktu() {
     lbl_tanggal.setText(formattedDateTime);
 }
 
-public Opname() {
+public Transaksi_Pembelian_Kasir() {
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi Kasir - Toko Imanuel Jember");
     model = new DefaultTableModel();
     tabel.setModel(model);
-    model.addColumn("Id Opname");
+    model.addColumn("Id_transaksi");
     model.addColumn("Id Barang");
     model.addColumn("Nama Barang");
-    model.addColumn("Stok Sistem");
-    model.addColumn("Stok Fisik");
-    model.addColumn("Keterangan");
+    model.addColumn("Harga ");
+    model.addColumn("Satuan");
+    model.addColumn("Jumlah");
+    model.addColumn("SubTotal");
 
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(() -> {
@@ -123,16 +188,16 @@ public Opname() {
     }, 0, 1, TimeUnit.SECONDS);
 
     try {
-        String sql = "SELECT * FROM opname order by id_opname desc limit 1";
+        String sql = "SELECT * FROM transaksi_pembelian order by id_transaksi desc limit 1";
         System.out.println(sql);
         java.sql.Connection conn = (Connection) Config.configDB();
         java.sql.Statement stm = conn.createStatement();
         java.sql.ResultSet res = stm.executeQuery(sql);
         if (res.next()) {
-            String noBaru = "" + (res.getInt("id_opname") + 1);
-            txt_idoprasional.setText(noBaru);
+            String noBaru = "" + (res.getInt("id_transaksi") + 1);
+            txt_idtransaksi.setText(noBaru);
         } else {
-            txt_idoprasional.setText("1");
+            txt_idtransaksi.setText("1");
         }
     } catch (Exception e) {
         e.printStackTrace();
@@ -149,33 +214,42 @@ public Opname() {
         txt_namabarang = new javax.swing.JFormattedTextField();
         lbl_namabarang = new javax.swing.JLabel();
         lbl_hargajual = new javax.swing.JLabel();
-        txt_stoksistem = new javax.swing.JFormattedTextField();
+        txt_hargajual = new javax.swing.JFormattedTextField();
+        cmb_satuan = new javax.swing.JComboBox<>();
         lbl_hargabeli = new javax.swing.JLabel();
-        txt_stokfisik = new javax.swing.JFormattedTextField();
+        lbl_stok = new javax.swing.JLabel();
+        txt_jumlah = new javax.swing.JFormattedTextField();
+        txt_subtotal = new javax.swing.JFormattedTextField();
+        lbl_stok1 = new javax.swing.JLabel();
+        lbl_namabarang1 = new javax.swing.JLabel();
         lbl_namabarang2 = new javax.swing.JLabel();
         txt_username = new javax.swing.JFormattedTextField();
-        txt_keterangan = new javax.swing.JFormattedTextField();
+        txt_namasupplier = new javax.swing.JFormattedTextField();
         btn_tambah = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
         btn_bayar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel = new javax.swing.JTable();
-        btn_dashboard = new javax.swing.JButton();
-        btn_datamaster = new javax.swing.JButton();
+        txt_total = new javax.swing.JFormattedTextField();
+        txt_kembalian = new javax.swing.JFormattedTextField();
+        txt_bayar = new javax.swing.JFormattedTextField();
+        lbl_stok2 = new javax.swing.JLabel();
+        lbl_stok3 = new javax.swing.JLabel();
+        lbl_stok4 = new javax.swing.JLabel();
         btn_transaksi = new javax.swing.JButton();
         btn_return = new javax.swing.JButton();
-        btn_opname1 = new javax.swing.JButton();
+        cmb_metode = new javax.swing.JComboBox<>();
         lbl_stok5 = new javax.swing.JLabel();
-        btn_laporan = new javax.swing.JButton();
+        btn_transaksipembelian = new javax.swing.JButton();
         btn_cari = new javax.swing.JButton();
-        btn_cetak = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabel_barang = new javax.swing.JTable();
-        txt_idbarang = new javax.swing.JFormattedTextField();
         lbl_image = new javax.swing.JLabel();
+        txt_idtransaksi = new javax.swing.JFormattedTextField();
         txt_tanggal = new javax.swing.JFormattedTextField();
-        txt_idoprasional = new javax.swing.JFormattedTextField();
+        txt_idsupplier = new javax.swing.JFormattedTextField();
         txt_idakun = new javax.swing.JFormattedTextField();
+        txt_idbarang = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -188,7 +262,7 @@ public Opname() {
 
         bab.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         bab.setForeground(new java.awt.Color(255, 255, 255));
-        bab.setText("Hai Admin, Selamat Datang Di Opname");
+        bab.setText("Hai Kasir, Selamat Datang Di Transaksi Pembelian");
         getContentPane().add(bab, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1120, 50));
 
         btn_logout2.setBackground(new java.awt.Color(255, 255, 255));
@@ -196,6 +270,7 @@ public Opname() {
         btn_logout2.setForeground(new java.awt.Color(255, 255, 255));
         btn_logout2.setText("Log Out");
         btn_logout2.setContentAreaFilled(false);
+        btn_logout2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_logout2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_logout2ActionPerformed(evt);
@@ -221,33 +296,57 @@ public Opname() {
         getContentPane().add(lbl_namabarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
         lbl_hargajual.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_hargajual.setText("Stok Sistem");
+        lbl_hargajual.setText("Harga Jual");
         getContentPane().add(lbl_hargajual, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
 
-        txt_stoksistem.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        txt_stoksistem.addActionListener(new java.awt.event.ActionListener() {
+        txt_hargajual.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_hargajual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_stoksistemActionPerformed(evt);
+                txt_hargajualActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_stoksistem, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 140, -1));
+        getContentPane().add(txt_hargajual, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 140, -1));
+
+        cmb_satuan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        cmb_satuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pcs" }));
+        getContentPane().add(cmb_satuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 140, 30));
 
         lbl_hargabeli.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_hargabeli.setText("Stok Fistem");
+        lbl_hargabeli.setText("Satuan");
         getContentPane().add(lbl_hargabeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, -1, -1));
 
-        txt_stokfisik.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        txt_stokfisik.addActionListener(new java.awt.event.ActionListener() {
+        lbl_stok.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_stok.setText("Subtotal");
+        getContentPane().add(lbl_stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 570, -1, -1));
+
+        txt_jumlah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_jumlah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_stokfisikActionPerformed(evt);
+                txt_jumlahActionPerformed(evt);
             }
         });
-        txt_stokfisik.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_jumlah.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_stokfisikKeyReleased(evt);
+                txt_jumlahKeyReleased(evt);
             }
         });
-        getContentPane().add(txt_stokfisik, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 140, -1));
+        getContentPane().add(txt_jumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 120, 140, -1));
+
+        txt_subtotal.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        txt_subtotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_subtotalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 590, 260, 30));
+
+        lbl_stok1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_stok1.setText("Metode Pembayaran");
+        getContentPane().add(lbl_stok1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 100, -1, -1));
+
+        lbl_namabarang1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_namabarang1.setText("Supplier");
+        getContentPane().add(lbl_namabarang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, -1, -1));
 
         lbl_namabarang2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_namabarang2.setText("Nama Barang");
@@ -266,23 +365,24 @@ public Opname() {
         });
         getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 310, -1));
 
-        txt_keterangan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        txt_keterangan.addActionListener(new java.awt.event.ActionListener() {
+        txt_namasupplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_namasupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_keteranganActionPerformed(evt);
+                txt_namasupplierActionPerformed(evt);
             }
         });
-        txt_keterangan.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_namasupplier.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_keteranganKeyReleased(evt);
+                txt_namasupplierKeyReleased(evt);
             }
         });
-        getContentPane().add(txt_keterangan, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 120, 330, -1));
+        getContentPane().add(txt_namasupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 310, -1));
 
         btn_tambah.setBackground(new java.awt.Color(255, 255, 255));
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Plus Math (1).png"))); // NOI18N
         btn_tambah.setText("Tambah");
+        btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_tambahActionPerformed(evt);
@@ -294,6 +394,7 @@ public Opname() {
         btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete (1).png"))); // NOI18N
         btn_hapus.setText("Hapus");
+        btn_hapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_hapusActionPerformed(evt);
@@ -305,6 +406,7 @@ public Opname() {
         btn_bayar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_bayar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Cash.png"))); // NOI18N
         btn_bayar.setText("Bayar");
+        btn_bayar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_bayarActionPerformed(evt);
@@ -338,98 +440,103 @@ public Opname() {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 750, 300));
 
-        btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
-        btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
-        btn_dashboard.setText("Dashboard");
-        btn_dashboard.setContentAreaFilled(false);
-        btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
+        txt_total.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        txt_total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_dashboardActionPerformed(evt);
+                txt_totalActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 200, -1));
+        getContentPane().add(txt_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 650, 260, -1));
 
-        btn_datamaster.setBackground(new java.awt.Color(255, 255, 255));
-        btn_datamaster.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_datamaster.setForeground(new java.awt.Color(255, 255, 255));
-        btn_datamaster.setText("Data Master");
-        btn_datamaster.setContentAreaFilled(false);
-        btn_datamaster.addActionListener(new java.awt.event.ActionListener() {
+        txt_kembalian.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        txt_kembalian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_datamasterActionPerformed(evt);
+                txt_kembalianActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_datamaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, -1));
+        getContentPane().add(txt_kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 650, 260, -1));
+
+        txt_bayar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        txt_bayar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_bayarActionPerformed(evt);
+            }
+        });
+        txt_bayar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_bayarKeyReleased(evt);
+            }
+        });
+        getContentPane().add(txt_bayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 590, 260, -1));
+
+        lbl_stok2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_stok2.setText("Bayar");
+        getContentPane().add(lbl_stok2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 570, -1, -1));
+
+        lbl_stok3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_stok3.setText("Kembalian");
+        getContentPane().add(lbl_stok3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 630, -1, -1));
+
+        lbl_stok4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_stok4.setText("Total");
+        getContentPane().add(lbl_stok4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 630, -1, -1));
 
         btn_transaksi.setBackground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setText("Transaksi");
         btn_transaksi.setContentAreaFilled(false);
+        btn_transaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_transaksiActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 200, -1));
+        getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 200, -1));
 
         btn_return.setBackground(new java.awt.Color(255, 255, 255));
         btn_return.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_return.setForeground(new java.awt.Color(255, 255, 255));
         btn_return.setText("Return");
         btn_return.setContentAreaFilled(false);
+        btn_return.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_return.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_returnActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, -1));
+        getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, -1));
 
-        btn_opname1.setBackground(new java.awt.Color(255, 255, 255));
-        btn_opname1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_opname1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_opname1.setText("Opname");
-        btn_opname1.setContentAreaFilled(false);
-        btn_opname1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_opname1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_opname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 200, -1));
+        cmb_metode.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        cmb_metode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tunai", "Non Tunai" }));
+        getContentPane().add(cmb_metode, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 120, 140, 30));
 
         lbl_stok5.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_stok5.setText("Keterangan");
+        lbl_stok5.setText("Jumlah");
         getContentPane().add(lbl_stok5, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 100, -1, -1));
 
-        btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
-        btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
-        btn_laporan.setText("Laporan");
-        btn_laporan.setContentAreaFilled(false);
-        btn_laporan.addActionListener(new java.awt.event.ActionListener() {
+        btn_transaksipembelian.setBackground(new java.awt.Color(255, 255, 255));
+        btn_transaksipembelian.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_transaksipembelian.setText("Transaksi Penjualan");
+        btn_transaksipembelian.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_transaksipembelian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_laporanActionPerformed(evt);
+                btn_transaksipembelianActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
+        getContentPane().add(btn_transaksipembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, 30));
 
         btn_cari.setBackground(new java.awt.Color(255, 255, 255));
         btn_cari.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_cari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Search.png"))); // NOI18N
         btn_cari.setText("Cari");
+        btn_cari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_cari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cariActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 130, 30));
-
-        btn_cetak.setBackground(new java.awt.Color(255, 255, 255));
-        btn_cetak.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        btn_cetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Print (1).png"))); // NOI18N
-        btn_cetak.setText("Cetak\n");
-        getContentPane().add(btn_cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 220, 130, 30));
+        getContentPane().add(btn_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 220, 130, 30));
 
         tabel_barang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -451,20 +558,28 @@ public Opname() {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1032, 260, 290, 300));
 
-        txt_idbarang.setText("jFormattedTextField2");
-        getContentPane().add(txt_idbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 180, -1, -1));
-
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        txt_idtransaksi.setText("jFormattedTextField1");
+        getContentPane().add(txt_idtransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 190, -1, -1));
 
         txt_tanggal.setText("jFormattedTextField4");
         getContentPane().add(txt_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 170, -1, -1));
 
-        txt_idoprasional.setText("jFormattedTextField1");
-        getContentPane().add(txt_idoprasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, -1, -1));
+        txt_idsupplier.setText("jFormattedTextField3");
+        txt_idsupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_idsupplierActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 200, -1, -1));
 
         txt_idakun.setText("jFormattedTextField3");
         getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 200, -1, -1));
+
+        txt_idbarang.setText("jFormattedTextField2");
+        getContentPane().add(txt_idbarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 180, -1, -1));
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 90, -1, -1));
 
         pack();
@@ -482,22 +597,18 @@ public Opname() {
     private void txt_namabarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namabarangActionPerformed
 String namaBarang = txt_namabarang.getText();
 
-// Lakukan koneksi ke database
 Connection conn = null;
 try {
     conn = Config.configDB();
 } catch (SQLException ex) {
-    Logger.getLogger(Opname.class.getName()).log(Level.SEVERE, null, ex);
+    Logger.getLogger(Transaksi_Pembelian_Kasir.class.getName()).log(Level.SEVERE, null, ex);
 }
+
 try {
-    // Buat statement
     Statement stmt = conn.createStatement();
-    
-    // Lakukan pencarian barang berdasarkan nama_barang
     String query = "SELECT * FROM barang WHERE nama_barang = '" + namaBarang + "'";
     ResultSet rs = stmt.executeQuery(query);
     
-    // Cek apakah ada barang yang ditemukan
     if (rs.next()) {
         System.out.println("Barang yang ditemukan:");
         do {
@@ -508,7 +619,6 @@ try {
         System.out.println("Barang tidak ditemukan");
     }
     
-    // Tutup statement dan koneksi
     rs.close();
     stmt.close();
     conn.close();
@@ -517,21 +627,25 @@ try {
 }
     }//GEN-LAST:event_txt_namabarangActionPerformed
 
-    private void txt_stoksistemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_stoksistemActionPerformed
+    private void txt_hargajualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargajualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_stoksistemActionPerformed
+    }//GEN-LAST:event_txt_hargajualActionPerformed
 
-    private void txt_stokfisikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_stokfisikActionPerformed
+    private void txt_jumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_jumlahActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_stokfisikActionPerformed
+    }//GEN-LAST:event_txt_jumlahActionPerformed
+
+    private void txt_subtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_subtotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_subtotalActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usernameActionPerformed
 
-    private void txt_keteranganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_keteranganActionPerformed
+    private void txt_namasupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namasupplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_keteranganActionPerformed
+    }//GEN-LAST:event_txt_namasupplierActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         tambahtransaksi();
@@ -541,58 +655,102 @@ try {
         DefaultTableModel model = (DefaultTableModel) tabel.getModel();
         int row = tabel.getSelectedRow();
         model.removeRow(row);
+        total();
+        txt_bayar.setText("0");
+        txt_kembalian.setText("0");
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void btn_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bayarActionPerformed
         try {
-    int dialogResult = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin melakukan opname?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-    if (dialogResult == JOptionPane.YES_OPTION) {
-        DefaultTableModel model = (DefaultTableModel) tabel.getModel();
-        String Id_opname = txt_idoprasional.getText();
-        String Id_akun = txt_idakun.getText();
-        String Username = txt_username.getText();
-        String Tanggal = txt_tanggal.getText();
-        System.out.println(Id_opname + " " + Id_akun + " " + Username + " " + Tanggal);
-        try {
-            Connection c = Config.configDB();
-            String sql = "INSERT INTO opname VALUES (?, ?, ?, ?)";
-            PreparedStatement p = c.prepareStatement(sql);
-            p.setInt(1, Integer.parseInt(Id_opname));
-            p.setInt(2, Integer.parseInt(Id_akun));
-            p.setString(3, Username);
-            p.setString(4, Tanggal);
-            p.executeUpdate();
-            p.close();
-        } catch (Exception e) {
-            System.out.println("Simpan opname Error 1: " + e);
-        }
-
-        try {
-            Connection c = Config.configDB();
-            int baris = tabel.getRowCount();
-            for (int i = 0; i < baris; i++) {
-                String sql = "INSERT INTO detail_opname (id_opname, id_barang, nama_barang, jumlah_sistem, jumlah_fisik, keterangan) VALUES (?, ?, ?, ?, ?, ?)";
+    int Total, Bayar, Kembalian;
+    Total = Integer.parseInt(txt_total.getText());
+    Bayar = Integer.parseInt(txt_bayar.getText());
+    System.out.println("Total: " + Total);
+    System.out.println("Bayar: " + Bayar);
+    if (Total > Bayar) {
+        JOptionPane.showMessageDialog(null, "Uang Tidak Cukup Untuk Melakukan Pembayaran");
+    } else {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin melakukan pembayaran?", "Konfirmasi", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            Kembalian = Bayar - Total;
+            System.out.println("Kembalian: " + Kembalian);
+            txt_kembalian.setText(String.valueOf(Kembalian));
+            DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+            String Id_transaksi = txt_idtransaksi.getText();
+            String Id_akun = txt_idakun.getText();
+            String Username = txt_username.getText();
+            String Id_supplier = txt_idsupplier.getText();
+            String Nama_supplier = txt_namasupplier.getText();
+            String TotalString = txt_total.getText();
+            String Metode = (String) cmb_metode.getSelectedItem();
+            String Tanggal = txt_tanggal.getText();
+            System.out.println(Id_transaksi + " " + Id_akun + " " + Username + " " + Id_supplier + " " + Nama_supplier + " " + Total + " " + Metode + " " + Tanggal);
+            try {
+                Connection c = Config.configDB();
+                String sql = "INSERT INTO transaksi_pembelian VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement p = c.prepareStatement(sql);
-
-                p.setString(1, tabel.getValueAt(i, 0).toString());
-                p.setString(2, tabel.getValueAt(i, 1).toString());
-                p.setString(3, tabel.getValueAt(i, 2).toString());
-                p.setString(4, tabel.getValueAt(i, 3).toString());
-                p.setString(5, tabel.getValueAt(i, 4).toString());
-                p.setString(6, tabel.getValueAt(i, 5).toString());
+                p.setInt(1, Integer.parseInt(Id_transaksi));
+                p.setInt(2, Integer.parseInt(Id_akun));
+                p.setString(3, Username);
+                p.setInt(4, Integer.parseInt(Id_supplier));
+                p.setString(5, Nama_supplier);
+                p.setInt(6, Total);
+                p.setString(7, Metode);
+                p.setString(8, Tanggal);
                 p.executeUpdate();
                 p.close();
+            } catch (Exception e) {
+                System.out.println("Simpan Pembelian Error 1: " + e);
             }
-        } catch (Exception e) {
-            System.out.println("Simpan opname Error 2: " + e);
-        }
 
-        clear1();
-        utama();
-        kosong();
+            try {
+                Connection c = Config.configDB();
+                int baris = tabel.getRowCount();
+                for (int i = 0; i < baris; i++) {
+                    String sql = "INSERT INTO detail_transaksi_pembelian (id_transaksi, id_barang, nama_barang, harga_barang, satuan, jumlah, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement p = c.prepareStatement(sql);
+                    
+                    p.setString(1,  tabel.getValueAt(i, 0).toString());
+                    p.setString(2,  tabel.getValueAt(i, 1).toString());
+                    p.setString(3,  tabel.getValueAt(i, 2).toString());
+                    p.setString(4,  tabel.getValueAt(i, 3).toString());
+                    p.setString(5,  tabel.getValueAt(i, 4).toString());
+                    p.setString(6,  tabel.getValueAt(i, 5).toString());
+                    p.setString(7,  tabel.getValueAt(i, 6  ).toString());
+                    p.executeUpdate();
+                    p.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Simpan Pembelian Error 2: " + e);
+            }
+            clear1();
+            utama();
+            kosong();
+            try {
+                Connection c = Config.configDB();
+                String sql = "SELECT * FROM transaksi_pembelian ORDER BY id_transaksi DESC LIMIT 1";
+                System.out.println(sql);
+                java.sql.Statement stm = c.createStatement();
+                java.sql.ResultSet res = stm.executeQuery(sql);
+                if (res.next()) {
+                    String noBaru = String.valueOf(res.getInt("id_transaksi") + 1);
+                    txt_idtransaksi.setText(noBaru);
+                } else {
+                    txt_idtransaksi.setText("1");
+                }
+                res.close();
+                stm.close();
+                c.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 } catch (NumberFormatException e) {
     JOptionPane.showMessageDialog(null, "Masukkan Angka Yang Valid");
+    txt_bayar.setText("0");
+    txt_kembalian.setText("0");
 }
     }//GEN-LAST:event_btn_bayarActionPerformed
 
@@ -602,24 +760,22 @@ try {
             Connection conn = Config.configDB();
             Statement stm = conn.createStatement();
 
-            // Ambil nilai ID akun dari baris yang dipilih
             String id_barang = tabel.getValueAt(baris, 0).toString();
-            txt_idbarang.setText(id_barang);
+            txt_idtransaksi.setText(id_barang);
             System.out.println(id_barang);
-            txt_idbarang.setEnabled(false);
-
-            // Set nilai namabarang
-            txt_namabarang.setText(tabel.getValueAt(baris, 1) == null ? "" : tabel.getValueAt(baris, 1).toString());
-
-            // Set nilai stoksistem
-            txt_stoksistem.setText(tabel.getValueAt(baris, 2) == null ? "" : tabel.getValueAt(baris, 2).toString(
-            ));
+            txt_idtransaksi.setEnabled(false);
             
-            // set nilai stokfisik
-            txt_stokfisik.setText(tabel.getValueAt(baris, 3) == null ? "" : tabel.getValueAt(baris, 3).toString());
-            
-            // set nilai stokfisik
-            txt_keterangan.setText(tabel.getValueAt(baris, 4) == null ? "" : tabel.getValueAt(baris, 4).toString());
+            txt_idbarang.setText(tabel.getValueAt(baris, 1) == null ? "" : tabel.getValueAt(baris, 1).toString());
+
+            txt_namabarang.setText(tabel.getValueAt(baris, 2) == null ? "" : tabel.getValueAt(baris, 2).toString());
+
+            txt_hargajual.setText(tabel.getValueAt(baris, 3) == null ? "" : tabel.getValueAt(baris, 3).toString());
+
+            cmb_satuan.setSelectedItem(tabel.getValueAt(baris, 4) == null ? "" : tabel.getValueAt(baris, 4).toString());
+
+            txt_jumlah.setText(tabel.getValueAt(baris, 5) == null ? "" : tabel.getValueAt(baris, 5).toString());
+
+            txt_subtotal.setText(tabel.getValueAt(baris,6) == null ? "" : tabel.getValueAt(baris, 6).toString());
 
         }
         catch(SQLException ex){
@@ -627,30 +783,26 @@ try {
         }
     }//GEN-LAST:event_tabelMouseClicked
 
-    private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        this.setVisible(false);
-        new Dashboard().setVisible(true);
-    }//GEN-LAST:event_btn_dashboardActionPerformed
+    private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_totalActionPerformed
 
-    private void btn_datamasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datamasterActionPerformed
-        this.setVisible(false);
-        new Akun().setVisible(true);
-    }//GEN-LAST:event_btn_datamasterActionPerformed
+    private void txt_kembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_kembalianActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_kembalianActionPerformed
+
+    private void txt_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bayarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_bayarActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
-        this.setVisible(false);
-        new Transaksi_Penjualan_Admin().setVisible(true);
+
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
         this.setVisible(false);
-        new Return_Pelanggan().setVisible(true);
+        new Return_Pelanggan_Kasir().setVisible(true);
     }//GEN-LAST:event_btn_returnActionPerformed
-
-    private void btn_opname1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opname1ActionPerformed
-        this.setVisible(false);
-        new Opname().setVisible(true);
-    }//GEN-LAST:event_btn_opname1ActionPerformed
 
     private void txt_namabarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_namabarangKeyReleased
         String Nama = txt_namabarang.getText();
@@ -662,7 +814,9 @@ try {
         java.sql.ResultSet res = stm.executeQuery();
         if (res.next()) {
             txt_namabarang.setText(res.getString("Nama_barang"));
-            txt_idbarang.setText(res.getString("id_barang"));
+            txt_idbarang.setText(res.getString("Id_barang"));
+            txt_hargajual.setText(res.getString("harga"));
+            cmb_satuan.setSelectedItem(res.getString("satuan"));
         }
     } catch (Exception e) {
         System.out.println("Error: " + e.getMessage());
@@ -686,18 +840,45 @@ try {
     }
     }//GEN-LAST:event_txt_usernameKeyReleased
 
-    private void txt_keteranganKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_keteranganKeyReleased
-  
-    }//GEN-LAST:event_txt_keteranganKeyReleased
+    private void txt_namasupplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_namasupplierKeyReleased
+        String Nama = txt_namasupplier.getText();
+    try {
+        String sql = "SELECT * FROM supplier WHERE nama_supplier = ?";
+        java.sql.Connection conn = (Connection) Config.configDB();
+        java.sql.PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setString(1, Nama);
+        java.sql.ResultSet res = stm.executeQuery();
+        if (res.next()) {
+            txt_namasupplier.setText(res.getString("nama_supplier"));
+            txt_idsupplier.setText(res.getString("Id_supplier"));
+        }
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+    }
+    }//GEN-LAST:event_txt_namasupplierKeyReleased
 
-    private void txt_stokfisikKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_stokfisikKeyReleased
+    private void txt_idsupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idsupplierActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_idsupplierActionPerformed
 
-    }//GEN-LAST:event_txt_stokfisikKeyReleased
+    private void txt_jumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_jumlahKeyReleased
+        int Harga = Integer.parseInt(txt_hargajual.getText());
+        int Jumlah = Integer.parseInt(txt_jumlah.getText());
+        String Hasil = "" + (Harga * Jumlah);
+        txt_subtotal.setText(Hasil);
+    }//GEN-LAST:event_txt_jumlahKeyReleased
 
-    private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
+    private void txt_bayarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_bayarKeyReleased
+        int Total = Integer.parseInt(txt_total.getText());
+        int Bayar = Integer.parseInt(txt_bayar.getText());
+        String Hasil = "" + (Bayar - Total);
+        txt_kembalian.setText(Hasil);
+    }//GEN-LAST:event_txt_bayarKeyReleased
+
+    private void btn_transaksipembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipembelianActionPerformed
         this.setVisible(false);
-        new Laporan_Penjualan().setVisible(true);
-    }//GEN-LAST:event_btn_laporanActionPerformed
+        new Transaksi_Pembelian_Kasir().setVisible(true);
+    }//GEN-LAST:event_btn_transaksipembelianActionPerformed
 
     private void btn_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cariActionPerformed
         try {
@@ -729,9 +910,7 @@ try {
             int baris = tabel_barang.rowAtPoint(evt.getPoint());
             Connection conn = Config.configDB();
             Statement stm = conn.createStatement();
-            
-            
-            // Ambil nilai ID akun dari baris yang dipilih
+
             String nama_barang = tabel_barang.getValueAt(baris, 0).toString();
             txt_namabarang.setText(nama_barang);
             System.out.println(nama_barang);
@@ -755,14 +934,78 @@ try {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Opname.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaksi_Pembelian_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Opname.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaksi_Pembelian_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Opname.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaksi_Pembelian_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Opname.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaksi_Pembelian_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -831,7 +1074,7 @@ try {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Opname().setVisible(true);
+                new Transaksi_Pembelian_Kasir().setVisible(true);
             }
         });
     }
@@ -840,16 +1083,14 @@ try {
     private javax.swing.JLabel bab;
     private javax.swing.JButton btn_bayar;
     private javax.swing.JButton btn_cari;
-    private javax.swing.JButton btn_cetak;
-    private javax.swing.JButton btn_dashboard;
-    private javax.swing.JButton btn_datamaster;
     private javax.swing.JButton btn_hapus;
-    private javax.swing.JButton btn_laporan;
     private javax.swing.JButton btn_logout2;
-    private javax.swing.JButton btn_opname1;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
+    private javax.swing.JButton btn_transaksipembelian;
+    private javax.swing.JComboBox<String> cmb_metode;
+    private javax.swing.JComboBox<String> cmb_satuan;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -857,19 +1098,30 @@ try {
     private javax.swing.JLabel lbl_hargajual;
     private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_namabarang;
+    private javax.swing.JLabel lbl_namabarang1;
     private javax.swing.JLabel lbl_namabarang2;
+    private javax.swing.JLabel lbl_stok;
+    private javax.swing.JLabel lbl_stok1;
+    private javax.swing.JLabel lbl_stok2;
+    private javax.swing.JLabel lbl_stok3;
+    private javax.swing.JLabel lbl_stok4;
     private javax.swing.JLabel lbl_stok5;
     private javax.swing.JLabel lbl_tanggal;
     private javax.swing.JTable tabel;
     private javax.swing.JTable tabel_barang;
+    private javax.swing.JFormattedTextField txt_bayar;
+    private javax.swing.JFormattedTextField txt_hargajual;
     private javax.swing.JFormattedTextField txt_idakun;
     private javax.swing.JFormattedTextField txt_idbarang;
-    private javax.swing.JFormattedTextField txt_idoprasional;
-    private javax.swing.JFormattedTextField txt_keterangan;
+    private javax.swing.JFormattedTextField txt_idsupplier;
+    private javax.swing.JFormattedTextField txt_idtransaksi;
+    private javax.swing.JFormattedTextField txt_jumlah;
+    private javax.swing.JFormattedTextField txt_kembalian;
     private javax.swing.JFormattedTextField txt_namabarang;
-    private javax.swing.JFormattedTextField txt_stokfisik;
-    private javax.swing.JFormattedTextField txt_stoksistem;
+    private javax.swing.JFormattedTextField txt_namasupplier;
+    private javax.swing.JFormattedTextField txt_subtotal;
     private javax.swing.JFormattedTextField txt_tanggal;
+    private javax.swing.JFormattedTextField txt_total;
     private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }

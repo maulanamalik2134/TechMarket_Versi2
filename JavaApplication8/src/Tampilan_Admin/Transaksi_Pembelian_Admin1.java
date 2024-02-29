@@ -251,7 +251,7 @@ public Transaksi_Pembelian_Admin1() {
         cmb_metode = new javax.swing.JComboBox<>();
         lbl_stok5 = new javax.swing.JLabel();
         btn_laporan = new javax.swing.JButton();
-        btn_transaksipembelian = new javax.swing.JButton();
+        btn_transaksipenjualan = new javax.swing.JButton();
         btn_cari = new javax.swing.JButton();
         btn_cetak = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -282,6 +282,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_logout2.setForeground(new java.awt.Color(255, 255, 255));
         btn_logout2.setText("Log Out");
         btn_logout2.setContentAreaFilled(false);
+        btn_logout2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_logout2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_logout2ActionPerformed(evt);
@@ -393,6 +394,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Plus Math (1).png"))); // NOI18N
         btn_tambah.setText("Tambah");
+        btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_tambahActionPerformed(evt);
@@ -404,6 +406,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete (1).png"))); // NOI18N
         btn_hapus.setText("Hapus");
+        btn_hapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_hapusActionPerformed(evt);
@@ -415,6 +418,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_bayar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_bayar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Cash.png"))); // NOI18N
         btn_bayar.setText("Bayar");
+        btn_bayar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_bayarActionPerformed(evt);
@@ -494,6 +498,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setText("Dashboard");
         btn_dashboard.setContentAreaFilled(false);
+        btn_dashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_dashboardActionPerformed(evt);
@@ -506,6 +511,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_datamaster.setForeground(new java.awt.Color(255, 255, 255));
         btn_datamaster.setText("Data Master");
         btn_datamaster.setContentAreaFilled(false);
+        btn_datamaster.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_datamaster.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_datamasterActionPerformed(evt);
@@ -518,6 +524,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setText("Transaksi");
         btn_transaksi.setContentAreaFilled(false);
+        btn_transaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_transaksiActionPerformed(evt);
@@ -530,6 +537,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_return.setForeground(new java.awt.Color(255, 255, 255));
         btn_return.setText("Return");
         btn_return.setContentAreaFilled(false);
+        btn_return.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_return.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_returnActionPerformed(evt);
@@ -542,6 +550,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_opname1.setForeground(new java.awt.Color(255, 255, 255));
         btn_opname1.setText("Opname");
         btn_opname1.setContentAreaFilled(false);
+        btn_opname1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_opname1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_opname1ActionPerformed(evt);
@@ -569,20 +578,22 @@ public Transaksi_Pembelian_Admin1() {
         });
         getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
 
-        btn_transaksipembelian.setBackground(new java.awt.Color(255, 255, 255));
-        btn_transaksipembelian.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        btn_transaksipembelian.setText("Transaksi Penjualan");
-        btn_transaksipembelian.addActionListener(new java.awt.event.ActionListener() {
+        btn_transaksipenjualan.setBackground(new java.awt.Color(255, 255, 255));
+        btn_transaksipenjualan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_transaksipenjualan.setText("Transaksi Penjualan");
+        btn_transaksipenjualan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_transaksipenjualan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_transaksipembelianActionPerformed(evt);
+                btn_transaksipenjualanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_transaksipembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, 30));
+        getContentPane().add(btn_transaksipenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, 30));
 
         btn_cari.setBackground(new java.awt.Color(255, 255, 255));
         btn_cari.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_cari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Search.png"))); // NOI18N
         btn_cari.setText("Cari");
+        btn_cari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_cari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cariActionPerformed(evt);
@@ -594,6 +605,7 @@ public Transaksi_Pembelian_Admin1() {
         btn_cetak.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_cetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Print (1).png"))); // NOI18N
         btn_cetak.setText("Cetak\n");
+        btn_cetak.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btn_cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 220, 130, 30));
 
         tabel_barang.setModel(new javax.swing.table.DefaultTableModel(
@@ -856,8 +868,7 @@ try {
     }//GEN-LAST:event_btn_datamasterActionPerformed
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
-        this.setVisible(false);
-        new Transaksi_Pembelian_Admin1().setVisible(true);
+
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
@@ -946,10 +957,10 @@ try {
         new Laporan_Penjualan().setVisible(true);
     }//GEN-LAST:event_btn_laporanActionPerformed
 
-    private void btn_transaksipembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipembelianActionPerformed
+    private void btn_transaksipenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipenjualanActionPerformed
         this.setVisible(false);
         new Transaksi_Penjualan_Admin().setVisible(true);
-    }//GEN-LAST:event_btn_transaksipembelianActionPerformed
+    }//GEN-LAST:event_btn_transaksipenjualanActionPerformed
 
     private void btn_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cariActionPerformed
         try {
@@ -1102,7 +1113,7 @@ try {
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
-    private javax.swing.JButton btn_transaksipembelian;
+    private javax.swing.JButton btn_transaksipenjualan;
     private javax.swing.JComboBox<String> cmb_metode;
     private javax.swing.JComboBox<String> cmb_satuan;
     private javax.swing.JScrollPane jScrollPane1;
