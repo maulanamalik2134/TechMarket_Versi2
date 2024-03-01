@@ -644,15 +644,15 @@ if (konfirmasi == JOptionPane.YES_OPTION) {
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void txt_stokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_stokActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_txt_stokActionPerformed
 
     private void txt_hargajualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargajualActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txt_hargajualActionPerformed
 
     private void txt_namabarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namabarangActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_txt_namabarangActionPerformed
 
     private void txt_namasupplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_namasupplierKeyReleased
@@ -674,11 +674,11 @@ try {
     }//GEN-LAST:event_txt_namasupplierKeyReleased
 
     private void txt_idsupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idsupplierActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txt_idsupplierActionPerformed
 
     private void txt_merekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_merekActionPerformed
-        // TODO add your handling code here:
+  
     }//GEN-LAST:event_txt_merekActionPerformed
 
     private void btn_opnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_opnameActionPerformed
@@ -731,7 +731,7 @@ try {
     }//GEN-LAST:event_btn_supplierActionPerformed
 
     private void txt_kategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_kategoriActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_txt_kategoriActionPerformed
 
     public static void main(String args[]) {

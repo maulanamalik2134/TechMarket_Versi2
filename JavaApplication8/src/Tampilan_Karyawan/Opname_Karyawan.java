@@ -45,6 +45,28 @@ public void loaddata() {
         txt_keterangan.getText()});
 }
 
+private void tabel_Barang() {
+    model = new DefaultTableModel();
+    model.addColumn("Nama Barang");
+
+    try {
+        String sql = "SELECT barang.nama_barang FROM barang";
+        Connection conn = Config.configDB();
+        Statement stm = conn.createStatement();
+        ResultSet res = stm.executeQuery(sql);
+
+        while (res.next()) {
+            model.addRow(new Object[]{
+                res.getString("nama_barang"),
+            });
+        }
+        tabel_barang.setModel(model);
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal mengisi tabel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 public void kosong() {
     model = (DefaultTableModel) tabel.getModel();
     while (model.getRowCount() > 0) {
@@ -121,6 +143,7 @@ public Opname_Karyawan() {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         txt_tanggal.setText(s.format(date));
         setTanggalDanWaktu();
+        tabel_Barang();
     }, 0, 1, TimeUnit.SECONDS);
 
     try {
@@ -300,7 +323,7 @@ public Opname_Karyawan() {
         btn_bayar.setBackground(new java.awt.Color(255, 255, 255));
         btn_bayar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_bayar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Cash.png"))); // NOI18N
-        btn_bayar.setText("Bayar");
+        btn_bayar.setText("Simpan");
         btn_bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_bayarActionPerformed(evt);
@@ -363,13 +386,13 @@ public Opname_Karyawan() {
 
         tabel_barang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1"
             }
         ));
         tabel_barang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -455,23 +478,51 @@ try {
     }//GEN-LAST:event_txt_namabarangActionPerformed
 
     private void txt_stoksistemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_stoksistemActionPerformed
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_txt_stoksistemActionPerformed
 
     private void txt_stokfisikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_stokfisikActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txt_stokfisikActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void txt_keteranganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_keteranganActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_txt_keteranganActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
-        tambahtransaksi();
+            String namaBarang = txt_namabarang.getText();
+String stokFisik = txt_stokfisik.getText();
+String stokSistem = txt_stoksistem.getText();
+String keterangan = txt_keterangan.getText();
+String username = txt_username.getText();
+
+if (namaBarang.isEmpty() || stokSistem.isEmpty() || stokFisik.isEmpty() || keterangan.isEmpty() || username.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (namaBarang.length() < 5 || namaBarang.length() > 50) {
+    JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 50 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!namaBarang.matches("[a-zA-Z0-9\"\\s.,]+")) {
+    JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (\") , titik (.) dan koma (,)", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!stokSistem.matches("[0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Stok sistem hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (stokFisik.length() < 1 || stokFisik.length() > 3 || !stokFisik.matches("[0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Stok fisik harus berupa angka dengan panjang antara 1 hingga 3 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!keterangan.matches("[a-zA-Z\\s]+")) {
+    JOptionPane.showMessageDialog(null, "Keterangan hanya boleh terdiri dari huruf dan spasi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!username.matches("[a-zA-Z]+")) {
+    JOptionPane.showMessageDialog(null, "Username hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+tambahtransaksi();
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
