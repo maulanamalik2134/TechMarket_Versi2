@@ -2,6 +2,7 @@ package Tampilan_Awal;
 
 import Config.Config;
 import Tampilan_Admin.Dashboard;
+import Tampilan_Karyawan.Opname_Karyawan;
 import Tampilan_Kasir.Transaksi_Penjualan_Kasir;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -366,19 +367,23 @@ public void login() {
         btn_login.setEnabled(true);
 
         // Username dan password cocok, pengguna berhasil login
-        String role = checkUserPassRs.getString("role");
-        if (role.equals("Admin")) {
-            JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Admin.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            // Buka halaman dashboard
-            new Dashboard().setVisible(true);
-        } else if (role.equals("Kasir")) {
-            JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Kasir.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            // Buka halaman menu transaksi kasir
-            new Transaksi_Penjualan_Kasir().setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Role Tidak Valid", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+String role = checkUserPassRs.getString("role");
+if (role.equals("Admin")) {
+    JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Admin.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+    // Buka halaman dashboard
+    new Dashboard().setVisible(true);
+} else if (role.equals("Karyawan")) {
+    JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Karyawan.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+    // Buka halaman menu transaksi karyawan
+    new Opname_Karyawan().setVisible(true);
+} else if (role.equals("Kasir")) {
+    JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Kasir.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+    // Buka halaman menu transaksi kasir
+    new Transaksi_Penjualan_Kasir().setVisible(true);
+} else {
+    JOptionPane.showMessageDialog(null, "Role Tidak Valid", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    return;
+}
 
         // Tutup halaman login
         this.dispose();

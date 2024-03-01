@@ -256,8 +256,9 @@ public Transaksi_Penjualan_Admin() {
         btn_cetak = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabel_barang = new javax.swing.JTable();
-        txt_idtransaksi = new javax.swing.JFormattedTextField();
+        cmb_status = new javax.swing.JComboBox<>();
         lbl_image = new javax.swing.JLabel();
+        txt_idtransaksi = new javax.swing.JFormattedTextField();
         txt_tanggal = new javax.swing.JFormattedTextField();
         txt_idpelanggan = new javax.swing.JFormattedTextField();
         txt_idakun = new javax.swing.JFormattedTextField();
@@ -628,11 +629,15 @@ public Transaksi_Penjualan_Admin() {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1032, 260, 290, 300));
 
-        txt_idtransaksi.setText("jFormattedTextField1");
-        getContentPane().add(txt_idtransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 190, -1, -1));
+        cmb_status.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        cmb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunas", "Belum Lunas" }));
+        getContentPane().add(cmb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 170, 140, 30));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        txt_idtransaksi.setText("jFormattedTextField1");
+        getContentPane().add(txt_idtransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 190, -1, -1));
 
         txt_tanggal.setText("jFormattedTextField4");
         getContentPane().add(txt_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 170, -1, -1));
@@ -756,14 +761,17 @@ try {
             String Id_akun = txt_idakun.getText();
             String Username = txt_username.getText();
             String Id_pelanggan = txt_idpelanggan.getText();
+            String Bayar1 = txt_bayar.getText();
+            String Kembalian1 = txt_kembalian.getText();
             String Nama_pelanggan = txt_namapelanggan.getText();
             String TotalString = txt_total.getText();
             String Metode = (String) cmb_metode.getSelectedItem();
+            String Status = (String) cmb_status.getSelectedItem();
             String Tanggal = txt_tanggal.getText();
-            System.out.println(Id_transaksi + " " + Id_akun + " " + Username + " " + Id_pelanggan + " " + Nama_pelanggan + " " + Total + " " + Metode + " " + Tanggal);
+            System.out.println(Id_transaksi + " " + Id_akun + " " + Username + " " + Id_pelanggan + " " + Nama_pelanggan + " " + Total + " " + Bayar1 + " " + Kembalian + " " + Metode + " " + Status + " " + Tanggal);
             try {
                 Connection c = Config.configDB();
-                String sql = "INSERT INTO transaksi_penjualan VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO transaksi_penjualan (id_transaksi, id_akun, username, id_pelanggan, nama_pelanggan, total, bayar, kembalian, metode_pembayaran, status, tanggal_transaksi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement p = c.prepareStatement(sql);
                 p.setInt(1, Integer.parseInt(Id_transaksi));
                 p.setInt(2, Integer.parseInt(Id_akun));
@@ -771,8 +779,11 @@ try {
                 p.setInt(4, Integer.parseInt(Id_pelanggan));
                 p.setString(5, Nama_pelanggan);
                 p.setInt(6, Total);
-                p.setString(7, Metode);
-                p.setString(8, Tanggal);
+                p.setInt(7, Integer.parseInt(Bayar1));
+                p.setInt(8, Integer.parseInt(Kembalian1));
+                p.setString(9, Metode);
+                p.setString(10, Status);
+                p.setString(11, Tanggal);
                 p.executeUpdate();
                 p.close();
             } catch (Exception e) {
@@ -786,13 +797,13 @@ try {
                     String sql = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_barang, nama_barang, harga_barang, satuan, jumlah, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement p = c.prepareStatement(sql);
                     
-                    p.setInt(1, Integer.parseInt(Id_transaksi));
-                    p.setString(2,  tabel.getValueAt(i, 0).toString());
-                    p.setString(3,  tabel.getValueAt(i, 1).toString());
-                    p.setString(4,  tabel.getValueAt(i, 2).toString());
-                    p.setString(5,  tabel.getValueAt(i, 3).toString());
-                    p.setString(6,  tabel.getValueAt(i, 4).toString());
-                    p.setString(7,  tabel.getValueAt(i, 5).toString());
+                    p.setString(1,  tabel.getValueAt(i, 0).toString());
+                    p.setString(2,  tabel.getValueAt(i, 1).toString());
+                    p.setString(3,  tabel.getValueAt(i, 2).toString());
+                    p.setString(4,  tabel.getValueAt(i, 3).toString());
+                    p.setString(5,  tabel.getValueAt(i, 4).toString());
+                    p.setString(6,  tabel.getValueAt(i, 5).toString());
+                    p.setString(7,  tabel.getValueAt(i, 6).toString());
                     p.executeUpdate();
                     p.close();
                 }
@@ -1102,6 +1113,7 @@ try {
     private javax.swing.JButton btn_transaksipembelian;
     private javax.swing.JComboBox<String> cmb_metode;
     private javax.swing.JComboBox<String> cmb_satuan;
+    private javax.swing.JComboBox<String> cmb_status;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
