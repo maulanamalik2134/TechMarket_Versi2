@@ -21,14 +21,14 @@ import javax.swing.table.DefaultTableModel;
 public class SignUp extends javax.swing.JFrame {
 private DefaultTableModel model;
 
-// Mengatur tanggal dan waktu saat ini
+
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
     String formattedDateTime = dateTime.format(formatter);
     lbl_tanggal.setText(formattedDateTime);
-    String lokasiToko = "Jl. Raya Situbondo, Blk. Gardu, Cindogo, Tapen, Kabupaten Bondowoso, Jawa Timur 68282"; // Lokasi toko
-    lbl_lokasi.setText(lokasiToko); // Mengatur label lokasi dengan lokasi toko
+    String lokasiToko = "Jl. Raya Situbondo, Blk. Gardu, Cindogo, Tapen, Kabupaten Bondowoso, Jawa Timur 68282"; 
+    lbl_lokasi.setText(lokasiToko); 
 }
 
 public void setTanggalDanWaktu() {
@@ -43,7 +43,6 @@ public SignUp() {
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
 
-    // Mengatur penjadwalan untuk memperbarui tanggal dan waktu secara periodik
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(new Runnable() {
         @Override
@@ -54,13 +53,11 @@ public SignUp() {
     }, 0, 1, TimeUnit.SECONDS);
 
     try {
-        // Mengambil data akun terakhir dari database
         String sql = "SELECT * FROM akun ORDER BY Id_akun DESC LIMIT 1";
         java.sql.Connection conn = (Connection) Config.configDB();
         java.sql.Statement stm = conn.createStatement();
         java.sql.ResultSet res = stm.executeQuery(sql);
 
-        // Mengatur nilai id akun pada field inputan
         if (res.next()) {
             String idakun = "" + (res.getInt("Id_akun") + 1);
             txt_idakun.setText(idakun);
@@ -178,7 +175,7 @@ public SignUp() {
         getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 300, 40));
 
         cmb_role.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir" }));
+        cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir", "Karyawan" }));
         getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 460, 300, 40));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Fornend.png"))); // NOI18N
@@ -204,28 +201,25 @@ public SignUp() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_idakunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idakunActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txt_idakunActionPerformed
 
     private void chk_showpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_showpasswordActionPerformed
-// Mengatur karakter echo pada field password
 if (chk_showpassword.isSelected()) {
-    txt_password.setEchoChar((char)0); // Menghilangkan karakter echo
+    txt_password.setEchoChar((char)0); 
 } else {
-    txt_password.setEchoChar('*'); // Mengganti karakter echo dengan tanda bintang
+    txt_password.setEchoChar('*'); 
 }
 
-// Mengatur karakter echo pada field konfirmasi password
 if (chk_showpassword.isSelected()) {
-    txt_konfirmasipassword.setEchoChar((char)0); // Menghilangkan karakter echo
+    txt_konfirmasipassword.setEchoChar((char)0); 
 } else {
-    txt_konfirmasipassword.setEchoChar('*'); // Mengganti karakter echo dengan tanda bintang
+    txt_konfirmasipassword.setEchoChar('*'); 
 }
     }//GEN-LAST:event_chk_showpasswordActionPerformed
 
     private void btn_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registerActionPerformed
         try {
-    // Mendapatkan nilai dari inputan form
     int id_akun = Integer.parseInt(txt_idakun.getText());
     String username = txt_username.getText();
     String tanggal = txt_tanggalmasuk.getText();
@@ -233,10 +227,8 @@ if (chk_showpassword.isSelected()) {
     String konfirmasi = new String(txt_konfirmasipassword.getPassword());
     String role = cmb_role.getSelectedItem().toString();
 
-    // Membuat koneksi ke database
     Connection conn = Config.configDB();
 
-    // Mengecek apakah username sudah ada atau password sudah digunakan sebelumnya
     String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ?";
     PreparedStatement checkPst = conn.prepareStatement(checkSql);
     checkPst.setString(1, username);
@@ -250,7 +242,6 @@ if (chk_showpassword.isSelected()) {
         }
     }
 
-    // Validasi inputan form
     if (username.isEmpty() || password.isEmpty() || konfirmasi.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
         return;
@@ -283,16 +274,31 @@ if (chk_showpassword.isSelected()) {
     }
 
     if (role.equals("Admin")) {
-        String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
-        PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
-        ResultSet checkAdminRs = checkAdminPst.executeQuery();
-        if (checkAdminRs.next() && (checkAdminRs.getInt(1) > 0 || checkAdminRs.getInt(1) >= 4)) {
-            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin dan Maksimal 4 Akun Kasir");
-            return;
-        }
+    String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
+    PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
+    ResultSet checkAdminRs = checkAdminPst.executeQuery();
+    if (checkAdminRs.next() && checkAdminRs.getInt(1) > 0) {
+        JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
+        return;
     }
+} else if (role.equals("Kasir")) {
+    String checkKasirSql = "SELECT COUNT(*) FROM akun WHERE role = 'Kasir'";
+    PreparedStatement checkKasirPst = conn.prepareStatement(checkKasirSql);
+    ResultSet checkKasirRs = checkKasirPst.executeQuery();
+    if (checkKasirRs.next() && checkKasirRs.getInt(1) >= 4) {
+        JOptionPane.showMessageDialog(null, "Hanya Bisa Membuat Maksimal 4 Akun Kasir");
+        return;
+    }
+} else if (role.equals("Karyawan")) {
+    String checkKaryawanSql = "SELECT COUNT(*) FROM akun WHERE role = 'Karyawan'";
+    PreparedStatement checkKaryawanPst = conn.prepareStatement(checkKaryawanSql);
+    ResultSet checkKaryawanRs = checkKaryawanPst.executeQuery();
+    if (checkKaryawanRs.next() && checkKaryawanRs.getInt(1) >= 4) {
+        JOptionPane.showMessageDialog(null, "Hanya Bisa Membuat Maksimal 4 Akun Karyawan");
+        return;
+    }
+}
 
-    // Menyimpan akun baru ke database
     String sql = "INSERT INTO akun (id_akun, username, password, role) VALUES (?, ?, ?, ?)";
     PreparedStatement pst = conn.prepareStatement(sql);
     pst.setInt(1, id_akun);
@@ -301,12 +307,9 @@ if (chk_showpassword.isSelected()) {
     pst.setString(4, role);
     pst.executeUpdate();
 
-    // Menampilkan pesan sukses dengan username
     String successMessage = "Akun Berhasil Dibuat!\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role;
     JOptionPane.showMessageDialog(null, successMessage);
 
-    // Menutup form saat akun berhasil dibuat
-    // Ganti "this" dengan objek form yang sesuai
     this.dispose();
     new Login().setVisible(true);
 } catch (SQLException e) {
@@ -322,11 +325,11 @@ if (chk_showpassword.isSelected()) {
     }//GEN-LAST:event_btn_cancelActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void txt_tanggalmasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tanggalmasukActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_tanggalmasukActionPerformed
 
     public static void main(String args[]) {
@@ -351,8 +354,6 @@ if (chk_showpassword.isSelected()) {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

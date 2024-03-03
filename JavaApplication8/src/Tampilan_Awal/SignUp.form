@@ -241,9 +241,10 @@
           <Font name="Microsoft Sans Serif" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
+          <StringArray count="3">
             <StringItem index="0" value="Admin"/>
             <StringItem index="1" value="Kasir"/>
+            <StringItem index="2" value="Karyawan"/>
           </StringArray>
         </Property>
       </Properties>

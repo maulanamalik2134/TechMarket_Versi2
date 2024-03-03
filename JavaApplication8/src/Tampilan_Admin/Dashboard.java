@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,13 +27,48 @@ import javax.swing.table.DefaultTableModel;
 public class Dashboard extends javax.swing.JFrame {
 private DefaultTableModel model;
 
-// Mengatur tanggal dan waktu saat ini
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
     String formattedDateTime = dateTime.format(formatter);
     lbl_tanggal.setText(formattedDateTime);
 }
+
+private void tampilstokmenipis() {
+    try {
+        String sql = "SELECT view_stok_menipis.id_barang, view_stok_menipis.nama_barang, view_stok_menipis.kategori, view_stok_menipis.satuan, view_stok_menipis.merek, view_stok_menipis.harga, view_stok_menipis.stok FROM view_stok_menipis";
+        Connection conn = Config.configDB();
+        Statement stm = conn.createStatement();
+        ResultSet res = stm.executeQuery(sql);
+
+        StringBuilder sb = new StringBuilder();
+
+        while (res.next()) {
+            String idBarang = res.getString("id_barang");
+            String namaBarang = res.getString("nama_barang");
+            String kategoriProduk = res.getString("kategori");
+            String satuan = res.getString("satuan");
+            String merek = res.getString("merek");
+            double harga = res.getDouble("harga");
+            int stok = res.getInt("stok");
+
+            sb.append("ID Barang: ").append(idBarang).append("\n");
+            sb.append("Nama Barang: ").append(namaBarang).append("\n");
+            sb.append("Kategori Produk: ").append(kategoriProduk).append("\n");
+            sb.append("Satuan: ").append(satuan).append("\n");
+            sb.append("Merek: ").append(merek).append("\n");
+            sb.append("Harga: ").append(harga).append("\n");
+            sb.append("Stok: ").append(stok).append("\n");
+            sb.append("\n");
+        }
+
+        txt_stokhabis.setText(sb.toString());
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal mengambil data stok menipis: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 
 public Dashboard() {
     initComponents();
@@ -46,6 +82,7 @@ public Dashboard() {
     }, 0, 1, TimeUnit.SECONDS);
     // Set tanggal dan waktu saat ini
     setTanggalDanWaktuSekarang();
+    tampilstokmenipis();
 }
 
     @SuppressWarnings("unchecked")
@@ -61,9 +98,12 @@ public Dashboard() {
         btn_return = new javax.swing.JButton();
         btn_opname = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt_stokhabis = new javax.swing.JTextPane();
+        lbl_pendapatan = new javax.swing.JLabel();
+        lbl_saldo = new javax.swing.JLabel();
+        lbl_pengeluaran = new javax.swing.JLabel();
         lbl_image = new javax.swing.JLabel();
-        txt_idakun = new javax.swing.JFormattedTextField();
-        txt_tanggalmasuk = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -163,14 +203,27 @@ public Dashboard() {
         });
         getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
 
-        lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
+        jScrollPane1.setViewportView(txt_stokhabis);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 220, 270, 440));
+
+        lbl_pendapatan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        lbl_pendapatan.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_pendapatan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lbl_pendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 190, 30));
+
+        lbl_saldo.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        lbl_saldo.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_saldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lbl_saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 190, 30));
+
+        lbl_pengeluaran.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        lbl_pengeluaran.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_pengeluaran.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lbl_pengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 130, 180, 30));
+
+        lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Dashboard (13).png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        txt_idakun.setText("jFormattedTextField1");
-        getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
-
-        txt_tanggalmasuk.setText("jFormattedTextField1");
-        getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -256,9 +309,12 @@ public Dashboard() {
     private javax.swing.JButton btn_opname;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_transaksi;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_image;
+    private javax.swing.JLabel lbl_pendapatan;
+    private javax.swing.JLabel lbl_pengeluaran;
+    private javax.swing.JLabel lbl_saldo;
     private javax.swing.JLabel lbl_tanggal;
-    private javax.swing.JFormattedTextField txt_idakun;
-    private javax.swing.JFormattedTextField txt_tanggalmasuk;
+    private javax.swing.JTextPane txt_stokhabis;
     // End of variables declaration//GEN-END:variables
 }

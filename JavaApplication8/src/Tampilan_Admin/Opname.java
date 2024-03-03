@@ -34,7 +34,7 @@ String Tanggal;
 private DefaultTableModel model;
 
 public void loaddata() {
-    DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+    model = (DefaultTableModel) tabel.getModel();
     model.addRow(new Object[]{
         txt_idopname.getText(),
         txt_idbarang.getText(),
@@ -44,8 +44,30 @@ public void loaddata() {
         txt_keterangan.getText()});
 }
 
+private void tabel_Barang() {
+    model = new DefaultTableModel();
+    model.addColumn("Nama Barang");
+
+    try {
+        String sql = "SELECT barang.nama_barang FROM barang";
+        Connection conn = Config.configDB();
+        Statement stm = conn.createStatement();
+        ResultSet res = stm.executeQuery(sql);
+
+        while (res.next()) {
+            model.addRow(new Object[]{
+                res.getString("nama_barang"),
+            });
+        }
+        tabel_barang.setModel(model);
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal mengisi tabel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 public void kosong() {
-    DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+    model = (DefaultTableModel) tabel.getModel();
     while (model.getRowCount() > 0) {
         model.removeRow(0);
     }
@@ -93,7 +115,7 @@ public void setTanggalDanWaktuSekarang() {
     String formattedDateTime = dateTime.format(formatter);
     txt_tanggal.setText(formattedDateTime);
 }
-// Mengatur tanggal dan waktu saat ini
+
 public void setTanggalDanWaktu() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
@@ -120,10 +142,11 @@ public Opname() {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         txt_tanggal.setText(s.format(date));
         setTanggalDanWaktu();
+        tabel_Barang();
     }, 0, 1, TimeUnit.SECONDS);
 
     try {
-        String sql = "SELECT * FROM opname order by id_opname desc limit 1";
+        String sql = "SELECT * FROM opname ORDER BY id_opname DESC LIMIT 1";
         System.out.println(sql);
         java.sql.Connection conn = (Connection) Config.configDB();
         java.sql.Statement stm = conn.createStatement();
@@ -473,67 +496,62 @@ public Opname() {
 
 @SuppressWarnings("empty-statement")
     private void txt_namabarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namabarangActionPerformed
-String namaBarang = txt_namabarang.getText();
 
-// Lakukan koneksi ke database
-Connection conn = null;
-try {
-    conn = Config.configDB();
-} catch (SQLException ex) {
-    Logger.getLogger(Opname.class.getName()).log(Level.SEVERE, null, ex);
-}
-try {
-    // Buat statement
-    Statement stmt = conn.createStatement();
-    
-    // Lakukan pencarian barang berdasarkan nama_barang
-    String query = "SELECT * FROM barang WHERE nama_barang = '" + namaBarang + "'";
-    ResultSet rs = stmt.executeQuery(query);
-    
-    // Cek apakah ada barang yang ditemukan
-    if (rs.next()) {
-        System.out.println("Barang yang ditemukan:");
-        do {
-            String nama = rs.getString("nama");
-            System.out.println("Nama: " + nama);
-        } while (rs.next());
-    } else {
-        System.out.println("Barang tidak ditemukan");
-    }
-    
-    // Tutup statement dan koneksi
-    rs.close();
-    stmt.close();
-    conn.close();
-} catch (SQLException e) {
-    e.printStackTrace();
-}
     }//GEN-LAST:event_txt_namabarangActionPerformed
 
     private void txt_stoksistemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_stoksistemActionPerformed
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_txt_stoksistemActionPerformed
 
     private void txt_stokfisikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_stokfisikActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_stokfisikActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
+   
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void txt_keteranganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_keteranganActionPerformed
-        // TODO add your handling code here:
+  
     }//GEN-LAST:event_txt_keteranganActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
-        tambahtransaksi();
+        String namaBarang = txt_namabarang.getText();
+String stokFisik = txt_stokfisik.getText();
+String stokSistem = txt_stoksistem.getText();
+String keterangan = txt_keterangan.getText();
+String username = txt_username.getText();
+
+if (namaBarang.isEmpty() || stokSistem.isEmpty() || stokFisik.isEmpty() || keterangan.isEmpty() || username.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (namaBarang.length() < 5 || namaBarang.length() > 50) {
+    JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 50 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!namaBarang.matches("[a-zA-Z0-9\"\\s.,]+")) {
+    JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (\") , titik (.) dan koma (,)", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!stokSistem.matches("[0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Stok sistem hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (stokFisik.length() < 1 || stokFisik.length() > 3 || !stokFisik.matches("[0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Stok fisik harus berupa angka dengan panjang antara 1 hingga 3 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!keterangan.matches("[a-zA-Z\\s]+")) {
+    JOptionPane.showMessageDialog(null, "Keterangan hanya boleh terdiri dari huruf dan spasi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!username.matches("[a-zA-Z]+")) {
+    JOptionPane.showMessageDialog(null, "Username hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+tambahtransaksi();
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         DefaultTableModel model = (DefaultTableModel) tabel.getModel();
         int row = tabel.getSelectedRow();
         model.removeRow(row);
+        clear2();
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void btn_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bayarActionPerformed
@@ -608,34 +626,29 @@ try {
     }//GEN-LAST:event_btn_bayarActionPerformed
 
     private void tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMouseClicked
-        try{
-            int baris = tabel.rowAtPoint(evt.getPoint());
-            Connection conn = Config.configDB();
-            Statement stm = conn.createStatement();
+        try {
+    int baris = tabel.rowAtPoint(evt.getPoint());
+    Connection conn = Config.configDB();
+    Statement stm = conn.createStatement();
 
-            // Ambil nilai ID akun dari baris yang dipilih
-            String id_barang = tabel.getValueAt(baris, 0).toString();
-            txt_idbarang.setText(id_barang);
-            System.out.println(id_barang);
-            txt_idbarang.setEnabled(false);
+    String id_opname = tabel.getValueAt(baris, 0).toString();
+    txt_idopname.setText(id_opname);
+    System.out.println(id_opname);
+    txt_idopname.setEnabled(false);
+    
+    txt_idbarang.setText(tabel.getValueAt(baris, 1) == null ? "" : tabel.getValueAt(baris, 1).toString());
 
-            // Set nilai namabarang
-            txt_namabarang.setText(tabel.getValueAt(baris, 1) == null ? "" : tabel.getValueAt(baris, 1).toString());
+    txt_namabarang.setText(tabel.getValueAt(baris, 2) == null ? "" : tabel.getValueAt(baris, 2).toString());
 
-            // Set nilai stoksistem
-            txt_stoksistem.setText(tabel.getValueAt(baris, 2) == null ? "" : tabel.getValueAt(baris, 2).toString(
-            ));
-            
-            // set nilai stokfisik
-            txt_stokfisik.setText(tabel.getValueAt(baris, 3) == null ? "" : tabel.getValueAt(baris, 3).toString());
-            
-            // set nilai stokfisik
-            txt_keterangan.setText(tabel.getValueAt(baris, 4) == null ? "" : tabel.getValueAt(baris, 4).toString());
+    txt_stoksistem.setText(tabel.getValueAt(baris, 3) == null ? "" : tabel.getValueAt(baris, 3).toString());
 
-        }
-        catch(SQLException ex){
-            Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    txt_stokfisik.setText(tabel.getValueAt(baris, 4) == null ? "" : tabel.getValueAt(baris, 4).toString());
+
+    txt_keterangan.setText(tabel.getValueAt(baris, 5) == null ? "" : tabel.getValueAt(baris, 5).toString());
+
+} catch(SQLException ex) {
+    Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+}
     }//GEN-LAST:event_tabelMouseClicked
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
@@ -741,9 +754,7 @@ try {
             int baris = tabel_barang.rowAtPoint(evt.getPoint());
             Connection conn = Config.configDB();
             Statement stm = conn.createStatement();
-            
-            
-            // Ambil nilai ID akun dari baris yang dipilih
+
             String nama_barang = tabel_barang.getValueAt(baris, 0).toString();
             txt_namabarang.setText(nama_barang);
             System.out.println(nama_barang);
@@ -775,70 +786,6 @@ try {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Opname.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

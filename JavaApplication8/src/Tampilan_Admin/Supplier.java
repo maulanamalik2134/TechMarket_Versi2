@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 public class Supplier extends javax.swing.JFrame {
 private DefaultTableModel model;
 
-// Mengatur tanggal dan waktu saat ini
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
@@ -36,7 +35,6 @@ public Supplier() {
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
-
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(new Runnable() {
         @Override
@@ -44,17 +42,12 @@ public Supplier() {
             setTanggalDanWaktuSekarang();
         }
     }, 0, 1, TimeUnit.SECONDS);
-
-    // Set tanggal dan waktu saat ini
     setTanggalDanWaktuSekarang();
-
-    // Mengisi tabel akun dan menginisialisasi formulir akun baru
     tabel_supplier();
     txt_idsupplier.setText(getNextIdSupplier());
     kosong1();
 }
 
-// Dapatkan ID berikutnya untuk akun baru
 private String getNextIdSupplier() {
     try {
         String sql = "SELECT MAX(Id_supplier) AS max_id FROM supplier";
@@ -75,28 +68,24 @@ private String getNextIdSupplier() {
     }
 }
 
-// Mengosongkan input untuk membuat akun baru
 private void kosong1() {
     txt_username.setText(null);
     txt_telepon.setText(null);
     txt_alamat.setText(null);
 }
 
-// Mengisi tabel akun dengan data dari database
 private void tabel_supplier() {
     model = new DefaultTableModel();
     model.addColumn("Id Supplier");
     model.addColumn("Nama Supplier");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
-
     try {
         int no = 1;
         String sql = "SELECT supplier.id_supplier, supplier.nama_supplier, supplier.telepon, supplier.alamat FROM supplier";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
-
         while (res.next()) {
             model.addRow(new Object[]{
                 res.getString("id_supplier"),
@@ -111,7 +100,6 @@ private void tabel_supplier() {
         JOptionPane.showMessageDialog(null, "Gagal mengisi tabel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -381,40 +369,29 @@ private void tabel_supplier() {
 
     private void btn_logout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logout2ActionPerformed
         this.setVisible(false);
-            new Login().setVisible(true);
+        new Login().setVisible(true);
     }//GEN-LAST:event_btn_logout2ActionPerformed
 
     private void tabel_supplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_supplierMouseClicked
         int baris = tabel_supplier.rowAtPoint(evt.getPoint());
-
-        // Ambil nilai ID akun dari baris yang dipilih
         String id_akun = tabel_supplier.getValueAt(baris, 0).toString();
         txt_idsupplier.setText(id_akun);
         System.out.println(id_akun);
         txt_idsupplier.setEnabled(false);
-        
-        // Set nilai username
         txt_username.setText(tabel_supplier.getValueAt(baris, 1) == null ? "" : tabel_supplier.getValueAt(baris, 1).toString());
-
-        // Set nilai telepon
         txt_telepon.setText(tabel_supplier.getValueAt(baris, 2) == null ? "" : tabel_supplier.getValueAt(baris, 2).toString());
-
-        // Set nilai alamat
         txt_alamat.setText(tabel_supplier.getValueAt(baris, 3) == null ? "" : tabel_supplier.getValueAt(baris, 3).toString());
     }//GEN-LAST:event_tabel_supplierMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         try {
-    // Tampilkan dialog konfirmasi untuk mengedit data
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
         String username = txt_username.getText();
         String telepon = txt_telepon.getText();
         String alamat = txt_alamat.getText();
         String idsupplier = txt_idsupplier.getText();
-
         Connection conn = Config.configDB();
-
         if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
             return;
@@ -437,19 +414,14 @@ private void tabel_supplier() {
             JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        // Periksa apakah username yang diedit sudah ada dalam database
         String sqlCheck = "SELECT * FROM supplier WHERE nama_supplier=? AND Id_supplier!=?";
         PreparedStatement pstCheck = conn.prepareStatement(sqlCheck);
         pstCheck.setString(1, username);
         pstCheck.setString(2, idsupplier);
         ResultSet rsCheck = pstCheck.executeQuery();
-
         if (rsCheck.next()) {
-            // Tampilkan notifikasi jika username sudah ada dalam database
             JOptionPane.showMessageDialog(null, "Username sudah ada dalam database", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Update data supplier dengan informasi yang diedit
             String sql = "UPDATE supplier SET nama_supplier=?, telepon=?, alamat=? WHERE Id_supplier=?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, username);
@@ -457,33 +429,24 @@ private void tabel_supplier() {
             pst.setString(3, alamat);
             pst.setString(4, idsupplier);
             pst.execute();
-
-            // Tampilkan notifikasi sukses
             JOptionPane.showMessageDialog(null, "Data berhasil diubah:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
-            // Perbarui tabel supplier, ID supplier, dan kosongkan input
             tabel_supplier();
             txt_idsupplier.setText(getNextIdSupplier());
             kosong1();
         }
     }
 } catch (Exception e) {
-    // Tampilkan notifikasi jika terjadi kesalahan saat mengubah data
     JOptionPane.showMessageDialog(null, "Gagal mengubah data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         try {
-        // Mendapatkan nilai dari inputan form
         int idakun = Integer.parseInt(txt_idsupplier.getText());
         String username = txt_username.getText();
         String alamat = txt_alamat.getText();
         String telepon = txt_telepon.getText();
-
-        // Membuat koneksi ke database
         Connection conn = Config.configDB();
-
         if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Semua kolom harus diisi");
             return;
@@ -506,10 +469,6 @@ private void tabel_supplier() {
             JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        // Rest of the code for inserting the data into the database and displaying notifications
-
-        // Mengecek apakah username dan telepon sudah ada dalam database
         String checkSql = "SELECT COUNT(*) FROM supplier WHERE nama_supplier = ? ";
         PreparedStatement checkPst = conn.prepareStatement(checkSql);
         checkPst.setString(1, username);
@@ -521,27 +480,18 @@ private void tabel_supplier() {
                 return;
             }
         }
-
-        // Tampilkan dialog konfirmasi untuk menyimpan data
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            // Simpan data ke database
             String insertSql = "INSERT INTO supplier (id_supplier, nama_supplier, telepon, alamat) VALUES (?, ?, ?, ?)";
-            
             PreparedStatement insertPst = conn.prepareStatement(insertSql);
             insertPst.setInt(1, idakun);
             insertPst.setString(2, username);
             insertPst.setString(3, telepon);
             insertPst.setString(4, alamat);
             insertPst.execute();
-
-            // Tampilkan notifikasi sukses
             JOptionPane.showMessageDialog(null, "Data berhasil ditambah:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
-            // Refresh tabel supplier
             tabel_supplier();
-            txt_idsupplier.setText(getNextIdSupplier()); // Update ID supplier berikutnya setelah penyimpanan berhasil
-            // Kosongkan input
+            txt_idsupplier.setText(getNextIdSupplier());
             kosong1();
         }
     } catch (Exception e) {
@@ -551,36 +501,25 @@ private void tabel_supplier() {
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         try {
-        // Tampilkan dialog konfirmasi penghapusan data
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            // Hapus data supplier berdasarkan ID
             String sqlbarang = "DELETE FROM supplier WHERE id_supplier=?";
             Connection conn = Config.configDB();
             PreparedStatement pstbarang = conn.prepareStatement(sqlbarang);
             pstbarang.setString(1, txt_idsupplier.getText());
             pstbarang.executeUpdate();
-
-            // Tampilkan notifikasi sukses
             JOptionPane.showMessageDialog(null, "Data berhasil dihapus:\nUsername: " + txt_username.getText() + "\nTelepon: " + txt_telepon.getText() + "\nAlamat: " + txt_alamat.getText(), "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
-            // Generate ID baru untuk supplier selanjutnya
             txt_idsupplier.setText(getNextIdSupplier());
         }
     } catch (Exception e) {
-        // Tampilkan notifikasi gagal
         JOptionPane.showMessageDialog(null, "Gagal menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-
-    // Perbarui tabel supplier
     tabel_supplier();
-
-    // Kosongkan input
     kosong1();
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void txt_teleponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_teleponActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txt_teleponActionPerformed
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
@@ -613,7 +552,7 @@ private void tabel_supplier() {
     }//GEN-LAST:event_btn_opname1ActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void btn_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_akunActionPerformed

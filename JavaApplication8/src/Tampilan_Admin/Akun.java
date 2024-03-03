@@ -26,7 +26,6 @@ import javax.swing.table.DefaultTableModel;
 public class Akun extends javax.swing.JFrame {
 private DefaultTableModel model;
 
-// Mengatur tanggal dan waktu saat ini
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
@@ -39,22 +38,18 @@ public Akun() {
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
 
-    // Jadwalkan tugas untuk memperbarui tanggal dan waktu saat ini setiap detik
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(() -> {
         setTanggalDanWaktuSekarang();
     }, 0, 1, TimeUnit.SECONDS);
 
-    // Set tanggal dan waktu saat ini
     setTanggalDanWaktuSekarang();
 
-    // Mengisi tabel barang dan menginisialisasi formulir barang baru
     tabel_akun();
     txt_idakun.setText(getNextIdAkun());
     kosong1();
 }
 
-// Dapatkan ID berikutnya untuk akun baru
 private String getNextIdAkun() {
     try {
         String sql = "SELECT MAX(Id_akun) AS max_id FROM akun";
@@ -75,7 +70,6 @@ private String getNextIdAkun() {
     }
 }
 
-// Mengosongkan input untuk membuat akun baru
 private void kosong1() {
     txt_username.setText(null);
     txt_password.setText(null);
@@ -84,7 +78,6 @@ private void kosong1() {
     txt_alamat.setText(null);
 }
 
-// Mengisi tabel akun dengan data dari database
 private void tabel_akun() {
     model = new DefaultTableModel();
     model.addColumn("Id Akun");
@@ -117,7 +110,6 @@ private void tabel_akun() {
         JOptionPane.showMessageDialog(null, "Gagal mengisi tabel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -410,16 +402,15 @@ private void tabel_akun() {
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void txt_teleponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_teleponActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_teleponActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         try {
-    // Mendapatkan nilai dari inputan form
     int idakun = Integer.parseInt(txt_idakun.getText());
     String username = txt_username.getText();
     String password = txt_password.getText();
@@ -427,10 +418,8 @@ private void tabel_akun() {
     String alamat = txt_alamat.getText();
     String telepon = txt_telepon.getText();
 
-    // Membuat koneksi ke database
     Connection conn = Config.configDB();
-    
-    // Validasi inputan form
+
     if (username.isEmpty() || password.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
         return;
@@ -459,7 +448,6 @@ private void tabel_akun() {
         }
     }
 
-    // Mengecek apakah username, password, telepon, dan alamat sudah diisi
 if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
     return;
@@ -489,7 +477,6 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
     return;
 }
 
-    // Mengecek apakah username, password, telepon sudah ada dalam database
     String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ?";
     PreparedStatement checkPst = conn.prepareStatement(checkSql);
     checkPst.setString(1, username);
@@ -503,29 +490,26 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
         }
     }
 
-    // Mengecek jumlah akun dengan role Admin dan Kasir
     if (role.equals("Admin")) {
         String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
         PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
         ResultSet checkAdminRs = checkAdminPst.executeQuery();
         if (checkAdminRs.next() && checkAdminRs.getInt(1) > 0) {
-            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
+            JOptionPane.showMessageDialog(null, "Hanya bisa ada satu Admin");
             return;
         }
         if (checkAdminRs.next() && checkAdminRs.getInt(1) >= 4) {
-            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada 4 Akun Kasir");
+            JOptionPane.showMessageDialog(null, "Hanya bisa ada 4 Akun Kasir");
             return;
         }
         if (checkAdminRs.next() && checkAdminRs.getInt(1) >= 4) {
-            JOptionPane.showMessageDialog(null, "Hanya Bisa Ada 4 Akun Karyawan");
+            JOptionPane.showMessageDialog(null, "Hanya bisa ada 4 Akun Karyawan");
             return;
         }
     }
-
-    // Tampilkan dialog konfirmasi untuk menyimpan data
+    
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
-        // Simpan data ke database
         String insertSql = "INSERT INTO akun (id_akun, username, password, role, telepon, alamat) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setInt(1, idakun);
@@ -536,13 +520,10 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
         insertPst.setString(6, alamat);
         insertPst.execute();
 
-        // Tampilkan notifikasi sukses
         JOptionPane.showMessageDialog(null, "Data berhasil ditambah:\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
-        // Refresh tabel akun
         tabel_akun();
-        txt_idakun.setText(getNextIdAkun()); // Update ID akun berikutnya setelah penyimpanan berhasil
-        // Kosongkan input
+        txt_idakun.setText(getNextIdAkun());
         kosong1();
     }
 } catch (Exception e) {
@@ -552,7 +533,6 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
        try {
-        // Tampilkan dialog konfirmasi untuk mengedit data
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             String username = txt_username.getText();
@@ -563,7 +543,6 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
 
             Connection conn = Config.configDB();
 
-            // Validasi inputan form
     if (username.isEmpty() || password.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
         return;
@@ -592,7 +571,6 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
         }
     }
 
-            // Mengecek apakah username, password, telepon, dan alamat sudah diisi
 if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
     return;
@@ -622,7 +600,6 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
     return;
 }
 
-            // Update data ke database
             String updateSql = "UPDATE akun SET username = ?, password = ?, telepon = ?, alamat = ? WHERE id_akun = ?";
             PreparedStatement updatePst = conn.prepareStatement(updateSql);
             updatePst.setString(1, username);
@@ -631,13 +608,8 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
             updatePst.setString(4, alamat);
             updatePst.setString(5, idakun);
             updatePst.executeUpdate();
-
-            // Tampilkan notifikasi sukses
             JOptionPane.showMessageDialog(null, "Data berhasil diupdate\n:Username: " + username + "\nPassword: " + password + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
-            // Refresh tabel akun
             tabel_akun();
-            // Kosongkan input
             kosong1();
         }
     } catch (Exception e) {
@@ -647,58 +619,39 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         try {
-    // Tampilkan dialog konfirmasi penghapusan data
+        String username = txt_username.getText();
+        String password = txt_password.getText();
+        String telepon = txt_telepon.getText();
+        String alamat = txt_alamat.getText();
+        String idakun = txt_idakun.getText();
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
-        // Hapus data akun berdasarkan ID
         String sqlbarang = "DELETE FROM akun WHERE id_akun=?";
         java.sql.Connection conn = Config.configDB();
         java.sql.PreparedStatement pstbarang = conn.prepareStatement(sqlbarang);
         pstbarang.setString(1, txt_idakun.getText());
         pstbarang.executeUpdate();
-
-        // Tampilkan notifikasi sukses
-        JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
-        // Generate ID baru untuk akun selanjutnya
+        JOptionPane.showMessageDialog(null, "Data berhasil dihapus\n:Username: " + username + "\nPassword: " + password + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
         txt_idakun.setText(getNextIdAkun());
     }
 } catch (Exception e) {
-    // Tampilkan notifikasi gagal
     JOptionPane.showMessageDialog(null, "Gagal menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
-
-// Perbarui tabel akun
 tabel_akun();
-
-// Kosongkan input
 kosong1();
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void tabel_akunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_akunMouseClicked
         int baris = tabel_akun.rowAtPoint(evt.getPoint());
-
-// Ambil nilai ID akun dari baris yang dipilih
-String id_akun = tabel_akun.getValueAt(baris, 0).toString();
-txt_idakun.setText(id_akun);
-System.out.println(id_akun);
-txt_idakun.setEnabled(false);
-
-// Set nilai username
+        String id_akun = tabel_akun.getValueAt(baris, 0).toString();
+        txt_idakun.setText(id_akun);
+        System.out.println(id_akun);
+        txt_idakun.setEnabled(false);
 txt_username.setText(tabel_akun.getValueAt(baris, 1) == null ? "" : tabel_akun.getValueAt(baris, 1).toString());
-
-// Set nilai password
 txt_password.setText(tabel_akun.getValueAt(baris, 2) == null ? "" : tabel_akun.getValueAt(baris, 2).toString());
-
-// Set nilai role
 cmb_role.setSelectedItem(tabel_akun.getValueAt(baris, 3) == null ? "" : tabel_akun.getValueAt(baris, 3).toString());
-
-// Set nilai telepon
 txt_telepon.setText(tabel_akun.getValueAt(baris, 4) == null ? "" : tabel_akun.getValueAt(baris, 4).toString());
-
-// Set nilai alamat
 txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.getValueAt(baris, 5).toString());
-
     }//GEN-LAST:event_tabel_akunMouseClicked
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed

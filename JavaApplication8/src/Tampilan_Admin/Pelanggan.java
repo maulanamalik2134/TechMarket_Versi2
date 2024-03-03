@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 public class Pelanggan extends javax.swing.JFrame {
 private DefaultTableModel model;
 
-// Mengatur tanggal dan waktu saat ini
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
@@ -44,17 +43,12 @@ public Pelanggan() {
             setTanggalDanWaktuSekarang();
         }
     }, 0, 1, TimeUnit.SECONDS);
-
-    // Set tanggal dan waktu saat ini
     setTanggalDanWaktuSekarang();
-
-    // Mengisi tabel akun dan menginisialisasi formulir akun baru
     tabel_supplier();
     txt_idpelanggan.setText(getNextIdPelanggan());
     kosong1();
 }
 
-// Dapatkan ID berikutnya untuk akun baru
 private String getNextIdPelanggan() {
     try {
         String sql = "SELECT MAX(Id_pelanggan) AS max_id FROM pelanggan";
@@ -75,14 +69,12 @@ private String getNextIdPelanggan() {
     }
 }
 
-// Mengosongkan input untuk membuat akun baru
 private void kosong1() {
     txt_username.setText(null);
     txt_telepon.setText(null);
     txt_alamat.setText(null);
 }
 
-// Mengisi tabel akun dengan data dari database
 private void tabel_supplier() {
     model = new DefaultTableModel();
     model.addColumn("Id Pelanggan");
@@ -96,7 +88,6 @@ private void tabel_supplier() {
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
-
         while (res.next()) {
             model.addRow(new Object[]{
                 res.getString("id_pelanggan"),
@@ -111,7 +102,6 @@ private void tabel_supplier() {
         JOptionPane.showMessageDialog(null, "Gagal mengisi tabel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -375,24 +365,25 @@ private void tabel_supplier() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_logout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logout2ActionPerformed
-        this.setVisible(false);
+        int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            this.setVisible(false);
             new Login().setVisible(true);
+        }
     }//GEN-LAST:event_btn_logout2ActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         try {
-    // Tampilkan dialog konfirmasi untuk mengedit data
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
         String username = txt_username.getText();
         String telepon = txt_telepon.getText();
         String alamat = txt_alamat.getText();
         String idsupplier = txt_idpelanggan.getText();
-
         Connection conn = Config.configDB();
 
         if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
@@ -418,7 +409,6 @@ private void tabel_supplier() {
             return;
         }
 
-        // Periksa apakah username yang diedit sudah ada dalam database
         String sqlCheck = "SELECT * FROM pelanggan WHERE nama_pelanggan=? AND Id_pelanggan!=?";
         PreparedStatement pstCheck = conn.prepareStatement(sqlCheck);
         pstCheck.setString(1, username);
@@ -426,10 +416,8 @@ private void tabel_supplier() {
         ResultSet rsCheck = pstCheck.executeQuery();
 
         if (rsCheck.next()) {
-            // Tampilkan notifikasi jika username sudah ada dalam database
             JOptionPane.showMessageDialog(null, "Username sudah ada dalam database", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Update data supplier dengan informasi yang diedit
             String sql = "UPDATE pelanggan SET nama_pelanggan=?, telepon=?, alamat=? WHERE Id_pelanggan=?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, username);
@@ -437,31 +425,23 @@ private void tabel_supplier() {
             pst.setString(3, alamat);
             pst.setString(4, idsupplier);
             pst.execute();
-
-            // Tampilkan notifikasi sukses
-            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE); 
-            
-            // Perbarui tabel supplier, ID supplier, dan kosongkan input
+            JOptionPane.showMessageDialog(null, "Data berhasil diedit:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
             tabel_supplier();
             txt_idpelanggan.setText(getNextIdPelanggan());
             kosong1();
         }
     }
 } catch (Exception e) {
-    // Tampilkan notifikasi jika terjadi kesalahan saat mengubah data
     JOptionPane.showMessageDialog(null, "Gagal mengubah data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         try {
-    // Mendapatkan nilai dari inputan form
     int idakun = Integer.parseInt(txt_idpelanggan.getText());
     String username = txt_username.getText();
     String alamat = txt_alamat.getText();
     String telepon = txt_telepon.getText();
-
-    // Membuat koneksi ke database
     Connection conn = Config.configDB();
 
     if (username.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
@@ -487,7 +467,6 @@ private void tabel_supplier() {
             return;
         }
 
-    // Mengecek apakah username dan telepon sudah ada dalam database
     String checkSql = "SELECT COUNT(*) FROM pelanggan WHERE nama_pelanggan = ?";
     PreparedStatement checkPst = conn.prepareStatement(checkSql);
     checkPst.setString(1, username);
@@ -500,10 +479,8 @@ private void tabel_supplier() {
         }
     }
 
-    // Tampilkan dialog konfirmasi untuk menyimpan data
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
-        // Simpan data ke database
         String insertSql = "INSERT INTO pelanggan (id_pelanggan, nama_pelanggan, telepon, alamat) VALUES (?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setInt(1, idakun);
@@ -511,14 +488,9 @@ private void tabel_supplier() {
         insertPst.setString(3, telepon);
         insertPst.setString(4, alamat);
         insertPst.execute();
-
-        // Tampilkan notifikasi sukses
-        JOptionPane.showMessageDialog(null, "Data berhasil ditambah", "Sukses", JOptionPane.INFORMATION_MESSAGE); 
-
-        // Refresh tabel supplier
+        JOptionPane.showMessageDialog(null, "Data berhasil ditambah:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
         tabel_supplier();
-        txt_idpelanggan.setText(getNextIdPelanggan()); // Update ID supplier berikutnya setelah penyimpanan berhasil
-        // Kosongkan input
+        txt_idpelanggan.setText(getNextIdPelanggan());
         kosong1();
     }
 } catch (Exception e) {
@@ -528,54 +500,38 @@ private void tabel_supplier() {
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         try {
-    // Tampilkan dialog konfirmasi penghapusan data
+        String username = txt_username.getText();
+        String alamat = txt_alamat.getText();
+        String telepon = txt_telepon.getText();
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
-        // Hapus data supplier berdasarkan ID
         String sqlbarang = "DELETE FROM pelanggan WHERE id_pelanggan=?";
         Connection conn = Config.configDB();
         PreparedStatement pstbarang = conn.prepareStatement(sqlbarang);
         pstbarang.setString(1, txt_idpelanggan.getText());
         pstbarang.executeUpdate();
-
-        // Tampilkan notifikasi sukses
-        JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
-        // Generate ID baru untuk supplier selanjutnya
+        JOptionPane.showMessageDialog(null, "Data berhasil dihapus:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
         txt_idpelanggan.setText(getNextIdPelanggan());
     }
 } catch (Exception e) {
-    // Tampilkan notifikasi gagal
     JOptionPane.showMessageDialog(null, "Gagal menghapus data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
-
-// Perbarui tabel supplier
 tabel_supplier();
-
-// Kosongkan input
 kosong1();
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void txt_teleponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_teleponActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_teleponActionPerformed
 
     private void tabel_supplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_supplierMouseClicked
         int baris = tabel_supplier.rowAtPoint(evt.getPoint());
-
-        // Ambil nilai ID akun dari baris yang dipilih
         String id_akun = tabel_supplier.getValueAt(baris, 0).toString();
         txt_idpelanggan.setText(id_akun);
         System.out.println(id_akun);
         txt_idpelanggan.setEnabled(false);
-
-        // Set nilai username
         txt_username.setText(tabel_supplier.getValueAt(baris, 1) == null ? "" : tabel_supplier.getValueAt(baris, 1).toString());
-
-        // Set nilai telepon
         txt_telepon.setText(tabel_supplier.getValueAt(baris, 2) == null ? "" : tabel_supplier.getValueAt(baris, 2).toString());
-
-        // Set nilai alamat
         txt_alamat.setText(tabel_supplier.getValueAt(baris, 3) == null ? "" : tabel_supplier.getValueAt(baris, 3).toString());
     }//GEN-LAST:event_tabel_supplierMouseClicked
 
@@ -645,10 +601,6 @@ kosong1();
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

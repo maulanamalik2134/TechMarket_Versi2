@@ -22,14 +22,13 @@ import javax.swing.table.DefaultTableModel;
 public class Forgot extends javax.swing.JFrame {
 private DefaultTableModel model;
 
-// Mengatur tanggal dan waktu saat ini
 public void setTanggalDanWaktuSekarang() {
     LocalDateTime dateTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
     String formattedDateTime = dateTime.format(formatter);
     lbl_tanggal.setText(formattedDateTime);
-    String lokasiToko = "Jl. Raya Situbondo, Blk. Gardu, Cindogo, Tapen, Kabupaten Bondowoso, Jawa Timur 68282"; // Lokasi toko
-    lbl_lokasi.setText(lokasiToko); // Mengatur label lokasi dengan lokasi toko
+    String lokasiToko = "Jl. Raya Situbondo, Blk. Gardu, Cindogo, Tapen, Kabupaten Bondowoso, Jawa Timur 68282";
+    lbl_lokasi.setText(lokasiToko);
 }
 
 public void setTanggalDanWaktu() {
@@ -44,7 +43,6 @@ public Forgot() {
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
 
-    // Jadwalkan tugas untuk memperbarui tanggal dan waktu saat ini setiap detik
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(new Runnable() {
         @Override
@@ -53,7 +51,6 @@ public Forgot() {
         }
     }, 0, 1, TimeUnit.SECONDS);
 
-    // Set tanggal dan waktu saat ini
     setTanggalDanWaktuSekarang();
     setTanggalDanWaktu();
 }
@@ -175,18 +172,16 @@ public Forgot() {
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void chk_showpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_showpasswordActionPerformed
-        /// Mengatur karakter echo pada field password
 if (chk_showpassword.isSelected()) {
-    txt_password.setEchoChar((char)0); // Menghilangkan karakter echo
+    txt_password.setEchoChar((char)0);
 } else {
-    txt_password.setEchoChar('*'); // Mengganti karakter echo dengan tanda bintang
+    txt_password.setEchoChar('*');
 }
 
-// Mengatur karakter echo pada field konfirmasi password
 if (chk_showpassword.isSelected()) {
-    txt_konfirmasipassword.setEchoChar((char)0); // Menghilangkan karakter echo
+    txt_konfirmasipassword.setEchoChar((char)0);
 } else {
-    txt_konfirmasipassword.setEchoChar('*'); // Mengganti karakter echo dengan tanda bintang
+    txt_konfirmasipassword.setEchoChar('*');
 }
     }//GEN-LAST:event_chk_showpasswordActionPerformed
 
@@ -231,7 +226,6 @@ if (chk_showpassword.isSelected()) {
                 JOptionPane.showMessageDialog(null, "Password tidak boleh mengandung spasi");
                 return;
             } else {
-                // Lanjutkan dengan proses reset password
             }
         }
     }
@@ -243,7 +237,6 @@ if (chk_showpassword.isSelected()) {
         Logger.getLogger(Forgot.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-    // Cek apakah username ditemukan dalam database
     String checkUserSql = "SELECT COUNT(*) FROM akun WHERE username = ?";
     PreparedStatement checkUserPst = conn.prepareStatement(checkUserSql);
     checkUserPst.setString(1, username);
@@ -253,7 +246,6 @@ if (chk_showpassword.isSelected()) {
         return;
     }
 
-    // Cek apakah password sudah digunakan
     String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
     PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
     checkPassPst.setString(1, newPassword);
@@ -263,7 +255,6 @@ if (chk_showpassword.isSelected()) {
         return;
     }
 
-    // Update password di database
     String updateSql = "UPDATE akun SET password = ? WHERE username = ?";
     PreparedStatement updatePst = conn.prepareStatement(updateSql);
     updatePst.setString(1, newPassword);
@@ -272,7 +263,6 @@ if (chk_showpassword.isSelected()) {
 
     JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nPassword Baru: " + newPassword);
 
-    // Tutup form reset password dan buka form login
     this.setVisible(false);
     new Login().setVisible(true);
 } catch (SQLException ex) {
@@ -306,8 +296,6 @@ if (chk_showpassword.isSelected()) {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Forgot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
