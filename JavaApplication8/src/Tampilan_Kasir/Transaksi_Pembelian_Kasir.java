@@ -48,7 +48,7 @@ public void total() {
 
 public void loaddata() {
     DefaultTableModel model = (DefaultTableModel) tabel.getModel();
-    int Jumlahbaris = tabel.getRowCount();
+     int Jumlahbaris = tabel.getRowCount();
     for (int i = 0; i < Jumlahbaris; i++) {
         int idBarangTable = Integer.parseInt(tabel.getValueAt(i, 1).toString());
         int idBarang = Integer.parseInt(txt_idbarang.getText());
@@ -118,7 +118,6 @@ public int getStok() {
         Statement statement = conn.createStatement();
         String idBarang = txt_idbarang.getText();
         ResultSet res = statement.executeQuery("SELECT stok FROM barang WHERE Id_barang = '" + idBarang + "'");
-
         if (res.next()) {
             stok = res.getInt("stok");
         }
@@ -132,8 +131,7 @@ public void tambahtransaksi() {
     int jumlah, harga, total;
     jumlah = Integer.valueOf(txt_jumlah.getText());
     harga = Integer.valueOf(txt_hargajual.getText());
-
-    int stok = getStok();
+    int stok = getStok(); 
     if (stok == 0) {
         JOptionPane.showMessageDialog(null, "Stok habis untuk transaksi ini");
         return;
@@ -143,7 +141,6 @@ public void tambahtransaksi() {
     } else if (stok <= 5) {
         JOptionPane.showMessageDialog(null, "Stok menipis");
     }
-
     total = jumlah * harga;
     loaddata();
     total();
@@ -178,7 +175,6 @@ public Transaksi_Pembelian_Kasir() {
     model.addColumn("Satuan");
     model.addColumn("Jumlah");
     model.addColumn("SubTotal");
-
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(() -> {
         Date date = new Date();
@@ -186,7 +182,6 @@ public Transaksi_Pembelian_Kasir() {
         txt_tanggal.setText(s.format(date));
         setTanggalDanWaktu();
     }, 0, 1, TimeUnit.SECONDS);
-
     try {
         String sql = "SELECT * FROM transaksi_pembelian order by id_transaksi desc limit 1";
         System.out.println(sql);
@@ -203,7 +198,6 @@ public Transaksi_Pembelian_Kasir() {
         e.printStackTrace();
     }
 }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -236,18 +230,19 @@ public Transaksi_Pembelian_Kasir() {
         lbl_stok2 = new javax.swing.JLabel();
         lbl_stok3 = new javax.swing.JLabel();
         lbl_stok4 = new javax.swing.JLabel();
-        btn_transaksi = new javax.swing.JButton();
-        btn_return = new javax.swing.JButton();
         cmb_metode = new javax.swing.JComboBox<>();
         lbl_stok5 = new javax.swing.JLabel();
-        btn_transaksipembelian = new javax.swing.JButton();
+        btn_transaksipenjualan = new javax.swing.JButton();
         btn_cari = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabel_barang = new javax.swing.JTable();
+        logo = new javax.swing.JLabel();
+        transaksi = new javax.swing.JButton();
+        btn_return1 = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
-        txt_idtransaksi = new javax.swing.JFormattedTextField();
         txt_tanggal = new javax.swing.JFormattedTextField();
         txt_idsupplier = new javax.swing.JFormattedTextField();
+        txt_idtransaksi = new javax.swing.JFormattedTextField();
         txt_idakun = new javax.swing.JFormattedTextField();
         txt_idbarang = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -268,6 +263,7 @@ public Transaksi_Pembelian_Kasir() {
         btn_logout2.setBackground(new java.awt.Color(255, 255, 255));
         btn_logout2.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_logout2.setForeground(new java.awt.Color(255, 255, 255));
+        btn_logout2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logout (1).png"))); // NOI18N
         btn_logout2.setText("Log Out");
         btn_logout2.setContentAreaFilled(false);
         btn_logout2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -276,7 +272,7 @@ public Transaksi_Pembelian_Kasir() {
                 btn_logout2ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_logout2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 200, -1));
+        getContentPane().add(btn_logout2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, -1));
 
         txt_namabarang.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_namabarang.addActionListener(new java.awt.event.ActionListener() {
@@ -342,10 +338,10 @@ public Transaksi_Pembelian_Kasir() {
 
         lbl_stok1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_stok1.setText("Metode Pembayaran");
-        getContentPane().add(lbl_stok1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 100, -1, -1));
+        getContentPane().add(lbl_stok1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 570, -1, -1));
 
         lbl_namabarang1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_namabarang1.setText("Supplier");
+        lbl_namabarang1.setText("Nama Supplier");
         getContentPane().add(lbl_namabarang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, -1, -1));
 
         lbl_namabarang2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
@@ -400,7 +396,7 @@ public Transaksi_Pembelian_Kasir() {
                 btn_hapusActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, 130, -1));
+        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 220, 130, -1));
 
         btn_bayar.setBackground(new java.awt.Color(255, 255, 255));
         btn_bayar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -412,7 +408,7 @@ public Transaksi_Pembelian_Kasir() {
                 btn_bayarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_bayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 220, 130, -1));
+        getContentPane().add(btn_bayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 590, 130, -1));
 
         tabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -481,50 +477,24 @@ public Transaksi_Pembelian_Kasir() {
         lbl_stok4.setText("Total");
         getContentPane().add(lbl_stok4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 630, -1, -1));
 
-        btn_transaksi.setBackground(new java.awt.Color(255, 255, 255));
-        btn_transaksi.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
-        btn_transaksi.setText("Transaksi");
-        btn_transaksi.setContentAreaFilled(false);
-        btn_transaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_transaksi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_transaksiActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 200, -1));
-
-        btn_return.setBackground(new java.awt.Color(255, 255, 255));
-        btn_return.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        btn_return.setForeground(new java.awt.Color(255, 255, 255));
-        btn_return.setText("Return");
-        btn_return.setContentAreaFilled(false);
-        btn_return.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_return.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_returnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, -1));
-
         cmb_metode.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         cmb_metode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tunai", "Non Tunai" }));
-        getContentPane().add(cmb_metode, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 120, 140, 30));
+        getContentPane().add(cmb_metode, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 590, 140, 30));
 
         lbl_stok5.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_stok5.setText("Jumlah");
         getContentPane().add(lbl_stok5, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 100, -1, -1));
 
-        btn_transaksipembelian.setBackground(new java.awt.Color(255, 255, 255));
-        btn_transaksipembelian.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        btn_transaksipembelian.setText("Transaksi Penjualan");
-        btn_transaksipembelian.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_transaksipembelian.addActionListener(new java.awt.event.ActionListener() {
+        btn_transaksipenjualan.setBackground(new java.awt.Color(255, 255, 255));
+        btn_transaksipenjualan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_transaksipenjualan.setText("Transaksi Penjualan");
+        btn_transaksipenjualan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_transaksipenjualan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_transaksipembelianActionPerformed(evt);
+                btn_transaksipenjualanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_transaksipembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, 30));
+        getContentPane().add(btn_transaksipenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, 30));
 
         btn_cari.setBackground(new java.awt.Color(255, 255, 255));
         btn_cari.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -536,7 +506,7 @@ public Transaksi_Pembelian_Kasir() {
                 btn_cariActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 220, 130, 30));
+        getContentPane().add(btn_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, 130, 30));
 
         tabel_barang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -558,11 +528,41 @@ public Transaksi_Pembelian_Kasir() {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1032, 260, 290, 300));
 
+        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Collaborator Male.png"))); // NOI18N
+        getContentPane().add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 50, 190, 80));
+
+        transaksi.setBackground(new java.awt.Color(255, 255, 255));
+        transaksi.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        transaksi.setForeground(new java.awt.Color(255, 255, 255));
+        transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Transaction (1).png"))); // NOI18N
+        transaksi.setText("Transaksi");
+        transaksi.setContentAreaFilled(false);
+        transaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        transaksi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        transaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transaksiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 200, -1));
+
+        btn_return1.setBackground(new java.awt.Color(255, 255, 255));
+        btn_return1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
+        btn_return1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_return1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Return (1).png"))); // NOI18N
+        btn_return1.setText("Return");
+        btn_return1.setContentAreaFilled(false);
+        btn_return1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_return1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_return1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_return1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 210, -1));
+
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        txt_idtransaksi.setText("jFormattedTextField1");
-        getContentPane().add(txt_idtransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 190, -1, -1));
 
         txt_tanggal.setText("jFormattedTextField4");
         getContentPane().add(txt_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 170, -1, -1));
@@ -575,6 +575,9 @@ public Transaksi_Pembelian_Kasir() {
         });
         getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 200, -1, -1));
 
+        txt_idtransaksi.setText("jFormattedTextField1");
+        getContentPane().add(txt_idtransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, -1, -1));
+
         txt_idakun.setText("jFormattedTextField3");
         getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 200, -1, -1));
 
@@ -586,7 +589,7 @@ public Transaksi_Pembelian_Kasir() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_logout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logout2ActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Logout", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             this.setVisible(false);
             new Login().setVisible(true);
@@ -595,59 +598,55 @@ public Transaksi_Pembelian_Kasir() {
 
 @SuppressWarnings("empty-statement")
     private void txt_namabarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namabarangActionPerformed
-String namaBarang = txt_namabarang.getText();
 
-Connection conn = null;
-try {
-    conn = Config.configDB();
-} catch (SQLException ex) {
-    Logger.getLogger(Transaksi_Pembelian_Kasir.class.getName()).log(Level.SEVERE, null, ex);
-}
-
-try {
-    Statement stmt = conn.createStatement();
-    String query = "SELECT * FROM barang WHERE nama_barang = '" + namaBarang + "'";
-    ResultSet rs = stmt.executeQuery(query);
-    
-    if (rs.next()) {
-        System.out.println("Barang yang ditemukan:");
-        do {
-            String nama = rs.getString("nama");
-            System.out.println("Nama: " + nama);
-        } while (rs.next());
-    } else {
-        System.out.println("Barang tidak ditemukan");
-    }
-    
-    rs.close();
-    stmt.close();
-    conn.close();
-} catch (SQLException e) {
-    e.printStackTrace();
-}
     }//GEN-LAST:event_txt_namabarangActionPerformed
 
     private void txt_hargajualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargajualActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_txt_hargajualActionPerformed
 
     private void txt_jumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_jumlahActionPerformed
-        // TODO add your handling code here:
+  
     }//GEN-LAST:event_txt_jumlahActionPerformed
 
     private void txt_subtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_subtotalActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txt_subtotalActionPerformed
 
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void txt_namasupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_namasupplierActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_namasupplierActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        String jumlah = txt_jumlah.getText(); 
+String namabarang = txt_namabarang.getText();
+String hargajual = txt_hargajual.getText();  
+if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Nama barang, harga barang, jumlah harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (namabarang.length() < 5 || namabarang.length() > 50) {
+    JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 50 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!namabarang.matches("[a-zA-Z0-9\"\\s.]+")) {
+    JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (\") dan titik (.)", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (hargajual.length() < 4 || hargajual.length() > 9) {
+    JOptionPane.showMessageDialog(null, "Panjang harga jual harus antara 4 hingga 9 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!hargajual.matches("[0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Harga jual hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (jumlah.length() < 1 || jumlah.length() > 2) {
+    JOptionPane.showMessageDialog(null, "Panjang jumlah harus antara 1 hingga 2 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if (!jumlah.matches("[0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Jumlah hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} 
         tambahtransaksi();
     }//GEN-LAST:event_btn_tambahActionPerformed
 
@@ -655,6 +654,7 @@ try {
         DefaultTableModel model = (DefaultTableModel) tabel.getModel();
         int row = tabel.getSelectedRow();
         model.removeRow(row);
+        clear2();
         total();
         txt_bayar.setText("0");
         txt_kembalian.setText("0");
@@ -662,6 +662,32 @@ try {
 
     private void btn_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bayarActionPerformed
         try {
+    String username = txt_username.getText(); 
+    String supplier = txt_namasupplier.getText(); 
+    String bayar = txt_bayar.getText();
+    if (username.isEmpty() || bayar.isEmpty() || supplier.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username dan nama supplier, bayar harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        return;
+    } else if (username.length() < 5 || username.length() > 15) {
+        JOptionPane.showMessageDialog(null, "Panjang username harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        return;
+    } else if (!username.matches("^[a-zA-Z]+$")) {
+        JOptionPane.showMessageDialog(null, "Username hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        return;
+    } else if (bayar.length() < 4 || bayar.length() > 9) {
+        JOptionPane.showMessageDialog(null, "Panjang bayar harus antara 4 hingga 9 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        return;
+    } else if (!bayar.matches("[0-9]+")) {
+        JOptionPane.showMessageDialog(null, "Harga jual hanya boleh terdiri dari angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        return;
+    } else if (supplier.length() < 5 || supplier.length() > 30) {
+            JOptionPane.showMessageDialog(null, "Panjang nama supplier harus antara 5 hingga 30 karakter.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+    } else if (!supplier.matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(null, "Nama Supplier harus terdiri dari huruf dan spasi saja.", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+            return;
+    }
+    
     int Total, Bayar, Kembalian;
     Total = Integer.parseInt(txt_total.getText());
     Bayar = Integer.parseInt(txt_bayar.getText());
@@ -683,12 +709,14 @@ try {
             String Id_supplier = txt_idsupplier.getText();
             String Nama_supplier = txt_namasupplier.getText();
             String TotalString = txt_total.getText();
+            String Bayar1 = txt_bayar.getText();
+            String Kembalian1 = txt_kembalian.getText();
             String Metode = (String) cmb_metode.getSelectedItem();
             String Tanggal = txt_tanggal.getText();
-            System.out.println(Id_transaksi + " " + Id_akun + " " + Username + " " + Id_supplier + " " + Nama_supplier + " " + Total + " " + Metode + " " + Tanggal);
+            System.out.println(Id_transaksi + " " + Id_akun + " " + Username + " " + Id_supplier + " " + Nama_supplier + " " + Total + " " + Bayar1 + " " + Kembalian1 + " " + Metode + " " + Tanggal);
             try {
                 Connection c = Config.configDB();
-                String sql = "INSERT INTO transaksi_pembelian VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO transaksi_pembelian VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement p = c.prepareStatement(sql);
                 p.setInt(1, Integer.parseInt(Id_transaksi));
                 p.setInt(2, Integer.parseInt(Id_akun));
@@ -696,12 +724,14 @@ try {
                 p.setInt(4, Integer.parseInt(Id_supplier));
                 p.setString(5, Nama_supplier);
                 p.setInt(6, Total);
-                p.setString(7, Metode);
-                p.setString(8, Tanggal);
+                p.setString(7, Bayar1);
+                p.setString(8, Kembalian1);
+                p.setString(9, Metode);
+                p.setString(10, Tanggal);
                 p.executeUpdate();
                 p.close();
             } catch (Exception e) {
-                System.out.println("Simpan Pembelian Error 1: " + e);
+                System.out.println("Simpan Pembelian Error 1" + e);
             }
 
             try {
@@ -711,13 +741,13 @@ try {
                     String sql = "INSERT INTO detail_transaksi_pembelian (id_transaksi, id_barang, nama_barang, harga_barang, satuan, jumlah, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement p = c.prepareStatement(sql);
                     
-                    p.setString(1,  tabel.getValueAt(i, 0).toString());
+                    p.setString(1, tabel.getValueAt(i, 0).toString());
                     p.setString(2,  tabel.getValueAt(i, 1).toString());
                     p.setString(3,  tabel.getValueAt(i, 2).toString());
                     p.setString(4,  tabel.getValueAt(i, 3).toString());
                     p.setString(5,  tabel.getValueAt(i, 4).toString());
                     p.setString(6,  tabel.getValueAt(i, 5).toString());
-                    p.setString(7,  tabel.getValueAt(i, 6  ).toString());
+                    p.setString(7,  tabel.getValueAt(i, 6).toString());
                     p.executeUpdate();
                     p.close();
                 }
@@ -759,24 +789,16 @@ try {
             int baris = tabel.rowAtPoint(evt.getPoint());
             Connection conn = Config.configDB();
             Statement stm = conn.createStatement();
-
             String id_barang = tabel.getValueAt(baris, 0).toString();
             txt_idtransaksi.setText(id_barang);
             System.out.println(id_barang);
             txt_idtransaksi.setEnabled(false);
-            
             txt_idbarang.setText(tabel.getValueAt(baris, 1) == null ? "" : tabel.getValueAt(baris, 1).toString());
-
             txt_namabarang.setText(tabel.getValueAt(baris, 2) == null ? "" : tabel.getValueAt(baris, 2).toString());
-
             txt_hargajual.setText(tabel.getValueAt(baris, 3) == null ? "" : tabel.getValueAt(baris, 3).toString());
-
             cmb_satuan.setSelectedItem(tabel.getValueAt(baris, 4) == null ? "" : tabel.getValueAt(baris, 4).toString());
-
             txt_jumlah.setText(tabel.getValueAt(baris, 5) == null ? "" : tabel.getValueAt(baris, 5).toString());
-
             txt_subtotal.setText(tabel.getValueAt(baris,6) == null ? "" : tabel.getValueAt(baris, 6).toString());
-
         }
         catch(SQLException ex){
             Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
@@ -784,25 +806,16 @@ try {
     }//GEN-LAST:event_tabelMouseClicked
 
     private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
-        // TODO add your handling code here:
+   
     }//GEN-LAST:event_txt_totalActionPerformed
 
     private void txt_kembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_kembalianActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_kembalianActionPerformed
 
     private void txt_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bayarActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_txt_bayarActionPerformed
-
-    private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
-
-    }//GEN-LAST:event_btn_transaksiActionPerformed
-
-    private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
-        this.setVisible(false);
-        new Return_Pelanggan_Kasir().setVisible(true);
-    }//GEN-LAST:event_btn_returnActionPerformed
 
     private void txt_namabarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_namabarangKeyReleased
         String Nama = txt_namabarang.getText();
@@ -858,7 +871,7 @@ try {
     }//GEN-LAST:event_txt_namasupplierKeyReleased
 
     private void txt_idsupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idsupplierActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_txt_idsupplierActionPerformed
 
     private void txt_jumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_jumlahKeyReleased
@@ -875,10 +888,10 @@ try {
         txt_kembalian.setText(Hasil);
     }//GEN-LAST:event_txt_bayarKeyReleased
 
-    private void btn_transaksipembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipembelianActionPerformed
+    private void btn_transaksipenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksipenjualanActionPerformed
         this.setVisible(false);
-        new Transaksi_Pembelian_Kasir().setVisible(true);
-    }//GEN-LAST:event_btn_transaksipembelianActionPerformed
+        new Transaksi_Penjualan_Kasir().setVisible(true);
+    }//GEN-LAST:event_btn_transaksipenjualanActionPerformed
 
     private void btn_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cariActionPerformed
         try {
@@ -887,7 +900,6 @@ try {
             String searchKeyword = txt_namabarang.getText();
             ResultSet res = statement.executeQuery("SELECT * FROM barang WHERE nama_barang LIKE '%" + searchKeyword 
                     + "%'");
-
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Nama Barang");
             tabel_barang.setModel(model);
@@ -896,7 +908,6 @@ try {
             while (res.next()) {
                 model.addRow(new Object[]{
                     res.getString("Nama_Barang"),
-                    
                  });
                 no++;
             }
@@ -910,7 +921,6 @@ try {
             int baris = tabel_barang.rowAtPoint(evt.getPoint());
             Connection conn = Config.configDB();
             Statement stm = conn.createStatement();
-
             String nama_barang = tabel_barang.getValueAt(baris, 0).toString();
             txt_namabarang.setText(nama_barang);
             System.out.println(nama_barang);
@@ -919,6 +929,15 @@ try {
             Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tabel_barangMouseClicked
+
+    private void transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transaksiActionPerformed
+
+    }//GEN-LAST:event_transaksiActionPerformed
+
+    private void btn_return1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_return1ActionPerformed
+        this.setVisible(false);
+        new Return_Pelanggan_Kasir().setVisible(true);
+    }//GEN-LAST:event_btn_return1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -942,134 +961,6 @@ try {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Transaksi_Pembelian_Kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1085,10 +976,9 @@ try {
     private javax.swing.JButton btn_cari;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_logout2;
-    private javax.swing.JButton btn_return;
+    private javax.swing.JButton btn_return1;
     private javax.swing.JButton btn_tambah;
-    private javax.swing.JButton btn_transaksi;
-    private javax.swing.JButton btn_transaksipembelian;
+    private javax.swing.JButton btn_transaksipenjualan;
     private javax.swing.JComboBox<String> cmb_metode;
     private javax.swing.JComboBox<String> cmb_satuan;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1107,8 +997,10 @@ try {
     private javax.swing.JLabel lbl_stok4;
     private javax.swing.JLabel lbl_stok5;
     private javax.swing.JLabel lbl_tanggal;
+    private javax.swing.JLabel logo;
     private javax.swing.JTable tabel;
     private javax.swing.JTable tabel_barang;
+    private javax.swing.JButton transaksi;
     private javax.swing.JFormattedTextField txt_bayar;
     private javax.swing.JFormattedTextField txt_hargajual;
     private javax.swing.JFormattedTextField txt_idakun;

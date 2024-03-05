@@ -69,8 +69,64 @@ private void tampilstokmenipis() {
     }
 }
 
+private void tampilsaldo() {
+    try {
+        String sql = "SELECT saldo FROM view_saldo";
+        Connection conn = Config.configDB();
+        Statement stm = conn.createStatement();
+        ResultSet res = stm.executeQuery(sql);
 
-public Dashboard() {
+        if (res.next()) {
+            int saldo = res.getInt("saldo");
+            NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+            String saldoFormatted = formatRupiah.format(saldo);
+            lbl_saldo.setText(saldoFormatted);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal mengambil data saldo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void tampilpendapatan() {
+    try {
+        String sql = "SELECT pendapatan_hari_ini FROM view_pendapatan_hari_ini";
+        Connection conn = Config.configDB();
+        Statement stm = conn.createStatement();
+        ResultSet res = stm.executeQuery(sql);
+
+        if (res.next()) {
+            int saldo = res.getInt("pendapatan_hari_ini");
+            NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+            String saldoFormatted = formatRupiah.format(saldo);
+            lbl_pendapatan.setText(saldoFormatted);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal mengambil data saldo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void tampilpengeluaran() {
+    try {
+        String sql = "SELECT pengeluaran_hari_ini FROM view_pengeluaran_hari_ini";
+        Connection conn = Config.configDB();
+        Statement stm = conn.createStatement();
+        ResultSet res = stm.executeQuery(sql);
+
+        if (res.next()) {
+            int saldo = res.getInt("pengeluaran_hari_ini");
+            NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+            String saldoFormatted = formatRupiah.format(saldo);
+            lbl_pengeluaran.setText(saldoFormatted);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal mengambil data saldo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+public Dashboard(){
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
@@ -83,6 +139,9 @@ public Dashboard() {
     // Set tanggal dan waktu saat ini
     setTanggalDanWaktuSekarang();
     tampilstokmenipis();
+    tampilsaldo();
+    tampilpendapatan();
+    tampilpengeluaran();
 }
 
     @SuppressWarnings("unchecked")
@@ -103,6 +162,7 @@ public Dashboard() {
         lbl_pendapatan = new javax.swing.JLabel();
         lbl_saldo = new javax.swing.JLabel();
         lbl_pengeluaran = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
         lbl_image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,6 +181,7 @@ public Dashboard() {
         btn_logout.setBackground(new java.awt.Color(255, 255, 255));
         btn_logout.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_logout.setForeground(new java.awt.Color(255, 255, 255));
+        btn_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logout (1).png"))); // NOI18N
         btn_logout.setText("Log Out");
         btn_logout.setContentAreaFilled(false);
         btn_logout.addActionListener(new java.awt.event.ActionListener() {
@@ -128,108 +189,124 @@ public Dashboard() {
                 btn_logoutActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, 200, -1));
+        getContentPane().add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, -1));
 
         btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
+        btn_dashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Performance Macbook.png"))); // NOI18N
         btn_dashboard.setText("Dashboard");
         btn_dashboard.setContentAreaFilled(false);
         btn_dashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_dashboard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_dashboardActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 200, -1));
+        getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 200, -1));
 
         btn_datamaster.setBackground(new java.awt.Color(255, 255, 255));
         btn_datamaster.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_datamaster.setForeground(new java.awt.Color(255, 255, 255));
+        btn_datamaster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Master.png"))); // NOI18N
         btn_datamaster.setText("Data Master");
         btn_datamaster.setContentAreaFilled(false);
+        btn_datamaster.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btn_datamaster.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_datamasterActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_datamaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, -1));
+        getContentPane().add(btn_datamaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 210, -1));
 
         btn_transaksi.setBackground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
+        btn_transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Transaction (1).png"))); // NOI18N
         btn_transaksi.setText("Transaksi");
         btn_transaksi.setContentAreaFilled(false);
+        btn_transaksi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btn_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_transaksiActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 200, -1));
+        getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 200, -1));
 
         btn_return.setBackground(new java.awt.Color(255, 255, 255));
         btn_return.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_return.setForeground(new java.awt.Color(255, 255, 255));
+        btn_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Return (1).png"))); // NOI18N
         btn_return.setText("Return");
         btn_return.setContentAreaFilled(false);
+        btn_return.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btn_return.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_returnActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, -1));
+        getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 200, -1));
 
         btn_opname.setBackground(new java.awt.Color(255, 255, 255));
         btn_opname.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_opname.setForeground(new java.awt.Color(255, 255, 255));
+        btn_opname.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Move Stock.png"))); // NOI18N
         btn_opname.setText("Opname");
         btn_opname.setContentAreaFilled(false);
+        btn_opname.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btn_opname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_opnameActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_opname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 200, -1));
+        getContentPane().add(btn_opname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, -1));
 
         btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
+        btn_laporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Graph Report.png"))); // NOI18N
         btn_laporan.setText("Laporan");
         btn_laporan.setContentAreaFilled(false);
+        btn_laporan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btn_laporan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_laporanActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 200, -1));
+        getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 200, -1));
 
         jScrollPane1.setViewportView(txt_stokhabis);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 220, 270, 440));
 
-        lbl_pendapatan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        lbl_pendapatan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         lbl_pendapatan.setForeground(new java.awt.Color(255, 255, 255));
         lbl_pendapatan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbl_pendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 190, 30));
+        getContentPane().add(lbl_pendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 230, 30));
 
-        lbl_saldo.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        lbl_saldo.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         lbl_saldo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_saldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbl_saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 190, 30));
+        getContentPane().add(lbl_saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 240, 30));
 
-        lbl_pengeluaran.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        lbl_pengeluaran.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         lbl_pengeluaran.setForeground(new java.awt.Color(255, 255, 255));
         lbl_pengeluaran.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbl_pengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 130, 180, 30));
+        getContentPane().add(lbl_pengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, 220, 30));
 
-        lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Dashboard (13).png"))); // NOI18N
+        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Administrator Male (1).png"))); // NOI18N
+        getContentPane().add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 50, 190, 80));
+
+        lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Dashboard (14).png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Transaksi", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Logout", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             this.setVisible(false);
             new Login().setVisible(true);
@@ -247,7 +324,7 @@ public Dashboard() {
 
     private void btn_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transaksiActionPerformed
         this.setVisible(false);
-        new Transaksi_Penjualan_Admin().setVisible(true);
+        new Transaksi_Penjualan().setVisible(true);
     }//GEN-LAST:event_btn_transaksiActionPerformed
 
     private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
@@ -262,7 +339,7 @@ public Dashboard() {
 
     private void btn_laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_laporanActionPerformed
         this.setVisible(false);
-        new Laporan_Penjualan().setVisible(true);
+        new Laporan_Transaksi_Penjualan().setVisible(true);
     }//GEN-LAST:event_btn_laporanActionPerformed
 
     public static void main(String args[]) {
@@ -315,6 +392,7 @@ public Dashboard() {
     private javax.swing.JLabel lbl_pengeluaran;
     private javax.swing.JLabel lbl_saldo;
     private javax.swing.JLabel lbl_tanggal;
+    private javax.swing.JLabel logo;
     private javax.swing.JTextPane txt_stokhabis;
     // End of variables declaration//GEN-END:variables
 }

@@ -313,10 +313,13 @@ if (chk_showpassword.isSelected()) {
 
         String role = checkUserPassRs.getString("role");
         if (role.equals("Admin")) {
-            JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Admin.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selamat datang, " + username +
+                    "! Anda berhasil login sebagai Admin.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             new Dashboard().setVisible(true);
+//            new Dashboard(username).setVisible(true);
         } else if (role.equals("Kasir")) {
-            JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Kasir.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selamat datang, " + username +
+                    "! Anda berhasil login sebagai Kasir.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             new Transaksi_Penjualan_Kasir().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Role Tidak Valid", "Peringatan", JOptionPane.WARNING_MESSAGE);
@@ -394,4 +397,8 @@ if (chk_showpassword.isSelected()) {
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables
+
+    private void GetData(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
