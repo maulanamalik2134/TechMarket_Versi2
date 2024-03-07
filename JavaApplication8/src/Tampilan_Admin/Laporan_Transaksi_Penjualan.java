@@ -24,6 +24,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Laporan_Transaksi_Penjualan extends javax.swing.JFrame {
 private DefaultTableModel model;
@@ -161,6 +164,7 @@ private void tampildetailpenjualan() {
         txt_namasupplier1 = new javax.swing.JFormattedTextField();
         btn_cari = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        cetak = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
         txt_nama = new javax.swing.JLabel();
         lbl_tanggalmasuk = new javax.swing.JLabel();
@@ -219,7 +223,6 @@ private void tampildetailpenjualan() {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 1070, 230));
 
-        btn_laporanpembelian.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporanpembelian.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_laporanpembelian.setText("Laporan Transaksi Pembelian");
         btn_laporanpembelian.addActionListener(new java.awt.event.ActionListener() {
@@ -229,7 +232,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_laporanpembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, 30));
 
-        btn_laporanreturnpelanggan.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporanreturnpelanggan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_laporanreturnpelanggan.setText("Laporan Return Pelanggan");
         btn_laporanreturnpelanggan.addActionListener(new java.awt.event.ActionListener() {
@@ -247,7 +249,6 @@ private void tampildetailpenjualan() {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 1070, 190));
 
-        btn_laporanabsen.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporanabsen.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_laporanabsen.setText("Laporan Absen");
         btn_laporanabsen.addActionListener(new java.awt.event.ActionListener() {
@@ -257,7 +258,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_laporanabsen, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 270, 30));
 
-        btn_laporanreturnsupplier.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporanreturnsupplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_laporanreturnsupplier.setText("Laporan Return Supplier");
         btn_laporanreturnsupplier.addActionListener(new java.awt.event.ActionListener() {
@@ -267,7 +267,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_laporanreturnsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, 270, 30));
 
-        btn_laporanopname.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporanopname.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_laporanopname.setText("Laporan Opname");
         btn_laporanopname.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +276,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_laporanopname, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 270, 30));
 
-        btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Performance Macbook.png"))); // NOI18N
@@ -292,7 +290,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 200, -1));
 
-        btn_datamaster.setBackground(new java.awt.Color(255, 255, 255));
         btn_datamaster.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_datamaster.setForeground(new java.awt.Color(255, 255, 255));
         btn_datamaster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Master.png"))); // NOI18N
@@ -306,7 +303,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_datamaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 210, -1));
 
-        btn_transaksi.setBackground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Transaction (1).png"))); // NOI18N
@@ -320,7 +316,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 200, -1));
 
-        btn_return.setBackground(new java.awt.Color(255, 255, 255));
         btn_return.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_return.setForeground(new java.awt.Color(255, 255, 255));
         btn_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Return (1).png"))); // NOI18N
@@ -334,7 +329,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 200, -1));
 
-        btn_opname.setBackground(new java.awt.Color(255, 255, 255));
         btn_opname.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_opname.setForeground(new java.awt.Color(255, 255, 255));
         btn_opname.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Move Stock.png"))); // NOI18N
@@ -348,7 +342,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_opname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, -1));
 
-        btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
         btn_laporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Graph Report.png"))); // NOI18N
@@ -362,7 +355,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 200, -1));
 
-        btn_logout.setBackground(new java.awt.Color(255, 255, 255));
         btn_logout.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_logout.setForeground(new java.awt.Color(255, 255, 255));
         btn_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logout (1).png"))); // NOI18N
@@ -405,7 +397,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(txt_namasupplier1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 270, -1));
 
-        btn_cari.setBackground(new java.awt.Color(255, 255, 255));
         btn_cari.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_cari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Search.png"))); // NOI18N
         btn_cari.setText("Cari");
@@ -420,6 +411,15 @@ private void tampildetailpenjualan() {
         jLabel2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         jLabel2.setText("Detail Transaksi Penjualan");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, 20));
+
+        cetak.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        cetak.setText("Cetak");
+        cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 140, 110, 30));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -522,6 +522,15 @@ private void tampildetailpenjualan() {
 
     }//GEN-LAST:event_btn_cariActionPerformed
 
+    private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
+       try {
+        JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("report1.jasper"), null, Config.configDB());
+        JasperViewer.viewReport(jp, false);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }//GEN-LAST:event_cetakActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -568,6 +577,7 @@ private void tampildetailpenjualan() {
     private javax.swing.JButton btn_opname;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_transaksi;
+    private javax.swing.JButton cetak;
     private javax.swing.JLabel gambar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
