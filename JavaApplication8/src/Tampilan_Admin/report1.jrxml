@@ -121,7 +121,7 @@
 			<staticText>
 				<reportElement style="Column header" x="316" y="0" width="79" height="18" forecolor="#000000" uuid="20a4379e-a494-4438-bfbd-5a335ca56ecd"/>
 				<textElement>
-					<font isBold="false"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Nama_pelanggan]]></text>
 			</staticText>
