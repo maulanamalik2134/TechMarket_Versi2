@@ -102,6 +102,7 @@ private void tabel_laporanabsen() {
         txt_namasupplier = new javax.swing.JFormattedTextField();
         txt_namasupplier1 = new javax.swing.JFormattedTextField();
         btn_cari = new javax.swing.JButton();
+        cetak = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
         txt_nama = new javax.swing.JLabel();
         lbl_tanggalmasuk = new javax.swing.JLabel();
@@ -354,6 +355,16 @@ private void tabel_laporanabsen() {
         });
         getContentPane().add(btn_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 140, 130, 30));
 
+        cetak.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        cetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Print (1).png"))); // NOI18N
+        cetak.setText("Cetak");
+        cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 140, 130, 30));
+
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -455,6 +466,10 @@ private void tabel_laporanabsen() {
 
     }//GEN-LAST:event_btn_cariActionPerformed
 
+    private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
+    
+    }//GEN-LAST:event_cetakActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -501,6 +516,7 @@ private void tabel_laporanabsen() {
     private javax.swing.JButton btn_opname;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_transaksi;
+    private javax.swing.JButton cetak;
     private javax.swing.JLabel gambar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

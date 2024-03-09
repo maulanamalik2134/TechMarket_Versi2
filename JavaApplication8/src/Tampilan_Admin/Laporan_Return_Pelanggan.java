@@ -145,6 +145,7 @@ private void tampildetailreturn() {
         txt_namasupplier1 = new javax.swing.JFormattedTextField();
         btn_cari = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        cetak = new javax.swing.JButton();
         lbl_image = new javax.swing.JLabel();
         txt_nama = new javax.swing.JLabel();
         lbl_tanggalmasuk = new javax.swing.JLabel();
@@ -405,6 +406,16 @@ private void tampildetailreturn() {
         jLabel2.setText("Detail Return Pelanggan");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, 20));
 
+        cetak.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        cetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Print (1).png"))); // NOI18N
+        cetak.setText("Cetak");
+        cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 140, 130, 30));
+
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -506,6 +517,10 @@ private void tampildetailreturn() {
 
     }//GEN-LAST:event_btn_cariActionPerformed
 
+    private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
+
+    }//GEN-LAST:event_cetakActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -552,6 +567,7 @@ private void tampildetailreturn() {
     private javax.swing.JButton btn_opname;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_transaksi;
+    private javax.swing.JButton cetak;
     private javax.swing.JLabel gambar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

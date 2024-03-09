@@ -410,13 +410,14 @@ private void tampildetailpenjualan() {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, 20));
 
         cetak.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        cetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Print (1).png"))); // NOI18N
         cetak.setText("Cetak");
         cetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cetakActionPerformed(evt);
             }
         });
-        getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 140, 110, 30));
+        getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 140, 130, 30));
 
         txt_detailpenjualan.setColumns(20);
         txt_detailpenjualan.setRows(5);

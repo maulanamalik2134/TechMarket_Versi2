@@ -255,7 +255,7 @@ if (chk_showpassword.isSelected()) {
     String updateSql = "UPDATE akun SET password = ? WHERE username = ?";
     PreparedStatement updatePst = conn.prepareStatement(updateSql);
     updatePst.setString(1, newpassword);
-    updatePst.setString(2, username);
+    updatePst.setString(2, username); 
     updatePst.executeUpdate();
 
     JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nPassword Baru: " + newpassword);
