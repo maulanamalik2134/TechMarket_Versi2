@@ -24,6 +24,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Laporan_Absen extends javax.swing.JFrame {
 private DefaultTableModel model;
@@ -467,7 +470,12 @@ private void tabel_laporanabsen() {
     }//GEN-LAST:event_btn_cariActionPerformed
 
     private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
-    
+  try {
+        JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("Laporan_Absen.jasper"), null, Config.configDB());
+        JasperViewer.viewReport(jp, false);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }    
     }//GEN-LAST:event_cetakActionPerformed
 
     public static void main(String args[]) {

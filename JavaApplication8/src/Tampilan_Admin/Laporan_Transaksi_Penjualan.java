@@ -528,7 +528,7 @@ private void tampildetailpenjualan() {
 
     private void cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakActionPerformed
        try {
-        JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("report1.jasper"), null, Config.configDB());
+        JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("Laporan_Penjualan.jasper"), null, Config.configDB());
         JasperViewer.viewReport(jp, false);
         } catch(Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
