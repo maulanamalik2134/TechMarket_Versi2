@@ -192,43 +192,40 @@ if (chk_showpassword.isSelected()) {
 
     private void btn_forgotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_forgotActionPerformed
         try {
-    String newPassword = new String(txt_password.getPassword());
+    String newpassword = new String(txt_password.getPassword());
     String username = new String(txt_username.getText());
-    String confirmPassword = new String(txt_konfirmasipassword.getPassword());
+    String confirmpassword = new String(txt_konfirmasipassword.getPassword());
 
-    if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
+    if (username.isEmpty() && newpassword.isEmpty() && confirmpassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
+        return;
+    } else if (username.isEmpty() && newpassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username dan Password harus diisi");
+        return;
+    } else if (username.isEmpty() && confirmpassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username dan Konfirmasi Password harus diisi");
+        return;
+    } else if (newpassword.isEmpty() && confirmpassword.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Password dan Konfirmasi Password harus diisi");
         return;
-    } else if (newPassword.length() < 5 || newPassword.length() > 15) {
-        JOptionPane.showMessageDialog(null, "Password harus diisi dengan panjang minimal 5 karakter dan maksimal 15 karakter");
+    } else if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
-    } else {
-        Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$");
-        Matcher matcher = pattern.matcher(newPassword);
-        if (!matcher.matches()) {
-            JOptionPane.showMessageDialog(null, "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol");
-            return;
-        } else if (newPassword.contains("username") || newPassword.contains("Telepon")) {
-            JOptionPane.showMessageDialog(null, "Password tidak boleh mengandung informasi pribadi");
-            return;
-        } else {
-            String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
-            for (String commonPassword : commonPasswords) {
-                if (newPassword.equalsIgnoreCase(commonPassword)) {
-                    JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
-                    return;
-                }
-            }
-            if (!confirmPassword.equals(newPassword)) {
-                JOptionPane.showMessageDialog(null, "Konfirmasi Password Tidak Sesuai");
-                return;
-            } else if (newPassword.contains(" ")) {
-                JOptionPane.showMessageDialog(null, "Password tidak boleh mengandung spasi");
-                return;
-            } else {
-            }
-        }
+    } else if (newpassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    } else if (confirmpassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Konfirmasi harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
     }
+
+    if (newpassword.length() < 5 || newpassword.length() > 15 || newpassword.contains(" ") || !newpassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$")) {
+        JOptionPane.showMessageDialog(null, "Password harus diisi dengan panjang minimal 5 karakter dan maksimal 15 karakter, serta harus mengandung huruf besar, huruf kecil, angka, dan simbol");
+        return;
+    } else if (!newpassword.equals(confirmpassword)) {
+        JOptionPane.showMessageDialog(null, "Konfirmasi Password Tidak Sesuai");
+        return;
+    } 
 
     Connection conn = null;
     try {
@@ -248,7 +245,7 @@ if (chk_showpassword.isSelected()) {
 
     String checkPassSql = "SELECT COUNT(*) FROM akun WHERE password = ?";
     PreparedStatement checkPassPst = conn.prepareStatement(checkPassSql);
-    checkPassPst.setString(1, newPassword);
+    checkPassPst.setString(1, newpassword);
     ResultSet checkPassRs = checkPassPst.executeQuery();
     if (checkPassRs.next() && checkPassRs.getInt(1) > 0) {
         JOptionPane.showMessageDialog(null, "Password Sudah Digunakan");
@@ -257,11 +254,11 @@ if (chk_showpassword.isSelected()) {
 
     String updateSql = "UPDATE akun SET password = ? WHERE username = ?";
     PreparedStatement updatePst = conn.prepareStatement(updateSql);
-    updatePst.setString(1, newPassword);
+    updatePst.setString(1, newpassword);
     updatePst.setString(2, username);
     updatePst.executeUpdate();
 
-    JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nPassword Baru: " + newPassword);
+    JOptionPane.showMessageDialog(null, "Password Berhasil Direset. Silakan Login Dengan Password Baru Anda.\nPassword Baru: " + newpassword);
 
     this.setVisible(false);
     new Login().setVisible(true);

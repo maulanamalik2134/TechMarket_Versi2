@@ -130,7 +130,7 @@ private void tampildetailpenjualan() {
             sbResult.append(detailTransaksi);
         }
 
-        txt_detail.setText(sbResult.toString());
+        txt_detailpenjualan.setText(sbResult.toString());
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Gagal mengambil data stok menipis: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -140,6 +140,7 @@ private void tampildetailpenjualan() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         bab = new javax.swing.JLabel();
         lbl_tanggal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -147,8 +148,6 @@ private void tampildetailpenjualan() {
         btn_laporanpembelian = new javax.swing.JButton();
         btn_laporanreturnpelanggan = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        txt_detail = new javax.swing.JTextPane();
         btn_laporanabsen = new javax.swing.JButton();
         btn_laporanreturnsupplier = new javax.swing.JButton();
         btn_laporanopname = new javax.swing.JButton();
@@ -165,6 +164,8 @@ private void tampildetailpenjualan() {
         btn_cari = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         cetak = new javax.swing.JButton();
+        txt_detaillaporan = new javax.swing.JScrollPane();
+        txt_detailpenjualan = new javax.swing.JTextArea();
         lbl_image = new javax.swing.JLabel();
         txt_nama = new javax.swing.JLabel();
         lbl_tanggalmasuk = new javax.swing.JLabel();
@@ -244,10 +245,6 @@ private void tampildetailpenjualan() {
         jLabel1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         jLabel1.setText("Transaksi Penjualan");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, 20));
-
-        jScrollPane3.setViewportView(txt_detail);
-
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 1070, 190));
 
         btn_laporanabsen.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_laporanabsen.setText("Laporan Absen");
@@ -421,6 +418,12 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 140, 110, 30));
 
+        txt_detailpenjualan.setColumns(20);
+        txt_detailpenjualan.setRows(5);
+        txt_detaillaporan.setViewportView(txt_detailpenjualan);
+
+        getContentPane().add(txt_detaillaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 1070, 200));
+
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -581,13 +584,14 @@ private void tampildetailpenjualan() {
     private javax.swing.JLabel gambar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_tanggal;
     private javax.swing.JLabel lbl_tanggalmasuk;
     private javax.swing.JTable tabel_supplier;
-    private javax.swing.JTextPane txt_detail;
+    private javax.swing.JScrollPane txt_detaillaporan;
+    private javax.swing.JTextArea txt_detailpenjualan;
     private javax.swing.JLabel txt_nama;
     private javax.swing.JFormattedTextField txt_namasupplier;
     private javax.swing.JFormattedTextField txt_namasupplier1;

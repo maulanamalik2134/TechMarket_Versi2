@@ -543,8 +543,8 @@ private void tabel_Barang() {
         if (namabarang.isEmpty() || merek.isEmpty() || hargajual.isEmpty() || stok.isEmpty() || namasupplier.isEmpty() || kategori.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (namabarang.length() < 5 || namabarang.length() > 50) {
-            JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 50 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (namabarang.length() < 5 || namabarang.length() > 60) {
+            JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 60 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (!namabarang.matches("[a-zA-Z0-9\"\\s.]+")) {
             JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (\") dan titik (.)", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
@@ -640,8 +640,8 @@ if (konfirmasi == JOptionPane.YES_OPTION) {
         if (namabarang.isEmpty() || merek.isEmpty() || hargajual.isEmpty() || stok.isEmpty() || namasupplier.isEmpty() || kategori.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
     return;
-} else if (namabarang.length() < 5 || namabarang.length() > 50) {
-    JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 50 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+} else if (namabarang.length() < 5 || namabarang.length() > 60) {
+    JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 60 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
     return;
 } else if (!namabarang.matches("[a-zA-Z0-9\"\\s.]+")) {
     JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (\") dan titik (.)", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);

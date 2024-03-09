@@ -213,6 +213,17 @@ if (chk_showpassword.isSelected()) {
     String password = new String(txt_password.getPassword());
 
     java.sql.Connection conn = (Connection)Config.configDB();
+    
+    if (username.isEmpty() && password.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Username dan Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    return;
+    } else if (username.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Username harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    return;
+    } else if (password.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    return;
+    }
 
     String checkUserPassSql = "SELECT * FROM akun WHERE username = ? AND password = ?";
     java.sql.PreparedStatement checkUserPassPst = conn.prepareStatement(checkUserPassSql);
@@ -228,7 +239,7 @@ if (chk_showpassword.isSelected()) {
     java.util.Calendar cal = java.util.Calendar.getInstance();
     int hour = cal.get(java.util.Calendar.HOUR_OF_DAY);
     if (hour < 03 || hour > 24) {
-        JOptionPane.showMessageDialog(null, "Maaf, saat ini hanya dapat login antara pukul 03:00 pagi hingga 24:00 sore.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Maaf, saat ini hanya dapat login antara pukul 03:00 pagi hingga 24:00 malam.", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
     }
 

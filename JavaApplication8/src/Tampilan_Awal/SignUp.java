@@ -242,20 +242,38 @@ if (chk_showpassword.isSelected()) {
         }
     }
 
-    if (username.isEmpty() || password.isEmpty() || konfirmasi.isEmpty()) {
+    if (username.isEmpty() && password.isEmpty() && konfirmasi.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
+        return;
+    } else if (username.isEmpty() && password.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username, Password harus diisi");
+        return;
+    } else if (username.isEmpty() && konfirmasi.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username, Konfirmasi Password harus diisi");
+        return;
+    } else if (password.isEmpty() && konfirmasi.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Password, dan Konfirmasi Password harus diisi");
+        return;
+    } else if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    } else if (password.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    } else if (konfirmasi.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Konfirmasi harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
     } else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
         JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
         return;
     } else {
-        Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
+        Pattern usernamePattern = Pattern.compile("^[a-zA-Z]+$");
         Matcher usernameMatcher = usernamePattern.matcher(username);
-        if (!usernameMatcher.matches()) {
-            JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
-            return;
-        }
+    if (!usernameMatcher.matches()) {
+        JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z) atau (a-z)");
+        return;
     }
+}
 
     if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$") || password.contains("username") || password.contains("Telepon")) {
         JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
@@ -263,15 +281,7 @@ if (chk_showpassword.isSelected()) {
     } else if (!password.equals(konfirmasi)) {
         JOptionPane.showMessageDialog(null, "Konfirmasi Password Tidak Sesuai");
         return;
-    } else {
-        String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
-        for (String commonPassword : commonPasswords) {
-            if (password.equalsIgnoreCase(commonPassword)) {
-                JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
-                return;
-            }
-        }
-    }
+    } 
 
     if (role.equals("Admin")) {
     String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
@@ -289,15 +299,7 @@ if (chk_showpassword.isSelected()) {
         JOptionPane.showMessageDialog(null, "Hanya Bisa Membuat Maksimal 4 Akun Kasir");
         return;
     }
-} else if (role.equals("Karyawan")) {
-    String checkKaryawanSql = "SELECT COUNT(*) FROM akun WHERE role = 'Karyawan'";
-    PreparedStatement checkKaryawanPst = conn.prepareStatement(checkKaryawanSql);
-    ResultSet checkKaryawanRs = checkKaryawanPst.executeQuery();
-    if (checkKaryawanRs.next() && checkKaryawanRs.getInt(1) >= 4) {
-        JOptionPane.showMessageDialog(null, "Hanya Bisa Membuat Maksimal 4 Akun Karyawan");
-        return;
-    }
-}
+} 
 
     String sql = "INSERT INTO akun (id_akun, username, password, role) VALUES (?, ?, ?, ?)";
     PreparedStatement pst = conn.prepareStatement(sql);

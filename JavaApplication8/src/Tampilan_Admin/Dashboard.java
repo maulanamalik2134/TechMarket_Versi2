@@ -23,6 +23,11 @@ import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Dashboard extends javax.swing.JFrame {
 private DefaultTableModel model;
@@ -90,7 +95,7 @@ private void tampilsaldo() {
 
 private void tampilpendapatan() {
     try {
-        String sql = "SELECT pendapatan_hari_ini FROM view_pendapatan_hari_ini";
+String sql = "SELECT pendapatan_hari_ini FROM view_pendapatan_hari_ini";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -103,7 +108,7 @@ private void tampilpendapatan() {
         }
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Gagal mengambil data saldo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Gagal mengambil data pendapatan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 
@@ -122,7 +127,26 @@ private void tampilpengeluaran() {
         }
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Gagal mengambil data saldo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Gagal mengambil data pengeluaran: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void tampilkeuntungan() {
+    try {
+String sql = "SELECT keuntungan FROM view_keuntungan_hari_ini";
+        Connection conn = Config.configDB();
+        Statement stm = conn.createStatement();
+        ResultSet res = stm.executeQuery(sql);
+
+        if (res.next()) {
+            int saldo = res.getInt("keuntungan");
+            NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+            String saldoFormatted = formatRupiah.format(saldo);
+            lbl_keuntungan.setText(saldoFormatted);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal mengambil data keuntungan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 
@@ -142,6 +166,7 @@ public Dashboard(){
     tampilsaldo();
     tampilpendapatan();
     tampilpengeluaran();
+    tampilkeuntungan();
 }
 
     @SuppressWarnings("unchecked")
@@ -163,6 +188,11 @@ public Dashboard(){
         lbl_saldo = new javax.swing.JLabel();
         lbl_pengeluaran = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
+        lbl_keuntungan = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         lbl_image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -278,28 +308,57 @@ public Dashboard(){
 
         jScrollPane1.setViewportView(txt_stokhabis);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 220, 270, 440));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 240, 270, 430));
 
         lbl_pendapatan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         lbl_pendapatan.setForeground(new java.awt.Color(255, 255, 255));
         lbl_pendapatan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbl_pendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 230, 30));
+        getContentPane().add(lbl_pendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 250, 30));
 
         lbl_saldo.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         lbl_saldo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_saldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbl_saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 240, 30));
+        getContentPane().add(lbl_saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 250, 30));
 
         lbl_pengeluaran.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         lbl_pengeluaran.setForeground(new java.awt.Color(255, 255, 255));
         lbl_pengeluaran.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbl_pengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, 220, 30));
+        getContentPane().add(lbl_pengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 130, 260, 30));
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Administrator Male (1).png"))); // NOI18N
         getContentPane().add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 50, 190, 80));
 
-        lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Dashboard (14).png"))); // NOI18N
+        lbl_keuntungan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        lbl_keuntungan.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_keuntungan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lbl_keuntungan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 130, 250, 30));
+
+        jLabel1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Pendapatan Hari Ini");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 250, -1));
+
+        jLabel2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Pengeluaran Hari Ini");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 90, 250, -1));
+
+        jLabel3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Keuntungan Hari Ini");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 90, 250, -1));
+
+        jLabel4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Saldo Aplikasi ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 250, -1));
+
+        lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Dashboard (2).png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -386,8 +445,13 @@ public Dashboard(){
     private javax.swing.JButton btn_opname;
     private javax.swing.JButton btn_return;
     private javax.swing.JButton btn_transaksi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_image;
+    private javax.swing.JLabel lbl_keuntungan;
     private javax.swing.JLabel lbl_pendapatan;
     private javax.swing.JLabel lbl_pengeluaran;
     private javax.swing.JLabel lbl_saldo;
