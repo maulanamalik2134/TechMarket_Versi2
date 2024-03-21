@@ -14,65 +14,57 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import javax.swing.Timer;
-import javax.swing.table.DefaultTableModel;
 
 public class Login extends javax.swing.JFrame {
-String tanggal; 
-private DefaultTableModel model;
+    String tanggal;
+    private DefaultTableModel model;
 
-public void setTanggalDanWaktuSekarang() {
-    LocalDateTime dateTime = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
-    String formattedDate = dateTime.format(formatter);
-    
-    String lokasiToko = "Jl. Raya Situbondo, Blk. Gardu, Cindogo, Tapen, Kabupaten Bondowoso, Jawa Timur 68282";
-
-    lbl_tanggal.setText(formattedDate); 
-    lbl_lokasi.setText(lokasiToko); 
-}
-
-
-public void setTanggalDanWaktu() {
-    LocalDateTime dateTime = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", new Locale("id", "ID"));
-    String formattedDate = dateTime.format(formatter);
-    lbl_tanggalmasuk.setText(formattedDate);
-}
-
-int failedAttempts = 0;
-boolean isBlocked = false;
-
-public Login() {
-    initComponents();
-    setExtendedState(JFrame.MAXIMIZED_BOTH);
-    this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
-    
-    ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    executor.scheduleAtFixedRate(new Runnable() {
-        @Override
-        public void run() {
-            setTanggalDanWaktuSekarang();
-            setTanggalDanWaktu();
-        }
-    }, 0, 1, TimeUnit.SECONDS);
-}
-
-public void login() {
-    System.out.println("Metode login dipanggil");
-    
-    if (isBlocked) {
-        JOptionPane.showMessageDialog(null, "Anda Sedang Diblokir. Silakan Tunggu Sebentar Sebelum Mencoba Lagi.");
-        return;
+    public void setTanggalDanWaktuSekarang() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss", new Locale("id", "ID"));
+        String formattedDate = dateTime.format(formatter);
+        String lokasiToko = "Jl. Raya Situbondo, Blk. Gardu, Cindogo, Tapen, Kabupaten Bondowoso, Jawa Timur 68282";
+        lbl_tanggal.setText(formattedDate);
+        lbl_lokasi.setText(lokasiToko);
     }
-}
 
+    public void setTanggalDanWaktu() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", new Locale("id", "ID"));
+        String formattedDate = dateTime.format(formatter);
+        lbl_tanggalmasuk.setText(formattedDate);
+    }
+
+    int failedAttempts = 0;
+    boolean isBlocked = false;
+
+    public Login() {
+        initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                setTanggalDanWaktuSekarang();
+                setTanggalDanWaktu();
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+    }
+
+    public void login() {
+        System.out.println("Metode login dipanggil");
+        if (isBlocked) {
+            JOptionPane.showMessageDialog(null, "Anda Sedang Diblokir. Silakan Tunggu Sebentar Sebelum Mencoba Lagi.");
+            return;
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -211,19 +203,12 @@ if (chk_showpassword.isSelected()) {
         try {
     String username = txt_username.getText();
     String password = new String(txt_password.getPassword());
+    java.sql.Connection conn = (Connection) Config.configDB();
 
-    java.sql.Connection conn = (Connection)Config.configDB();
-    
     if (username.isEmpty() && password.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Username dan Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-    return;
-    } else if (username.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Username harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-    return;
-    } else if (password.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-    return;
-    }
+        JOptionPane.showMessageDialog(null, "Username dan Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    } 
 
     String checkUserPassSql = "SELECT * FROM akun WHERE username = ? AND password = ?";
     java.sql.PreparedStatement checkUserPassPst = conn.prepareStatement(checkUserPassSql);
@@ -236,17 +221,9 @@ if (chk_showpassword.isSelected()) {
     int delaySeconds = 0;
     int currentAttempt = 0;
 
-    java.util.Calendar cal = java.util.Calendar.getInstance();
-    int hour = cal.get(java.util.Calendar.HOUR_OF_DAY);
-    if (hour < 03 || hour > 24) {
-        JOptionPane.showMessageDialog(null, "Maaf, saat ini hanya dapat login antara pukul 03:00 pagi hingga 24:00 malam.", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
     if (!checkUserPassRs.next()) {
         boolean isUsernameCorrect = false;
         boolean isPasswordCorrect = false;
-
         String checkUsernameSql = "SELECT * FROM akun WHERE username = ?";
         java.sql.PreparedStatement checkUsernamePst = conn.prepareStatement(checkUsernameSql);
         checkUsernamePst.setString(1, username);
@@ -254,7 +231,6 @@ if (chk_showpassword.isSelected()) {
         if (checkUsernameRs.next()) {
             isUsernameCorrect = true;
         }
-
         String checkPasswordSql = "SELECT * FROM akun WHERE password = ?";
         java.sql.PreparedStatement checkPasswordPst = conn.prepareStatement(checkPasswordSql);
         checkPasswordPst.setString(1, password);
@@ -262,38 +238,29 @@ if (chk_showpassword.isSelected()) {
         if (checkPasswordRs.next()) {
             isPasswordCorrect = true;
         }
-
         if (!isUsernameCorrect && !isPasswordCorrect) {
             JOptionPane.showMessageDialog(null, "Username dan Password Salah", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        } else if (!isUsernameCorrect) {
-            JOptionPane.showMessageDialog(null, "Username Salah", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        } else if (!isPasswordCorrect) {
-            JOptionPane.showMessageDialog(null, "Password Salah", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
-
+        
         failedAttempts++;
         currentAttempt = failedAttempts;
-
         if (currentAttempt == 3) {
             delaySeconds = 5;
         } else if (currentAttempt == 5) {
-            delayMinutes = 1;
-        } else if (currentAttempt == 10) {
-            delayMinutes = 2;
-        } else if (currentAttempt == 15) {
-            delayMinutes = 60;
+            delayMinutes = 10;
+        } else if (currentAttempt == 7) {
+            delayMinutes = 15;
+        } else if (currentAttempt == 9) {
+            delayMinutes = 30;
         }
-
         if (currentAttempt >= maxAttempts) {
-            JOptionPane.showMessageDialog(null, "Akun Anda Telah Diblokir Selama 1 Jam. Silakan Coba Lagi Nanti.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Akun Anda Telah Diblokir Selama 1 Menit. Silakan Coba Lagi Nanti.", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
         if (delayMinutes > 0 || delaySeconds > 0) {
             int totalDelayInSeconds = delayMinutes * 60 + delaySeconds;
             JOptionPane.showMessageDialog(null, "Anda Telah Gagal Login Sebanyak " + currentAttempt + " Kali. Akun Anda Akan Di Blokir Selama " + delayMinutes + " Menit " + delaySeconds + " Detik.", "Peringatan", JOptionPane.WARNING_MESSAGE);
             isBlocked = true;
-
             Timer timer = new Timer(1000, new ActionListener() {
                 int remainingSeconds = totalDelayInSeconds;
 
@@ -301,7 +268,6 @@ if (chk_showpassword.isSelected()) {
                     if (remainingSeconds > 0) {
                         int minutes = remainingSeconds / 60;
                         int seconds = remainingSeconds % 60;
-                        JOptionPane.showMessageDialog(null, "Akun Anda Masih diblokir Selama " + minutes + " Menit " + seconds + " Detik.", "Peringatan", JOptionPane.WARNING_MESSAGE);
                         remainingSeconds--;
                     } else {
                         isBlocked = false;
@@ -321,22 +287,14 @@ if (chk_showpassword.isSelected()) {
         failedAttempts = 0;
         currentAttempt = 0;
         btn_login.setEnabled(true);
-
         String role = checkUserPassRs.getString("role");
         if (role.equals("Admin")) {
-            JOptionPane.showMessageDialog(null, "Selamat datang, " + username +
-                    "! Anda berhasil login sebagai Admin.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Admin.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             new Dashboard().setVisible(true);
-//            new Dashboard(username).setVisible(true);
         } else if (role.equals("Kasir")) {
-            JOptionPane.showMessageDialog(null, "Selamat datang, " + username +
-                    "! Anda berhasil login sebagai Kasir.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "u", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             new Transaksi_Penjualan_Kasir().setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Role Tidak Valid", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
+        } 
         this.dispose();
     }
 } catch (SQLException e) {
@@ -391,7 +349,7 @@ if (chk_showpassword.isSelected()) {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_absen;
     private javax.swing.JLabel Lbl_login;
@@ -408,7 +366,6 @@ if (chk_showpassword.isSelected()) {
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables
-
     private void GetData(String username) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

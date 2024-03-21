@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -51,14 +52,14 @@ public Laporan_Transaksi_Penjualan() {
     }, 0, 1, TimeUnit.SECONDS);
     setTanggalDanWaktuSekarang();
     tabel_laporanpenjualan();
-    tampildetailpenjualan();
 }
 
 private void tabel_laporanpenjualan() {
     model = new DefaultTableModel();
-    model.addColumn("Id Transaksi");
+    model.addColumn("Id");
     model.addColumn("Username");
-    model.addColumn("Nama Pelanggan");
+    model.addColumn("Pelanggan");
+    model.addColumn("Nama Barang");
     model.addColumn("Total");
     model.addColumn("Bayar");
     model.addColumn("Kembalian");
@@ -66,8 +67,8 @@ private void tabel_laporanpenjualan() {
     model.addColumn("Tanggal Transaksi");
     try {
         int no = 1;
-        String sql = "SELECT transaksi_penjualan.id_transaksi, transaksi_penjualan.username, transaksi_penjualan.nama_pelanggan, transaksi_penjualan.total,"
-                + "transaksi_penjualan.bayar, transaksi_penjualan.kembalian, transaksi_penjualan.metode_pembayaran, transaksi_penjualan.tanggal_transaksi FROM transaksi_penjualan";
+        String sql = "SELECT laporan_penjualan.id_transaksi, laporan_penjualan.username, laporan_penjualan.nama_pelanggan, laporan_penjualan.nama_barang, laporan_penjualan.total,"
+                + "laporan_penjualan.bayar, laporan_penjualan.kembalian, laporan_penjualan.metode_pembayaran, laporan_penjualan.tanggal_transaksi FROM laporan_penjualan";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -76,6 +77,7 @@ private void tabel_laporanpenjualan() {
                 res.getString("id_transaksi"),
                 res.getString("username"),
                 res.getString("nama_pelanggan"),
+                res.getString("nama_barang"),
                 res.getString("total"),
                 res.getString("bayar"),
                 res.getString("kembalian"),
@@ -89,53 +91,6 @@ private void tabel_laporanpenjualan() {
         JOptionPane.showMessageDialog(null, "Gagal mengisi tabel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
-private void tampildetailpenjualan() {
-    try {
-        String sql = "SELECT id_transaksi, id_barang, nama_barang, harga_barang, satuan, jumlah, subtotal FROM detail_transaksi_penjualan";
-        Connection conn = Config.configDB();
-        Statement stm = conn.createStatement();
-        ResultSet res = stm.executeQuery(sql);
-
-        StringBuilder sbResult = new StringBuilder();
-        String currentIdTransaksi = null;
-
-        while (res.next()) {
-            String idTransaksi = res.getString("id_transaksi");
-            String idBarang = res.getString("id_barang");
-            String namaBarang = res.getString("nama_barang");
-            double hargaBarang = res.getDouble("harga_barang");
-            String satuan = res.getString("satuan");
-            int jumlah = res.getInt("jumlah");
-            double subtotal = res.getDouble("subtotal");
-
-            DecimalFormat decimalFormat = new DecimalFormat("#.##");
-            String subtotalFormatted = decimalFormat.format(subtotal);
-
-            if (currentIdTransaksi == null || !currentIdTransaksi.equals(idTransaksi)) {
-                if (currentIdTransaksi != null) {
-                    sbResult.append("\n");
-                }
-                sbResult.append("ID Transaksi: ").append(idTransaksi).append("\n");
-                currentIdTransaksi = idTransaksi;
-            }
-
-            String detailTransaksi = "ID Barang: " + idBarang + ", " +
-                    "Nama Barang: " + namaBarang + ", " +
-                    "Harga Barang: " + hargaBarang + ", " +
-                    "Satuan: " + satuan + ", " +
-                    "Jumlah: " + jumlah + ", " +
-                    "Subtotal: " + subtotalFormatted + "\n";
-
-            sbResult.append(detailTransaksi);
-        }
-
-        txt_detailpenjualan.setText(sbResult.toString());
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Gagal mengambil data stok menipis: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -147,7 +102,6 @@ private void tampildetailpenjualan() {
         tabel_supplier = new javax.swing.JTable();
         btn_laporanpembelian = new javax.swing.JButton();
         btn_laporanreturnpelanggan = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         btn_laporanabsen = new javax.swing.JButton();
         btn_laporanreturnsupplier = new javax.swing.JButton();
         btn_laporanopname = new javax.swing.JButton();
@@ -162,10 +116,7 @@ private void tampildetailpenjualan() {
         txt_namasupplier = new javax.swing.JFormattedTextField();
         txt_namasupplier1 = new javax.swing.JFormattedTextField();
         btn_cari = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         cetak = new javax.swing.JButton();
-        txt_detaillaporan = new javax.swing.JScrollPane();
-        txt_detailpenjualan = new javax.swing.JTextArea();
         lbl_image = new javax.swing.JLabel();
         txt_nama = new javax.swing.JLabel();
         lbl_tanggalmasuk = new javax.swing.JLabel();
@@ -222,7 +173,7 @@ private void tampildetailpenjualan() {
             tabel_supplier.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 1070, 230));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 1070, 490));
 
         btn_laporanpembelian.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_laporanpembelian.setText("Laporan Transaksi Pembelian");
@@ -241,10 +192,6 @@ private void tampildetailpenjualan() {
             }
         });
         getContentPane().add(btn_laporanreturnpelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 270, 30));
-
-        jLabel1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        jLabel1.setText("Transaksi Penjualan");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, 20));
 
         btn_laporanabsen.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_laporanabsen.setText("Laporan Absen");
@@ -405,10 +352,6 @@ private void tampildetailpenjualan() {
         });
         getContentPane().add(btn_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 140, 130, 30));
 
-        jLabel2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        jLabel2.setText("Detail Transaksi Penjualan");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, 20));
-
         cetak.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         cetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Print (1).png"))); // NOI18N
         cetak.setText("Cetak");
@@ -418,12 +361,6 @@ private void tampildetailpenjualan() {
             }
         });
         getContentPane().add(cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 140, 130, 30));
-
-        txt_detailpenjualan.setColumns(20);
-        txt_detailpenjualan.setRows(5);
-        txt_detaillaporan.setViewportView(txt_detailpenjualan);
-
-        getContentPane().add(txt_detaillaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 1070, 200));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -583,16 +520,12 @@ private void tampildetailpenjualan() {
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JButton cetak;
     private javax.swing.JLabel gambar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_tanggal;
     private javax.swing.JLabel lbl_tanggalmasuk;
     private javax.swing.JTable tabel_supplier;
-    private javax.swing.JScrollPane txt_detaillaporan;
-    private javax.swing.JTextArea txt_detailpenjualan;
     private javax.swing.JLabel txt_nama;
     private javax.swing.JFormattedTextField txt_namasupplier;
     private javax.swing.JFormattedTextField txt_namasupplier1;

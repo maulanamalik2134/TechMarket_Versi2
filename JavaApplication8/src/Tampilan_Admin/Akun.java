@@ -429,61 +429,30 @@ private void tabel_akun() {
     String telepon = txt_telepon.getText();
 
     Connection conn = Config.configDB();
-
-    if (username.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
+    
+    if (username.isEmpty() && password.isEmpty() && telepon.isEmpty() && alamat.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Username, Password, Telepon, dan Alamat harus diisi");
+    return; 
+} else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
+    JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
+    return;
+} else {
+    Pattern usernamePattern = Pattern.compile("^[a-zA-Z]+$");
+    Matcher usernameMatcher = usernamePattern.matcher(username);
+    if (!usernameMatcher.matches()) {
+        JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z) atau (a-z)");
         return;
-    } else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
-        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
-        return;
-    } else {
-        Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
-        Matcher usernameMatcher = usernamePattern.matcher(username);
-        if (!usernameMatcher.matches()) {
-            JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
-            return;
-        }
-    }
+    } 
+}
 
-    if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$") || password.contains("username") || password.contains("Telepon")) {
-        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
-        return;
-    } else {
-        String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
-        for (String commonPassword : commonPasswords) {
-            if (password.equalsIgnoreCase(commonPassword)) {
-                JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
-                return;
-            }
-        }
-    }
-
-if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$")) {
+    JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
     return;
-} else if (username.length() < 5 || username.length() > 15) {
-    JOptionPane.showMessageDialog(null, "Panjang username harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+} else if (alamat.length() < 5 || alamat.length() > 30 || !alamat.matches("^[a-zA-Z0-9 ]+$")) {
+    JOptionPane.showMessageDialog(null, "Alamat Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 30 Karakter, dan Hanya Boleh Mengandung Huruf, Angka, dan Spasi");
     return;
-} else if (!username.matches("^[a-zA-Z]+$")) {
-    JOptionPane.showMessageDialog(null, "Username hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (password.length() < 5 || password.length() > 15) {
-    JOptionPane.showMessageDialog(null, "Panjang password harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (!password.matches("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-])[a-zA-Z0-9!@#$%^&*()_+=-]+$")) {
-    JOptionPane.showMessageDialog(null, "Password harus terdiri dari kombinasi huruf, angka, dan simbol seperti !@#$%^&*()_+=-", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (telepon.length() < 1 || telepon.length() > 13) {
-    JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (!telepon.matches("[0-9-]+")) {
-    JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (alamat.length() < 5 || alamat.length() > 30) {
-    JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (!alamat.matches("[a-zA-Z0-9]+")) {
-    JOptionPane.showMessageDialog(null, "Alamat hanya boleh terdiri dari huruf dan angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+} else if (telepon.length() < 11 || telepon.length() > 12 || !telepon.matches("[0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Telepon Harus Diisi Dengan Panjang Minimal 11 Karakter Dan Maksimal 12 Karakter, dan Hanya Boleh Mengandung Angka");
     return;
 }
 
@@ -495,28 +464,28 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
     if (checkRs.next()) {
         int count = checkRs.getInt(1);
         if (count > 0) {
-            JOptionPane.showMessageDialog(null, "Data sudah ada dalam database");
+            JOptionPane.showMessageDialog(null, "Username atau Password Sudah Digunakan");
             return;
         }
-    }
+    } 
 
     if (role.equals("Admin")) {
-        String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
-        PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
-        ResultSet checkAdminRs = checkAdminPst.executeQuery();
-        if (checkAdminRs.next() && checkAdminRs.getInt(1) > 0) {
-            JOptionPane.showMessageDialog(null, "Hanya bisa ada satu Admin");
-            return;
-        }
-        if (checkAdminRs.next() && checkAdminRs.getInt(1) >= 4) {
-            JOptionPane.showMessageDialog(null, "Hanya bisa ada 4 Akun Kasir");
-            return;
-        }
-        if (checkAdminRs.next() && checkAdminRs.getInt(1) >= 4) {
-            JOptionPane.showMessageDialog(null, "Hanya bisa ada 4 Akun Karyawan");
-            return;
-        }
+    String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
+    PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
+    ResultSet checkAdminRs = checkAdminPst.executeQuery();
+    if (checkAdminRs.next() && checkAdminRs.getInt(1) > 0) {
+        JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
+        return;
     }
+} else if (role.equals("Kasir")) {
+    String checkKasirSql = "SELECT COUNT(*) FROM akun WHERE role = 'Kasir'";
+    PreparedStatement checkKasirPst = conn.prepareStatement(checkKasirSql);
+    ResultSet checkKasirRs = checkKasirPst.executeQuery();
+    if (checkKasirRs.next() && checkKasirRs.getInt(1) >= 4) {
+        JOptionPane.showMessageDialog(null, "Hanya Bisa Membuat Maksimal 4 Akun Kasir");
+        return;
+    }
+} 
     
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
@@ -550,65 +519,66 @@ if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEm
             String telepon = txt_telepon.getText();
             String alamat = txt_alamat.getText();
             String idakun = txt_idakun.getText();
+            String role = (String) cmb_role.getSelectedItem();
 
             Connection conn = Config.configDB();
 
-    if (username.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
-        return;
-    } else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
-        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
-        return;
-    } else {
-        Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_-]+$");
-        Matcher usernameMatcher = usernamePattern.matcher(username);
-        if (!usernameMatcher.matches()) {
-            JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z), angka (0-9), tanda hubung (-), atau garis bawah (_)");
+    String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ?";
+    PreparedStatement checkPst = conn.prepareStatement(checkSql);
+    checkPst.setString(1, username);
+    checkPst.setString(2, password);
+    ResultSet checkRs = checkPst.executeQuery();
+    if (checkRs.next()) {
+        int count = checkRs.getInt(1);
+        if (count > 0) {
+            JOptionPane.showMessageDialog(null, "Username atau Password Sudah Digunakan");
             return;
         }
     }
 
-    if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$") || password.contains("username") || password.contains("Telepon")) {
-        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
+    if (username.isEmpty() && password.isEmpty() && telepon.isEmpty() && alamat.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Username, Password, Telepon, dan Alamat harus diisi");
+    return; 
+} else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
+    JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
+    return;
+} else {
+    Pattern usernamePattern = Pattern.compile("^[a-zA-Z]+$");
+    Matcher usernameMatcher = usernamePattern.matcher(username);
+    if (!usernameMatcher.matches()) {
+        JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z) atau (a-z)");
         return;
-    } else {
-        String[] commonPasswords = {"password", "123456", "qwerty", "abc123"};
-        for (String commonPassword : commonPasswords) {
-            if (password.equalsIgnoreCase(commonPassword)) {
-                JOptionPane.showMessageDialog(null, "Password tidak boleh menggunakan kata-kata umum");
-                return;
-            }
-        }
-    }
-
-if (username.isEmpty() || password.isEmpty() || telepon.isEmpty() || alamat.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Semua kolom harus diisi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (username.length() < 5 || username.length() > 15) {
-    JOptionPane.showMessageDialog(null, "Panjang username harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (!username.matches("^[a-zA-Z]+$")) {
-    JOptionPane.showMessageDialog(null, "Username hanya boleh terdiri dari huruf", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (password.length() < 5 || password.length() > 15) {
-    JOptionPane.showMessageDialog(null, "Panjang password harus antara 5 hingga 15 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (!password.matches("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-])[a-zA-Z0-9!@#$%^&*()_+=-]+$")) {
-    JOptionPane.showMessageDialog(null, "Password harus terdiri dari kombinasi huruf, angka, dan simbol seperti !@#$%^&*()_+=-", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (telepon.length() < 1 || telepon.length() > 13) {
-    JOptionPane.showMessageDialog(null, "Panjang nomor telepon harus antara 1 hingga 13 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (!telepon.matches("[0-9-]+")) {
-    JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (alamat.length() < 5 || alamat.length() > 30) {
-    JOptionPane.showMessageDialog(null, "Panjang alamat harus antara 5 hingga 30 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
-} else if (!alamat.matches("[a-zA-Z0-9]+")) {
-    JOptionPane.showMessageDialog(null, "Alamat hanya boleh terdiri dari huruf dan angka", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
-    return;
+    } 
 }
+
+if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$")) {
+    JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
+    return;
+} else if (alamat.length() < 5 || alamat.length() > 30 || !alamat.matches("^[a-zA-Z0-9 ]+$")) {
+    JOptionPane.showMessageDialog(null, "Alamat Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 30 Karakter, dan Hanya Boleh Mengandung Huruf, Angka, dan Spasi");
+    return;
+} else if (telepon.length() < 11 || telepon.length() > 12 || !telepon.matches("[0-9]+")) {
+    JOptionPane.showMessageDialog(null, "Telepon Harus Diisi Dengan Panjang Minimal 11 Karakter Dan Maksimal 12 Karakter, dan Hanya Boleh Mengandung Angka");
+    return;
+} 
+
+    if (role.equals("Admin")) {
+    String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
+    PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
+    ResultSet checkAdminRs = checkAdminPst.executeQuery();
+    if (checkAdminRs.next() && checkAdminRs.getInt(1) > 0) {
+        JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
+        return;
+    }
+} else if (role.equals("Kasir")) {
+    String checkKasirSql = "SELECT COUNT(*) FROM akun WHERE role = 'Kasir'";
+    PreparedStatement checkKasirPst = conn.prepareStatement(checkKasirSql);
+    ResultSet checkKasirRs = checkKasirPst.executeQuery();
+    if (checkKasirRs.next() && checkKasirRs.getInt(1) >= 4) {
+        JOptionPane.showMessageDialog(null, "Hanya Bisa Membuat Maksimal 4 Akun Kasir");
+        return;
+    }
+} 
 
             String updateSql = "UPDATE akun SET username = ?, password = ?, telepon = ?, alamat = ? WHERE id_akun = ?";
             PreparedStatement updatePst = conn.prepareStatement(updateSql);

@@ -171,6 +171,11 @@ public Absen() {
     
     java.sql.Connection conn = (Connection) Config.configDB();
     
+    if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username harus diisi");
+        return;
+    }
+    
     boolean isUsernameCorrect = false;
     String checkUsernameSql = "SELECT * FROM akun WHERE username = ?";
     java.sql.PreparedStatement checkUsernamePst = conn.prepareStatement(checkUsernameSql);

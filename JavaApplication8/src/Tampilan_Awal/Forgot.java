@@ -199,25 +199,7 @@ if (chk_showpassword.isSelected()) {
     if (username.isEmpty() && newpassword.isEmpty() && confirmpassword.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
         return;
-    } else if (username.isEmpty() && newpassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username dan Password harus diisi");
-        return;
-    } else if (username.isEmpty() && confirmpassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username dan Konfirmasi Password harus diisi");
-        return;
-    } else if (newpassword.isEmpty() && confirmpassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password dan Konfirmasi Password harus diisi");
-        return;
-    } else if (username.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        return;
-    } else if (newpassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        return;
-    } else if (confirmpassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Konfirmasi harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+    } 
 
     if (newpassword.length() < 5 || newpassword.length() > 15 || newpassword.contains(" ") || !newpassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$")) {
         JOptionPane.showMessageDialog(null, "Password harus diisi dengan panjang minimal 5 karakter dan maksimal 15 karakter, serta harus mengandung huruf besar, huruf kecil, angka, dan simbol");

@@ -210,7 +210,6 @@ if (chk_showpassword.isSelected()) {
 } else {
     txt_password.setEchoChar('*'); 
 }
-
 if (chk_showpassword.isSelected()) {
     txt_konfirmasipassword.setEchoChar((char)0); 
 } else {
@@ -244,24 +243,6 @@ if (chk_showpassword.isSelected()) {
 
     if (username.isEmpty() && password.isEmpty() && konfirmasi.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
-        return;
-    } else if (username.isEmpty() && password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username, Password harus diisi");
-        return;
-    } else if (username.isEmpty() && konfirmasi.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username, Konfirmasi Password harus diisi");
-        return;
-    } else if (password.isEmpty() && konfirmasi.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password, dan Konfirmasi Password harus diisi");
-        return;
-    } else if (username.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        return;
-    } else if (password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        return;
-    } else if (konfirmasi.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Konfirmasi harus diisi", "Peringatan", JOptionPane.WARNING_MESSAGE);
         return;
     } else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
         JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
