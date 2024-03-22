@@ -1023,22 +1023,22 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     private void btn_strukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_strukActionPerformed
-try{
-            String file = "struk.jasper";
+//try{
+       //     String file = "struk.jasper";
             
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            HashMap param = new HashMap();
+        //    Class.forName("com.mysql.jdbc.Driver").newInstance();
+        //    HashMap param = new HashMap();
             
-            param.put("total",subtotal.getText());
-            param.put("Bayar",txt_bayar.getText());
-            param.put("kembalian",txt_kembalian.getText());
+          //  param.put("total",subtotal.getText());
+       //     param.put("Bayar",txt_bayar.getText());
+       //     param.put("kembalian",txt_kembalian.getText());
             
-            JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream(file),param,koneksi.getKoneksi());
-            JasperViewer.viewReport(print, false);
+          //  JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream(file),param,koneksi.getKoneksi());
+         //   JasperViewer.viewReport(print, false);
             
-        }catch(ClassNotFoundException | InstantiationException | IllegalAccessException | JRException e){
-            System.out.println(e);
-        }        // TODO add your handling code here:
+       // }catch(ClassNotFoundException | InstantiationException | IllegalAccessException | JRException e){
+       //     System.out.println(e);
+        //}      // TODO add your handling code here:
     }//GEN-LAST:event_btn_strukActionPerformed
 
     public static void main(String args[]) {
