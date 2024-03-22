@@ -27,7 +27,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Transaksi_Pembelian extends javax.swing.JFrame {
 String Tanggal;
@@ -232,6 +237,7 @@ public Transaksi_Pembelian() {
         lbl_stok5 = new javax.swing.JLabel();
         btn_transaksipenjualan = new javax.swing.JButton();
         btn_cari = new javax.swing.JButton();
+        btn_struk = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabel_barang = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -363,7 +369,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(txt_namasupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 310, -1));
 
-        btn_tambah.setBackground(new java.awt.Color(255, 255, 255));
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Plus Math (1).png"))); // NOI18N
         btn_tambah.setText("Tambah");
@@ -375,7 +380,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 220, 130, -1));
 
-        btn_hapus.setBackground(new java.awt.Color(255, 255, 255));
         btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_hapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete (1).png"))); // NOI18N
         btn_hapus.setText("Hapus");
@@ -387,7 +391,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 220, 130, -1));
 
-        btn_bayar.setBackground(new java.awt.Color(255, 255, 255));
         btn_bayar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_bayar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Cash.png"))); // NOI18N
         btn_bayar.setText("Bayar");
@@ -474,7 +477,6 @@ public Transaksi_Pembelian() {
         lbl_stok5.setText("Jumlah");
         getContentPane().add(lbl_stok5, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 100, -1, -1));
 
-        btn_transaksipenjualan.setBackground(new java.awt.Color(255, 255, 255));
         btn_transaksipenjualan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_transaksipenjualan.setText("Transaksi Penjualan");
         btn_transaksipenjualan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -485,7 +487,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_transaksipenjualan, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, 30));
 
-        btn_cari.setBackground(new java.awt.Color(255, 255, 255));
         btn_cari.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         btn_cari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Search.png"))); // NOI18N
         btn_cari.setText("Cari");
@@ -496,6 +497,17 @@ public Transaksi_Pembelian() {
             }
         });
         getContentPane().add(btn_cari, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, 130, 30));
+
+        btn_struk.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        btn_struk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Print (1).png"))); // NOI18N
+        btn_struk.setText("struk");
+        btn_struk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_struk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_strukActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_struk, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 590, 130, 30));
 
         tabel_barang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -522,7 +534,6 @@ public Transaksi_Pembelian() {
         gambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Administrator Male (1).png"))); // NOI18N
         getContentPane().add(gambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 50, 190, 120));
 
-        btn_dashboard.setBackground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Performance Macbook.png"))); // NOI18N
@@ -537,7 +548,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 200, -1));
 
-        btn_datamaster.setBackground(new java.awt.Color(255, 255, 255));
         btn_datamaster.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_datamaster.setForeground(new java.awt.Color(255, 255, 255));
         btn_datamaster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Master.png"))); // NOI18N
@@ -551,7 +561,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_datamaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 210, -1));
 
-        btn_transaksi.setBackground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_transaksi.setForeground(new java.awt.Color(255, 255, 255));
         btn_transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Transaction (1).png"))); // NOI18N
@@ -565,7 +574,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 200, -1));
 
-        btn_return.setBackground(new java.awt.Color(255, 255, 255));
         btn_return.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_return.setForeground(new java.awt.Color(255, 255, 255));
         btn_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Return (1).png"))); // NOI18N
@@ -579,7 +587,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_return, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 200, -1));
 
-        btn_opname.setBackground(new java.awt.Color(255, 255, 255));
         btn_opname.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_opname.setForeground(new java.awt.Color(255, 255, 255));
         btn_opname.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Move Stock.png"))); // NOI18N
@@ -593,7 +600,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_opname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, -1));
 
-        btn_laporan.setBackground(new java.awt.Color(255, 255, 255));
         btn_laporan.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_laporan.setForeground(new java.awt.Color(255, 255, 255));
         btn_laporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Graph Report.png"))); // NOI18N
@@ -607,7 +613,6 @@ public Transaksi_Pembelian() {
         });
         getContentPane().add(btn_laporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 200, -1));
 
-        btn_logout.setBackground(new java.awt.Color(255, 255, 255));
         btn_logout.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_logout.setForeground(new java.awt.Color(255, 255, 255));
         btn_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logout (1).png"))); // NOI18N
@@ -1017,6 +1022,25 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
+    private void btn_strukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_strukActionPerformed
+try{
+            String file = "struk.jasper";
+            
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            HashMap param = new HashMap();
+            
+            param.put("total",subtotal.getText());
+            param.put("Bayar",txt_bayar.getText());
+            param.put("kembalian",txt_kembalian.getText());
+            
+            JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream(file),param,koneksi.getKoneksi());
+            JasperViewer.viewReport(print, false);
+            
+        }catch(ClassNotFoundException | InstantiationException | IllegalAccessException | JRException e){
+            System.out.println(e);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_strukActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1059,6 +1083,7 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_opname;
     private javax.swing.JButton btn_return;
+    private javax.swing.JButton btn_struk;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JButton btn_transaksipenjualan;
