@@ -1,7 +1,6 @@
 package Tampilan_Admin;
 
 import Config.Config;
-import Tampilan_Awal.Absen;
 import Tampilan_Awal.Login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -77,19 +76,19 @@ private void kosong1() {
 private void tabel_supplier() {
     model = new DefaultTableModel();
     model.addColumn("Id Supplier");
-    model.addColumn("Nama Supplier");
+    model.addColumn("Supplier");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
     try {
         int no = 1;
-        String sql = "SELECT supplier.id_supplier, supplier.nama_supplier, supplier.telepon, supplier.alamat FROM supplier";
+        String sql = "SELECT supplier.id_supplier, supplier.supplier, supplier.telepon, supplier.alamat FROM supplier";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
         while (res.next()) {
             model.addRow(new Object[]{
                 res.getString("id_supplier"),
-                res.getString("nama_supplier"),
+                res.getString("supplier"),
                 res.getString("telepon"),
                 res.getString("alamat"),
             });
@@ -129,9 +128,9 @@ private void tabel_supplier() {
         btn_laporan = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
         gambar = new javax.swing.JLabel();
-        lbl_image = new javax.swing.JLabel();
-        txt_idakun1 = new javax.swing.JFormattedTextField();
         txt_idsupplier = new javax.swing.JFormattedTextField();
+        lbl_username2 = new javax.swing.JLabel();
+        lbl_image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,14 +147,14 @@ private void tabel_supplier() {
 
         lbl_telepon.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_telepon.setText("Telepon");
-        getContentPane().add(lbl_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
+        getContentPane().add(lbl_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 100, -1, -1));
 
         lbl_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_alamat.setText("Alamat");
-        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, -1, -1));
+        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, -1, -1));
 
         txt_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 310, -1));
+        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 120, 310, -1));
 
         tabel_supplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,7 +222,7 @@ private void tabel_supplier() {
                 txt_teleponActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 140, -1));
+        getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 140, -1));
 
         txt_username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_username.addActionListener(new java.awt.event.ActionListener() {
@@ -231,10 +230,10 @@ private void tabel_supplier() {
                 txt_usernameActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 310, -1));
+        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 310, -1));
 
         lbl_username1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_username1.setText("Username");
+        lbl_username1.setText("Id Supplier");
         getContentPane().add(lbl_username1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
 
         btn_akun.setBackground(new java.awt.Color(255, 255, 255));
@@ -374,14 +373,15 @@ private void tabel_supplier() {
         gambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Administrator Male (1).png"))); // NOI18N
         getContentPane().add(gambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 50, 190, 120));
 
+        txt_idsupplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 110, 30));
+
+        lbl_username2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_username2.setText("Supplier");
+        getContentPane().add(lbl_username2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
+
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        txt_idakun1.setText("jFormattedTextField1");
-        getContentPane().add(txt_idakun1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
-
-        txt_idsupplier.setText("jFormattedTextField1");
-        getContentPane().add(txt_idsupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -390,8 +390,6 @@ private void tabel_supplier() {
         int baris = tabel_supplier.rowAtPoint(evt.getPoint());
         String id_akun = tabel_supplier.getValueAt(baris, 0).toString();
         txt_idsupplier.setText(id_akun);
-        System.out.println(id_akun);
-        txt_idsupplier.setEnabled(false);
         txt_username.setText(tabel_supplier.getValueAt(baris, 1) == null ? "" : tabel_supplier.getValueAt(baris, 1).toString());
         txt_telepon.setText(tabel_supplier.getValueAt(baris, 2) == null ? "" : tabel_supplier.getValueAt(baris, 2).toString());
         txt_alamat.setText(tabel_supplier.getValueAt(baris, 3) == null ? "" : tabel_supplier.getValueAt(baris, 3).toString());
@@ -428,7 +426,7 @@ private void tabel_supplier() {
             JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String sqlCheck = "SELECT * FROM supplier WHERE nama_supplier=? AND Id_supplier!=?";
+        String sqlCheck = "SELECT * FROM supplier WHERE supplier=? AND Id_supplier!=?";
         PreparedStatement pstCheck = conn.prepareStatement(sqlCheck);
         pstCheck.setString(1, username);
         pstCheck.setString(2, idsupplier);
@@ -436,14 +434,14 @@ private void tabel_supplier() {
         if (rsCheck.next()) {
             JOptionPane.showMessageDialog(null, "Username sudah ada dalam database", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            String sql = "UPDATE supplier SET nama_supplier=?, telepon=?, alamat=? WHERE Id_supplier=?";
+            String sql = "UPDATE supplier SET supplier=?, telepon=?, alamat=? WHERE Id_supplier=?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, telepon);
             pst.setString(3, alamat);
             pst.setString(4, idsupplier);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Data berhasil diubah:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
             tabel_supplier();
             txt_idsupplier.setText(getNextIdSupplier());
             kosong1();
@@ -483,7 +481,7 @@ private void tabel_supplier() {
             JOptionPane.showMessageDialog(null, "Nomor telepon hanya boleh terdiri dari angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String checkSql = "SELECT COUNT(*) FROM supplier WHERE nama_supplier = ? ";
+        String checkSql = "SELECT COUNT(*) FROM supplier WHERE supplier = ? ";
         PreparedStatement checkPst = conn.prepareStatement(checkSql);
         checkPst.setString(1, username);
         ResultSet checkRs = checkPst.executeQuery();
@@ -496,14 +494,14 @@ private void tabel_supplier() {
         }
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            String insertSql = "INSERT INTO supplier (id_supplier, nama_supplier, telepon, alamat) VALUES (?, ?, ?, ?)";
+            String insertSql = "INSERT INTO supplier (id_supplier, supplier, telepon, alamat) VALUES (?, ?, ?, ?)";
             PreparedStatement insertPst = conn.prepareStatement(insertSql);
             insertPst.setInt(1, idakun);
             insertPst.setString(2, username);
             insertPst.setString(3, telepon);
             insertPst.setString(4, alamat);
             insertPst.execute();
-            JOptionPane.showMessageDialog(null, "Data berhasil ditambah:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data berhasil ditambah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
             tabel_supplier();
             txt_idsupplier.setText(getNextIdSupplier());
             kosong1();
@@ -522,7 +520,7 @@ private void tabel_supplier() {
             PreparedStatement pstbarang = conn.prepareStatement(sqlbarang);
             pstbarang.setString(1, txt_idsupplier.getText());
             pstbarang.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Data berhasil dihapus:\nUsername: " + txt_username.getText() + "\nTelepon: " + txt_telepon.getText() + "\nAlamat: " + txt_alamat.getText(), "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
             txt_idsupplier.setText(getNextIdSupplier());
         }
     } catch (Exception e) {
@@ -648,9 +646,9 @@ private void tabel_supplier() {
     private javax.swing.JLabel lbl_tanggalmasuk;
     private javax.swing.JLabel lbl_telepon;
     private javax.swing.JLabel lbl_username1;
+    private javax.swing.JLabel lbl_username2;
     private javax.swing.JTable tabel_supplier;
     private javax.swing.JFormattedTextField txt_alamat;
-    private javax.swing.JFormattedTextField txt_idakun1;
     private javax.swing.JFormattedTextField txt_idsupplier;
     private javax.swing.JFormattedTextField txt_telepon;
     private javax.swing.JFormattedTextField txt_username;

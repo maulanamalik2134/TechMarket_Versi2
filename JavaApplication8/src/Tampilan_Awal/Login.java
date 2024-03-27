@@ -75,12 +75,13 @@ public class Login extends javax.swing.JFrame {
         lbl_password = new javax.swing.JLabel();
         lbl_username = new javax.swing.JLabel();
         chk_showpassword = new javax.swing.JCheckBox();
-        Btn_absen = new javax.swing.JButton();
         btn_forgot = new javax.swing.JButton();
         btn_login = new javax.swing.JButton();
         btn_register = new javax.swing.JButton();
         lbl_tanggal = new javax.swing.JLabel();
         lbl_lokasi = new javax.swing.JLabel();
+        txt_rfid = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
         lbl_image = new javax.swing.JLabel();
         lbl_tanggalmasuk = new javax.swing.JLabel();
 
@@ -93,26 +94,31 @@ public class Login extends javax.swing.JFrame {
         Lbl_login.setText("LOGIN ");
         getContentPane().add(Lbl_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 130, 400, -1));
 
-        txt_username.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_usernameActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 300, 40));
+        txt_username.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_usernameKeyReleased(evt);
+            }
+        });
+        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 300, 300, 40));
 
         txt_password.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 300, 300, 40));
+        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 370, 300, 40));
 
         lbl_password.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_password.setForeground(new java.awt.Color(255, 255, 255));
         lbl_password.setText("Password");
-        getContentPane().add(lbl_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 280, -1, -1));
+        getContentPane().add(lbl_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 350, -1, -1));
 
         lbl_username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_username.setForeground(new java.awt.Color(255, 255, 255));
         lbl_username.setText("Username");
-        getContentPane().add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 200, -1, -1));
+        getContentPane().add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 280, -1, -1));
 
         chk_showpassword.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         chk_showpassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,17 +129,7 @@ public class Login extends javax.swing.JFrame {
                 chk_showpasswordActionPerformed(evt);
             }
         });
-        getContentPane().add(chk_showpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 350, -1, -1));
-
-        Btn_absen.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
-        Btn_absen.setText("ABSEN");
-        Btn_absen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Btn_absen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_absenActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Btn_absen, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 500, 300, 40));
+        getContentPane().add(chk_showpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 420, -1, -1));
 
         btn_forgot.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         btn_forgot.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,7 +140,7 @@ public class Login extends javax.swing.JFrame {
                 btn_forgotActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_forgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 350, -1, -1));
+        getContentPane().add(btn_forgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 420, -1, -1));
 
         btn_login.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_login.setText("LOGIN");
@@ -154,7 +150,7 @@ public class Login extends javax.swing.JFrame {
                 btn_loginActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 380, 300, 40));
+        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 460, 300, 40));
 
         btn_register.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 24)); // NOI18N
         btn_register.setText("REGISTER");
@@ -164,7 +160,7 @@ public class Login extends javax.swing.JFrame {
                 btn_registerActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_register, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 440, 300, 40));
+        getContentPane().add(btn_register, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 530, 300, 40));
 
         lbl_tanggal.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         lbl_tanggal.setForeground(new java.awt.Color(255, 255, 255));
@@ -175,6 +171,24 @@ public class Login extends javax.swing.JFrame {
         lbl_lokasi.setForeground(new java.awt.Color(255, 255, 255));
         lbl_lokasi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(lbl_lokasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 860, 50));
+
+        txt_rfid.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_rfid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_rfidActionPerformed(evt);
+            }
+        });
+        txt_rfid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_rfidKeyReleased(evt);
+            }
+        });
+        getContentPane().add(txt_rfid, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 230, 300, 40));
+
+        jLabel1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("RFID");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 190, -1, -1));
 
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Fornend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 700));
@@ -308,15 +322,36 @@ if (chk_showpassword.isSelected()) {
         new SignUp().setVisible(true);
     }//GEN-LAST:event_btn_registerActionPerformed
 
-    private void Btn_absenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_absenActionPerformed
-        this.setVisible(false);
-        new Absen().setVisible(true);
-    }//GEN-LAST:event_Btn_absenActionPerformed
-
     private void btn_forgotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_forgotActionPerformed
         this.setVisible(false);
         new Forgot().setVisible(true);
     }//GEN-LAST:event_btn_forgotActionPerformed
+
+    private void txt_rfidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_rfidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_rfidActionPerformed
+
+    private void txt_rfidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_rfidKeyReleased
+        String Rfid = txt_rfid.getText();
+    try {
+        String sql = "SELECT * FROM akun WHERE id_akun = ?";
+        java.sql.Connection conn = (Connection) Config.configDB();
+        java.sql.PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setString(1, Rfid);
+        java.sql.ResultSet res = stm.executeQuery();
+        if (res.next()) {
+            txt_rfid.setText(res.getString("id_akun"));
+            txt_username.setText(res.getString("username"));
+            txt_password.setText(res.getString("password"));
+        }
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+    }
+    }//GEN-LAST:event_txt_rfidKeyReleased
+
+    private void txt_usernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usernameKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_usernameKeyReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -351,12 +386,12 @@ if (chk_showpassword.isSelected()) {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn_absen;
     private javax.swing.JLabel Lbl_login;
     private javax.swing.JButton btn_forgot;
     private javax.swing.JButton btn_login;
     private javax.swing.JButton btn_register;
     private javax.swing.JCheckBox chk_showpassword;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_lokasi;
     private javax.swing.JLabel lbl_password;
@@ -364,6 +399,7 @@ if (chk_showpassword.isSelected()) {
     private javax.swing.JLabel lbl_tanggalmasuk;
     private javax.swing.JLabel lbl_username;
     private javax.swing.JPasswordField txt_password;
+    private javax.swing.JFormattedTextField txt_rfid;
     private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables
     private void GetData(String username) {

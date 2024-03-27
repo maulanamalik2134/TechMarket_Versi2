@@ -1,7 +1,6 @@
 package Tampilan_Admin;
 
 import Config.Config;
-import Tampilan_Awal.Absen;
 import Tampilan_Awal.Login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

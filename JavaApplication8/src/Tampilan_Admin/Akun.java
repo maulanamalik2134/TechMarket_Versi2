@@ -1,7 +1,6 @@
 package Tampilan_Admin;
 
 import Config.Config;
-import Tampilan_Awal.Absen;
 import Tampilan_Awal.Login;
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -37,14 +36,11 @@ public Akun() {
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
-
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(() -> {
         setTanggalDanWaktuSekarang();
     }, 0, 1, TimeUnit.SECONDS);
-
     setTanggalDanWaktuSekarang();
-
     tabel_akun();
     txt_idakun.setText(getNextIdAkun());
     kosong1();
@@ -86,7 +82,6 @@ private void tabel_akun() {
     model.addColumn("Role");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
-
     try {
         int no = 1;
         String sql = "SELECT akun.id_akun, akun.username, akun.password, akun.role, akun.telepon, akun.alamat FROM akun";
@@ -142,8 +137,9 @@ private void tabel_akun() {
         btn_opname = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
-        lbl_image = new javax.swing.JLabel();
         txt_idakun = new javax.swing.JFormattedTextField();
+        lbl_username1 = new javax.swing.JLabel();
+        lbl_image = new javax.swing.JLabel();
         txt_tanggalmasuk = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -165,25 +161,25 @@ private void tabel_akun() {
                 txt_usernameActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 160, -1));
+        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 160, -1));
 
         lbl_telepon.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_telepon.setText("Telepon");
-        getContentPane().add(lbl_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 100, -1, -1));
+        getContentPane().add(lbl_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 100, -1, -1));
 
         lbl_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_alamat.setText("Alamat");
-        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 100, -1, -1));
+        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 100, -1, -1));
 
         lbl_password.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_password.setText("Password");
-        getContentPane().add(lbl_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, -1, -1));
+        getContentPane().add(lbl_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 100, -1, -1));
 
         txt_password.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 160, -1));
+        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 120, 160, -1));
 
         txt_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 120, 250, -1));
+        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 120, 250, -1));
 
         txt_telepon.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         txt_telepon.addActionListener(new java.awt.event.ActionListener() {
@@ -191,15 +187,15 @@ private void tabel_akun() {
                 txt_teleponActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 120, 140, -1));
+        getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 120, 140, -1));
 
         lbl_username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_username.setText("Username");
+        lbl_username.setText("Id Akun");
         getContentPane().add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
 
         cmb_role.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir", "Karyawan", " " }));
-        getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 120, 160, 30));
+        cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir" }));
+        getContentPane().add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 160, 30));
 
         btn_tambah.setBackground(new java.awt.Color(255, 255, 255));
         btn_tambah.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -212,7 +208,7 @@ private void tabel_akun() {
                 btn_tambahActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 160, 130, 30));
+        getContentPane().add(btn_tambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 220, 130, 30));
 
         btn_edit.setBackground(new java.awt.Color(255, 255, 255));
         btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -224,7 +220,7 @@ private void tabel_akun() {
                 btn_editActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 160, 130, 30));
+        getContentPane().add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, 130, 30));
 
         btn_hapus.setBackground(new java.awt.Color(255, 255, 255));
         btn_hapus.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -236,7 +232,7 @@ private void tabel_akun() {
                 btn_hapusActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 160, 130, 30));
+        getContentPane().add(btn_hapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 220, 130, 30));
 
         tabel_akun.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -261,11 +257,11 @@ private void tabel_akun() {
         });
         jScrollPane1.setViewportView(tabel_akun);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 200, 1070, 460));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 260, 1070, 400));
 
         lbl_role.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_role.setText("Role");
-        getContentPane().add(lbl_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 100, -1, -1));
+        getContentPane().add(lbl_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
         btn_supplier.setBackground(new java.awt.Color(255, 255, 255));
         btn_supplier.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -399,11 +395,20 @@ private void tabel_akun() {
         });
         getContentPane().add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, -1));
 
+        txt_idakun.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_idakun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_idakunActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 160, -1));
+
+        lbl_username1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_username1.setText("Username");
+        getContentPane().add(lbl_username1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, -1, -1));
+
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        txt_idakun.setText("jFormattedTextField1");
-        getContentPane().add(txt_idakun, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
 
         txt_tanggalmasuk.setText("jFormattedTextField1");
         getContentPane().add(txt_tanggalmasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
@@ -427,34 +432,7 @@ private void tabel_akun() {
     String role = cmb_role.getSelectedItem().toString();
     String alamat = txt_alamat.getText();
     String telepon = txt_telepon.getText();
-
     Connection conn = Config.configDB();
-    
-    if (username.isEmpty() && password.isEmpty() && telepon.isEmpty() && alamat.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Username, Password, Telepon, dan Alamat harus diisi");
-    return; 
-} else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
-    JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
-    return;
-} else {
-    Pattern usernamePattern = Pattern.compile("^[a-zA-Z]+$");
-    Matcher usernameMatcher = usernamePattern.matcher(username);
-    if (!usernameMatcher.matches()) {
-        JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z) atau (a-z)");
-        return;
-    } 
-}
-
-if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$")) {
-    JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
-    return;
-} else if (alamat.length() < 5 || alamat.length() > 30 || !alamat.matches("^[a-zA-Z0-9 ]+$")) {
-    JOptionPane.showMessageDialog(null, "Alamat Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 30 Karakter, dan Hanya Boleh Mengandung Huruf, Angka, dan Spasi");
-    return;
-} else if (telepon.length() < 11 || telepon.length() > 12 || !telepon.matches("[0-9]+")) {
-    JOptionPane.showMessageDialog(null, "Telepon Harus Diisi Dengan Panjang Minimal 11 Karakter Dan Maksimal 12 Karakter, dan Hanya Boleh Mengandung Angka");
-    return;
-}
 
     String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ?";
     PreparedStatement checkPst = conn.prepareStatement(checkSql);
@@ -467,6 +445,26 @@ if (password.length() < 5 || password.length() > 15 || password.contains(" ") ||
             JOptionPane.showMessageDialog(null, "Username atau Password Sudah Digunakan");
             return;
         }
+    }
+
+    if (username.isEmpty() && password.isEmpty() && telepon.isEmpty() && alamat.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username, Password, dan Konfirmasi Password harus diisi");
+        return;
+    } else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
+        JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
+        return;
+    } else {
+        Pattern usernamePattern = Pattern.compile("^[a-zA-Z]+$");
+        Matcher usernameMatcher = usernamePattern.matcher(username);
+    if (!usernameMatcher.matches()) {
+        JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z) atau (a-z)");
+        return;
+    }
+}
+
+    if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$") || password.contains("username") || password.contains("Telepon")) {
+        JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
+        return;
     } 
 
     if (role.equals("Admin")) {
@@ -486,25 +484,31 @@ if (password.length() < 5 || password.length() > 15 || password.contains(" ") ||
         return;
     }
 } 
-    
-    int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-    if (confirm == JOptionPane.YES_OPTION) {
-        String insertSql = "INSERT INTO akun (id_akun, username, password, role, telepon, alamat) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement insertPst = conn.prepareStatement(insertSql);
-        insertPst.setInt(1, idakun);
-        insertPst.setString(2, username);
-        insertPst.setString(3, password);
-        insertPst.setString(4, role);
-        insertPst.setString(5, telepon);
-        insertPst.setString(6, alamat);
-        insertPst.execute();
 
-        JOptionPane.showMessageDialog(null, "Data berhasil ditambah:\nUsername: " + username + "\nPassword: " + password + "\nRole: " + role + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+    if (telepon.length() < 1 || telepon.length() > 13 || !telepon.matches("[0-9-]+")) {
+    JOptionPane.showMessageDialog(null, "Nomor telepon harus terdiri dari 1 hingga 13 karakter dan hanya mengandung angka atau tanda '-'", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+} else if(alamat.length() < 5 || alamat.length() > 30 || !alamat.matches("[a-zA-Z\\s]+")) {
+    JOptionPane.showMessageDialog(null, "Alamat harus terdiri dari 5 hingga 30 karakter dan hanya mengandung huruf dan spasi", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-        tabel_akun();
-        txt_idakun.setText(getNextIdAkun());
-        kosong1();
-    }
+    String insertSql = "INSERT INTO akun (id_akun, username, password, role, telepon, alamat) VALUES (?, ?, ?, ?, ?, ?)";
+    PreparedStatement insertPst = conn.prepareStatement(insertSql);
+    insertPst.setInt(1, idakun);
+    insertPst.setString(2, username);
+    insertPst.setString(3, password);
+    insertPst.setString(4, role);
+    insertPst.setString(5, telepon);
+    insertPst.setString(6, alamat);
+    insertPst.execute();
+
+    JOptionPane.showMessageDialog(null, "Data berhasil ditambah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+    tabel_akun();
+    txt_idakun.setText(getNextIdAkun());
+    kosong1();
+
 } catch (Exception e) {
     JOptionPane.showMessageDialog(null, "Gagal menyimpan data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
@@ -512,97 +516,80 @@ if (password.length() < 5 || password.length() > 15 || password.contains(" ") ||
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
        try {
-        int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            String username = txt_username.getText();
-            String password = txt_password.getText();
-            String telepon = txt_telepon.getText();
-            String alamat = txt_alamat.getText();
-            String idakun = txt_idakun.getText();
-            String role = (String) cmb_role.getSelectedItem();
-
-            Connection conn = Config.configDB();
-
-    String checkSql = "SELECT COUNT(*) FROM akun WHERE username = ? OR password = ?";
-    PreparedStatement checkPst = conn.prepareStatement(checkSql);
-    checkPst.setString(1, username);
-    checkPst.setString(2, password);
-    ResultSet checkRs = checkPst.executeQuery();
-    if (checkRs.next()) {
-        int count = checkRs.getInt(1);
-        if (count > 0) {
-            JOptionPane.showMessageDialog(null, "Username atau Password Sudah Digunakan");
-            return;
-        }
-    }
-
-    if (username.isEmpty() && password.isEmpty() && telepon.isEmpty() && alamat.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Username, Password, Telepon, dan Alamat harus diisi");
-    return; 
-} else if (username.length() < 5 || username.length() > 15 || username.contains(" ")) {
-    JOptionPane.showMessageDialog(null, "Username Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter, dan Tidak Boleh Mengandung Spasi");
-    return;
-} else {
-    Pattern usernamePattern = Pattern.compile("^[a-zA-Z]+$");
-    Matcher usernameMatcher = usernamePattern.matcher(username);
-    if (!usernameMatcher.matches()) {
-        JOptionPane.showMessageDialog(null, "Username hanya boleh menggunakan huruf (A-Z) atau (a-z)");
-        return;
-    } 
-}
-
-if (password.length() < 5 || password.length() > 15 || password.contains(" ") || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).+$")) {
-    JOptionPane.showMessageDialog(null, "Password Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 15 Karakter, dan Harus Mengandung huruf besar, huruf kecil, angka, dan simbol");
-    return;
-} else if (alamat.length() < 5 || alamat.length() > 30 || !alamat.matches("^[a-zA-Z0-9 ]+$")) {
-    JOptionPane.showMessageDialog(null, "Alamat Harus Diisi Dengan Panjang Minimal 5 Karakter Dan Maksimal 30 Karakter, dan Hanya Boleh Mengandung Huruf, Angka, dan Spasi");
-    return;
-} else if (telepon.length() < 11 || telepon.length() > 12 || !telepon.matches("[0-9]+")) {
-    JOptionPane.showMessageDialog(null, "Telepon Harus Diisi Dengan Panjang Minimal 11 Karakter Dan Maksimal 12 Karakter, dan Hanya Boleh Mengandung Angka");
-    return;
-} 
-
-    if (role.equals("Admin")) {
-    String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
-    PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
-    ResultSet checkAdminRs = checkAdminPst.executeQuery();
-    if (checkAdminRs.next() && checkAdminRs.getInt(1) > 0) {
-        JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
-        return;
-    }
-} else if (role.equals("Kasir")) {
-    String checkKasirSql = "SELECT COUNT(*) FROM akun WHERE role = 'Kasir'";
-    PreparedStatement checkKasirPst = conn.prepareStatement(checkKasirSql);
-    ResultSet checkKasirRs = checkKasirPst.executeQuery();
-    if (checkKasirRs.next() && checkKasirRs.getInt(1) >= 4) {
-        JOptionPane.showMessageDialog(null, "Hanya Bisa Membuat Maksimal 4 Akun Kasir");
-        return;
-    }
-} 
-
-            String updateSql = "UPDATE akun SET username = ?, password = ?, telepon = ?, alamat = ? WHERE id_akun = ?";
-            PreparedStatement updatePst = conn.prepareStatement(updateSql);
-            updatePst.setString(1, username);
-            updatePst.setString(2, password);
-            updatePst.setString(3, telepon);
-            updatePst.setString(4, alamat);
-            updatePst.setString(5, idakun);
-            updatePst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Data berhasil diupdate\n:Username: " + username + "\nPassword: " + password + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
-            tabel_akun();
-            kosong1();
-        }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Gagal mengupdate data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    }//GEN-LAST:event_btn_editActionPerformed
-
-    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
-        try {
+    int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengedit data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+    if (confirm == JOptionPane.YES_OPTION) {
         String username = txt_username.getText();
         String password = txt_password.getText();
         String telepon = txt_telepon.getText();
         String alamat = txt_alamat.getText();
+        String idakun = txt_idakun.getText();
+        String role = (String) cmb_role.getSelectedItem();
+        Connection conn = Config.configDB();
+
+        if (role.equals("Admin")) {
+            String checkAdminSql = "SELECT COUNT(*) FROM akun WHERE role = 'Admin'";
+            PreparedStatement checkAdminPst = conn.prepareStatement(checkAdminSql);
+            ResultSet checkAdminRs = checkAdminPst.executeQuery();
+            if (checkAdminRs.next() && checkAdminRs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(null, "Hanya Bisa Ada Satu Admin");
+                return;
+            }
+        } else if (role.equals("Kasir")) {
+            String checkKasirSql = "SELECT COUNT(*) FROM akun WHERE role = 'Kasir'";
+            PreparedStatement checkKasirPst = conn.prepareStatement(checkKasirSql);
+            ResultSet checkKasirRs = checkKasirPst.executeQuery();
+            if (checkKasirRs.next() && checkKasirRs.getInt(1) >= 4) {
+                JOptionPane.showMessageDialog(null, "Hanya Bisa Membuat Maksimal 4 Akun Kasir");
+                return;
+            }
+        }
+
+        if (idakun.length() < 1 || idakun.length() > 10 || !idakun.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "ID Akun harus terdiri dari 1 hingga 10 angka.");
+            return;
+        }
+
+        if (username.length() < 5 || username.length() > 15 || !username.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "Username harus terdiri dari 5 hingga 15 huruf.");
+            return;
+        }
+
+        if (password.length() < 5 || password.length() > 15 || !password.matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=]).*$")) {
+            JOptionPane.showMessageDialog(null, "Password harus terdiri dari 5 hingga 15 karakter dan mengandung setidaknya satu huruf, satu angka, dan satu simbol.");
+            return;
+        }
+
+        if (telepon.length() < 1 || telepon.length() > 13 || !telepon.matches("[0-9-]+")) {
+            JOptionPane.showMessageDialog(null, "Nomor telepon harus terdiri dari 1 hingga 13 karakter dan hanya mengandung angka atau simbol '-'.");
+            return;
+        }
+
+        if (alamat.length() < 5 || alamat.length() > 30 || !alamat.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Alamat harus terdiri dari 5 hingga 30 karakter dan hanya mengandung huruf dan spasi.");
+            return;
+        }
+
+        String updateSql = "UPDATE akun SET username = ?, password = ?, role =?, telepon = ?, alamat = ? WHERE id_akun = ?";
+        PreparedStatement updatePst = conn.prepareStatement(updateSql);
+        updatePst.setString(1, username);
+        updatePst.setString(2, password);
+        updatePst.setString(3, role);
+        updatePst.setString(4, telepon);
+        updatePst.setString(5, alamat);
+        updatePst.setString(6, idakun);
+        updatePst.executeUpdate();
+
+        JOptionPane.showMessageDialog(null, "Data berhasil diupdate", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+        tabel_akun();
+        kosong1();
+    }
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Gagal mengupdate data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+}
+    }//GEN-LAST:event_btn_editActionPerformed
+
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
+        try {
         String idakun = txt_idakun.getText();
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
@@ -611,7 +598,7 @@ if (password.length() < 5 || password.length() > 15 || password.contains(" ") ||
         java.sql.PreparedStatement pstbarang = conn.prepareStatement(sqlbarang);
         pstbarang.setString(1, txt_idakun.getText());
         pstbarang.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Data berhasil dihapus\n:Username: " + username + "\nPassword: " + password + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
         txt_idakun.setText(getNextIdAkun());
     }
 } catch (Exception e) {
@@ -626,12 +613,11 @@ kosong1();
         String id_akun = tabel_akun.getValueAt(baris, 0).toString();
         txt_idakun.setText(id_akun);
         System.out.println(id_akun);
-        txt_idakun.setEnabled(false);
-txt_username.setText(tabel_akun.getValueAt(baris, 1) == null ? "" : tabel_akun.getValueAt(baris, 1).toString());
-txt_password.setText(tabel_akun.getValueAt(baris, 2) == null ? "" : tabel_akun.getValueAt(baris, 2).toString());
-cmb_role.setSelectedItem(tabel_akun.getValueAt(baris, 3) == null ? "" : tabel_akun.getValueAt(baris, 3).toString());
-txt_telepon.setText(tabel_akun.getValueAt(baris, 4) == null ? "" : tabel_akun.getValueAt(baris, 4).toString());
-txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.getValueAt(baris, 5).toString());
+        txt_username.setText(tabel_akun.getValueAt(baris, 1) == null ? "" : tabel_akun.getValueAt(baris, 1).toString());
+        txt_password.setText(tabel_akun.getValueAt(baris, 2) == null ? "" : tabel_akun.getValueAt(baris, 2).toString());
+        cmb_role.setSelectedItem(tabel_akun.getValueAt(baris, 3) == null ? "" : tabel_akun.getValueAt(baris, 3).toString());
+        txt_telepon.setText(tabel_akun.getValueAt(baris, 4) == null ? "" : tabel_akun.getValueAt(baris, 4).toString());
+        txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.getValueAt(baris, 5).toString());
     }//GEN-LAST:event_tabel_akunMouseClicked
 
     private void btn_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supplierActionPerformed
@@ -685,6 +671,10 @@ txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.get
             new Login().setVisible(true);
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void txt_idakunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idakunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_idakunActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -743,6 +733,7 @@ txt_alamat.setText(tabel_akun.getValueAt(baris, 5) == null ? "" : tabel_akun.get
     private javax.swing.JLabel lbl_tanggal;
     private javax.swing.JLabel lbl_telepon;
     private javax.swing.JLabel lbl_username;
+    private javax.swing.JLabel lbl_username1;
     private javax.swing.JLabel logo;
     private javax.swing.JTable tabel_akun;
     private javax.swing.JFormattedTextField txt_alamat;

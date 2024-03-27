@@ -1,7 +1,6 @@
 package Tampilan_Admin;
 
 import Config.Config;
-import Tampilan_Awal.Absen;
 import Tampilan_Awal.Login;
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -41,7 +40,7 @@ public void setTanggalDanWaktuSekarang() {
 
 private void tampilstokmenipis() {
     try {
-        String sql = "SELECT view_stok_menipis.id_barang, view_stok_menipis.nama_barang, view_stok_menipis.kategori, view_stok_menipis.satuan, view_stok_menipis.merek, view_stok_menipis.harga, view_stok_menipis.stok FROM view_stok_menipis";
+        String sql = "SELECT stok_menipis.id_barang, stok_menipis.barang, stok_menipis.satuan, stok_menipis.harga, stok_menipis.stok FROM stok_menipis";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -50,18 +49,14 @@ private void tampilstokmenipis() {
 
         while (res.next()) {
             String idBarang = res.getString("id_barang");
-            String namaBarang = res.getString("nama_barang");
-            String kategoriProduk = res.getString("kategori");
-            String satuan = res.getString("satuan");
-            String merek = res.getString("merek");
+            String namaBarang = res.getString("barang");
+            String satuan = res.getString("satuan");;
             double harga = res.getDouble("harga");
             int stok = res.getInt("stok");
 
             sb.append("ID Barang: ").append(idBarang).append("\n");
-            sb.append("Nama Barang: ").append(namaBarang).append("\n");
-            sb.append("Kategori Produk: ").append(kategoriProduk).append("\n");
+            sb.append("Barang: ").append(namaBarang).append("\n");
             sb.append("Satuan: ").append(satuan).append("\n");
-            sb.append("Merek: ").append(merek).append("\n");
             sb.append("Harga: ").append(harga).append("\n");
             sb.append("Stok: ").append(stok).append("\n");
             sb.append("\n");
@@ -76,7 +71,7 @@ private void tampilstokmenipis() {
 
 private void tampilsaldo() {
     try {
-        String sql = "SELECT saldo FROM view_saldo";
+        String sql = "SELECT saldo FROM saldo";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
@@ -95,13 +90,13 @@ private void tampilsaldo() {
 
 private void tampilpendapatan() {
     try {
-String sql = "SELECT pendapatan_hari_ini FROM view_pendapatan_hari_ini";
+String sql = "SELECT pendapatan FROM pendapatan";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
 
         if (res.next()) {
-            int saldo = res.getInt("pendapatan_hari_ini");
+            int saldo = res.getInt("pendapatan");
             NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
             String saldoFormatted = formatRupiah.format(saldo);
             lbl_pendapatan.setText(saldoFormatted);
@@ -114,13 +109,13 @@ String sql = "SELECT pendapatan_hari_ini FROM view_pendapatan_hari_ini";
 
 private void tampilpengeluaran() {
     try {
-        String sql = "SELECT pengeluaran_hari_ini FROM view_pengeluaran_hari_ini";
+        String sql = "SELECT pengeluaran FROM pengeluaran";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
 
         if (res.next()) {
-            int saldo = res.getInt("pengeluaran_hari_ini");
+            int saldo = res.getInt("pengeluaran");
             NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
             String saldoFormatted = formatRupiah.format(saldo);
             lbl_pengeluaran.setText(saldoFormatted);
@@ -133,7 +128,7 @@ private void tampilpengeluaran() {
 
 private void tampilkeuntungan() {
     try {
-String sql = "SELECT keuntungan FROM view_keuntungan_hari_ini";
+String sql = "SELECT keuntungan FROM keuntungan";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);

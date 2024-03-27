@@ -1,7 +1,6 @@
 package Tampilan_Admin;
 
 import Config.Config;
-import Tampilan_Awal.Absen;
 import Tampilan_Awal.Login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +34,6 @@ public Pelanggan() {
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setTitle("Aplikasi TechMarket - Toko Remaja Elektronik");
-
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(new Runnable() {
         @Override
@@ -78,20 +76,20 @@ private void kosong1() {
 private void tabel_supplier() {
     model = new DefaultTableModel();
     model.addColumn("Id Pelanggan");
-    model.addColumn("Nama Pelanggan");
+    model.addColumn("Pelanggan");
     model.addColumn("Telepon");
     model.addColumn("Alamat");
 
     try {
         int no = 1;
-        String sql = "SELECT pelanggan.id_pelanggan, pelanggan.nama_pelanggan, pelanggan.telepon, pelanggan.alamat FROM pelanggan";
+        String sql = "SELECT pelanggan.id_pelanggan, pelanggan.pelanggan, pelanggan.telepon, pelanggan.alamat FROM pelanggan";
         Connection conn = Config.configDB();
         Statement stm = conn.createStatement();
         ResultSet res = stm.executeQuery(sql);
         while (res.next()) {
             model.addRow(new Object[]{
                 res.getString("id_pelanggan"),
-                res.getString("nama_pelanggan"),
+                res.getString("pelanggan"),
                 res.getString("telepon"),
                 res.getString("alamat"),
             });
@@ -130,9 +128,9 @@ private void tabel_supplier() {
         btn_opname = new javax.swing.JButton();
         btn_laporan = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
-        lbl_image = new javax.swing.JLabel();
         txt_idpelanggan = new javax.swing.JFormattedTextField();
-        txt_idakun1 = new javax.swing.JFormattedTextField();
+        lbl_username1 = new javax.swing.JLabel();
+        lbl_image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,7 +146,7 @@ private void tabel_supplier() {
         getContentPane().add(lbl_tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 450, 50));
 
         lbl_username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_username.setText("Username");
+        lbl_username.setText("Id Pelanggan");
         getContentPane().add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
 
         txt_username.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -157,18 +155,18 @@ private void tabel_supplier() {
                 txt_usernameActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 310, -1));
+        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 310, -1));
 
         lbl_telepon.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_telepon.setText("Telepon");
-        getContentPane().add(lbl_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
+        getContentPane().add(lbl_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 100, -1, -1));
 
         lbl_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_alamat.setText("Alamat");
-        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, -1, -1));
+        getContentPane().add(lbl_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 100, -1, -1));
 
         txt_alamat.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 310, -1));
+        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 120, 310, -1));
 
         btn_edit.setBackground(new java.awt.Color(255, 255, 255));
         btn_edit.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -212,7 +210,7 @@ private void tabel_supplier() {
                 txt_teleponActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 140, -1));
+        getContentPane().add(txt_telepon, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 140, -1));
 
         tabel_supplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -371,14 +369,20 @@ private void tabel_supplier() {
         });
         getContentPane().add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, -1));
 
+        txt_idpelanggan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        txt_idpelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_idpelangganActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_idpelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 110, 30));
+
+        lbl_username1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        lbl_username1.setText("Pelanggan");
+        getContentPane().add(lbl_username1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
+
         lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Tampilan_Backend.png"))); // NOI18N
         getContentPane().add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        txt_idpelanggan.setText("jFormattedTextField1");
-        getContentPane().add(txt_idpelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
-
-        txt_idakun1.setText("jFormattedTextField1");
-        getContentPane().add(txt_idakun1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -420,7 +424,7 @@ private void tabel_supplier() {
             return;
         }
 
-        String sqlCheck = "SELECT * FROM pelanggan WHERE nama_pelanggan=? AND Id_pelanggan!=?";
+        String sqlCheck = "SELECT * FROM pelanggan WHERE pelanggan=? AND Id_pelanggan!=?";
         PreparedStatement pstCheck = conn.prepareStatement(sqlCheck);
         pstCheck.setString(1, username);
         pstCheck.setString(2, idsupplier);
@@ -429,14 +433,14 @@ private void tabel_supplier() {
         if (rsCheck.next()) {
             JOptionPane.showMessageDialog(null, "Username sudah ada dalam database", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            String sql = "UPDATE pelanggan SET nama_pelanggan=?, telepon=?, alamat=? WHERE Id_pelanggan=?";
+            String sql = "UPDATE pelanggan SET pelanggan=?, telepon=?, alamat=? WHERE Id_pelanggan=?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, telepon);
             pst.setString(3, alamat);
             pst.setString(4, idsupplier);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Data berhasil diedit:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data berhasil diedit", "Sukses", JOptionPane.INFORMATION_MESSAGE);
             tabel_supplier();
             txt_idpelanggan.setText(getNextIdPelanggan());
             kosong1();
@@ -478,7 +482,7 @@ private void tabel_supplier() {
             return;
         }
 
-    String checkSql = "SELECT COUNT(*) FROM pelanggan WHERE nama_pelanggan = ?";
+    String checkSql = "SELECT COUNT(*) FROM pelanggan WHERE pelanggan = ?";
     PreparedStatement checkPst = conn.prepareStatement(checkSql);
     checkPst.setString(1, username);
     ResultSet checkRs = checkPst.executeQuery();
@@ -492,14 +496,14 @@ private void tabel_supplier() {
 
     int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menyimpan data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
-        String insertSql = "INSERT INTO pelanggan (id_pelanggan, nama_pelanggan, telepon, alamat) VALUES (?, ?, ?, ?)";
+        String insertSql = "INSERT INTO pelanggan (id_pelanggan, pelanggan, telepon, alamat) VALUES (?, ?, ?, ?)";
         PreparedStatement insertPst = conn.prepareStatement(insertSql);
         insertPst.setInt(1, idakun);
         insertPst.setString(2, username);
         insertPst.setString(3, telepon);
         insertPst.setString(4, alamat);
         insertPst.execute();
-        JOptionPane.showMessageDialog(null, "Data berhasil ditambah:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Data berhasil ditambah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
         tabel_supplier();
         txt_idpelanggan.setText(getNextIdPelanggan());
         kosong1();
@@ -521,7 +525,7 @@ private void tabel_supplier() {
         PreparedStatement pstbarang = conn.prepareStatement(sqlbarang);
         pstbarang.setString(1, txt_idpelanggan.getText());
         pstbarang.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Data berhasil dihapus:\nUsername: " + username + "\nTelepon: " + telepon + "\nAlamat: " + alamat, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
         txt_idpelanggan.setText(getNextIdPelanggan());
     }
 } catch (Exception e) {
@@ -539,8 +543,6 @@ kosong1();
         int baris = tabel_supplier.rowAtPoint(evt.getPoint());
         String id_akun = tabel_supplier.getValueAt(baris, 0).toString();
         txt_idpelanggan.setText(id_akun);
-        System.out.println(id_akun);
-        txt_idpelanggan.setEnabled(false);
         txt_username.setText(tabel_supplier.getValueAt(baris, 1) == null ? "" : tabel_supplier.getValueAt(baris, 1).toString());
         txt_telepon.setText(tabel_supplier.getValueAt(baris, 2) == null ? "" : tabel_supplier.getValueAt(baris, 2).toString());
         txt_alamat.setText(tabel_supplier.getValueAt(baris, 3) == null ? "" : tabel_supplier.getValueAt(baris, 3).toString());
@@ -598,6 +600,10 @@ kosong1();
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
+    private void txt_idpelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idpelangganActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_idpelangganActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -651,9 +657,9 @@ kosong1();
     private javax.swing.JLabel lbl_tanggal;
     private javax.swing.JLabel lbl_telepon;
     private javax.swing.JLabel lbl_username;
+    private javax.swing.JLabel lbl_username1;
     private javax.swing.JTable tabel_supplier;
     private javax.swing.JFormattedTextField txt_alamat;
-    private javax.swing.JFormattedTextField txt_idakun1;
     private javax.swing.JFormattedTextField txt_idpelanggan;
     private javax.swing.JFormattedTextField txt_telepon;
     private javax.swing.JFormattedTextField txt_username;
