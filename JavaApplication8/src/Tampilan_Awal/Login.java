@@ -1,8 +1,8 @@
 package Tampilan_Awal;
 
 import Config.Config;
-import Tampilan_Admin.Dashboard;
-import Tampilan_Kasir.Transaksi_Penjualan_Kasir;
+import Dashboard.Dashboard;
+import Transaksi.Transaksi_Penjualan_Kasir;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
