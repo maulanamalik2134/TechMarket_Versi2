@@ -224,7 +224,6 @@ public Transaksi_Penjualan() {
         lbl_stok = new javax.swing.JLabel();
         txt_jumlah = new javax.swing.JFormattedTextField();
         txt_subtotal = new javax.swing.JFormattedTextField();
-        lbl_stok1 = new javax.swing.JLabel();
         lbl_namabarang1 = new javax.swing.JLabel();
         lbl_namabarang2 = new javax.swing.JLabel();
         txt_username = new javax.swing.JFormattedTextField();
@@ -240,7 +239,6 @@ public Transaksi_Penjualan() {
         lbl_stok2 = new javax.swing.JLabel();
         lbl_stok3 = new javax.swing.JLabel();
         lbl_stok4 = new javax.swing.JLabel();
-        cmb_metode = new javax.swing.JComboBox<>();
         lbl_stok5 = new javax.swing.JLabel();
         btn_transaksipembelian = new javax.swing.JButton();
         btn_cari = new javax.swing.JButton();
@@ -338,10 +336,6 @@ public Transaksi_Penjualan() {
             }
         });
         getContentPane().add(txt_subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 590, 260, 30));
-
-        lbl_stok1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
-        lbl_stok1.setText("Metode Pembayaran");
-        getContentPane().add(lbl_stok1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 570, -1, -1));
 
         lbl_namabarang1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_namabarang1.setText("Pelanggan");
@@ -478,10 +472,6 @@ public Transaksi_Penjualan() {
         lbl_stok4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_stok4.setText("Total");
         getContentPane().add(lbl_stok4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 630, -1, -1));
-
-        cmb_metode.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
-        cmb_metode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tunai", "Non Tunai" }));
-        getContentPane().add(cmb_metode, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 590, 140, 30));
 
         lbl_stok5.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         lbl_stok5.setText("Jumlah");
@@ -770,37 +760,19 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
             DefaultTableModel model = (DefaultTableModel) tabel.getModel();
             String Id_transaksi = txt_idtransaksi.getText();
             String Id_akun = txt_idakun.getText();
-            String Username = txt_username.getText();
             String Id_pelanggan = txt_idpelanggan.getText();
-            String Bayar1 = txt_bayar.getText();
-            String Kembalian1 = txt_kembalian.getText();
-            String Nama_pelanggan = txt_namapelanggan.getText();
             String TotalString = txt_total.getText();
-            String Metode = (String) cmb_metode.getSelectedItem();
             String Tanggal = txt_tanggal.getText();
-            System.out.println(Id_transaksi + " " + Id_akun + " " + Username + " " + Id_pelanggan + " " + Nama_pelanggan + " " + Total + " " + Bayar1 + " " + Kembalian + " " + Metode + " " + Tanggal);
+            System.out.println(Id_transaksi + " " + Id_akun + " " + Id_pelanggan + " " + Total + " " + Tanggal);
             try {
                 Connection c = Config.configDB();
-                String sql = "INSERT INTO transaksi_penjualan (id_transaksi, id_akun, username, id_pelanggan, nama_pelanggan, total, bayar, kembalian, metode_pembayaran, tanggal_transaksi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO transaksi_penjualan (id_transaksi, id_akun, id_pelanggan, total, tanggal) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement p = c.prepareStatement(sql);
                 p.setInt(1, Integer.parseInt(Id_transaksi));
                 p.setInt(2, Integer.parseInt(Id_akun));
-                p.setString(3, Username);
-                if (Id_pelanggan.isEmpty()) {
-                    p.setNull(4, Types.INTEGER);
-                } else {
-                    p.setInt(4, Integer.parseInt(Id_pelanggan));
-                }
-                if (Nama_pelanggan.isEmpty()) {
-                    p.setNull(5, Types.VARCHAR);
-                } else {
-                    p.setString(5, Nama_pelanggan);
-                }
-                p.setInt(6, Total);
-                p.setInt(7, Integer.parseInt(Bayar1));
-                p.setInt(8, Integer.parseInt(Kembalian1));
-                p.setString(9, Metode);
-                p.setString(10, Tanggal);
+                p.setInt(3, Integer.parseInt(Id_pelanggan));
+                p.setInt(4, Total);
+                p.setString(5, Tanggal);
                 p.executeUpdate();
                 p.close();
             } catch (Exception e) {
@@ -811,7 +783,7 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
                 Connection c = Config.configDB();
                 int baris = tabel.getRowCount();
                 for (int i = 0; i < baris; i++) {
-                    String sql = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_barang, nama_barang, harga_barang, satuan, jumlah, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    String sql = "INSERT INTO detail_transaksi_penjualan (id_transaksi, id_barang, barang, harga, satuan, jumlah, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement p = c.prepareStatement(sql);
                     
                     p.setString(1,  tabel.getValueAt(i, 0).toString());
@@ -857,6 +829,7 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
     txt_bayar.setText("0");
     txt_kembalian.setText("0");
 }
+        
     }//GEN-LAST:event_btn_bayarActionPerformed
 
     private void tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMouseClicked
@@ -895,13 +868,13 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
     private void txt_namabarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_namabarangKeyReleased
         String Nama = txt_namabarang.getText();
     try {
-        String sql = "SELECT * FROM barang WHERE Nama_barang = ?";
+        String sql = "SELECT * FROM barang WHERE barang = ?";
         java.sql.Connection conn = (Connection) Config.configDB();
         java.sql.PreparedStatement stm = conn.prepareStatement(sql);
         stm.setString(1, Nama);
         java.sql.ResultSet res = stm.executeQuery();
         if (res.next()) {
-            txt_namabarang.setText(res.getString("Nama_barang"));
+            txt_namabarang.setText(res.getString("barang"));
             txt_idbarang.setText(res.getString("Id_barang"));
             txt_hargajual.setText(res.getString("harga"));
             cmb_satuan.setSelectedItem(res.getString("satuan"));
@@ -931,13 +904,13 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
     private void txt_namapelangganKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_namapelangganKeyReleased
         String Nama = txt_namapelanggan.getText();
     try {
-        String sql = "SELECT * FROM pelanggan WHERE nama_pelanggan = ?";
+        String sql = "SELECT * FROM pelanggan WHERE pelanggan = ?";
         java.sql.Connection conn = (Connection) Config.configDB();
         java.sql.PreparedStatement stm = conn.prepareStatement(sql);
         stm.setString(1, Nama);
         java.sql.ResultSet res = stm.executeQuery();
         if (res.next()) {
-            txt_namapelanggan.setText(res.getString("nama_pelanggan"));
+            txt_namapelanggan.setText(res.getString("pelanggan"));
             txt_idpelanggan.setText(res.getString("Id_pelanggan"));
         }
     } catch (Exception e) {
@@ -973,15 +946,15 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
             Connection conn = Config.configDB();
             Statement statement = conn.createStatement();
             String searchKeyword = txt_namabarang.getText();
-            ResultSet res = statement.executeQuery("SELECT * FROM barang WHERE nama_barang LIKE '%" + searchKeyword 
+            ResultSet res = statement.executeQuery("SELECT * FROM barang WHERE barang LIKE '%" + searchKeyword 
                     + "%'");
             DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Nama Barang");
+            model.addColumn("Barang");
             tabel_barang.setModel(model);
             int no = 1;
             while (res.next()) {
                 model.addRow(new Object[]{
-                    res.getString("Nama_Barang"),
+                    res.getString("Barang"),
                  });
                 no++;
             }
@@ -1108,7 +1081,6 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JButton btn_transaksipembelian;
-    private javax.swing.JComboBox<String> cmb_metode;
     private javax.swing.JComboBox<String> cmb_satuan;
     private javax.swing.JLabel gambar;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1121,7 +1093,6 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
     private javax.swing.JLabel lbl_namabarang1;
     private javax.swing.JLabel lbl_namabarang2;
     private javax.swing.JLabel lbl_stok;
-    private javax.swing.JLabel lbl_stok1;
     private javax.swing.JLabel lbl_stok2;
     private javax.swing.JLabel lbl_stok3;
     private javax.swing.JLabel lbl_stok4;
