@@ -62,11 +62,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Microsoft Sans Serif" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Stok"/>
+        <Property name="text" type="java.lang.String" value="Diskon"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="1150" y="100" width="-1" height="-1"/>
+          <AbsoluteConstraints x="410" y="160" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -194,7 +194,6 @@
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txt_stok">
       <Properties>
-        <Property name="text" type="java.lang.String" value="50"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Microsoft Sans Serif" size="18" style="0"/>
         </Property>
@@ -204,7 +203,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="1150" y="120" width="140" height="-1"/>
+          <AbsoluteConstraints x="570" y="180" width="110" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -219,7 +218,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="960" y="120" width="140" height="-1"/>
+          <AbsoluteConstraints x="250" y="180" width="110" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -228,24 +227,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Microsoft Sans Serif" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Satuan"/>
+        <Property name="text" type="java.lang.String" value="Merek"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="770" y="100" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_namabarang">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Microsoft Sans Serif" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Supplier"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="410" y="160" width="-1" height="-1"/>
+          <AbsoluteConstraints x="990" y="100" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -264,55 +250,6 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cmb_satuan">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Microsoft Sans Serif" size="18" style="0"/>
-        </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Pcs"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="770" y="120" width="140" height="30"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_hargajual1">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Microsoft Sans Serif" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Id Supplier"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="250" y="160" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="txt_idsupplier">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Microsoft Sans Serif" size="18" style="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_idsupplierActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_idsupplierKeyReleased"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="250" y="180" width="110" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JLabel" name="lbl_hargajual2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -322,7 +259,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="960" y="100" width="-1" height="-1"/>
+          <AbsoluteConstraints x="250" y="160" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -580,26 +517,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Microsoft Sans Serif" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Barang"/>
+        <Property name="text" type="java.lang.String" value="Id Barang"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="250" y="100" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="txt_namasupplier">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Microsoft Sans Serif" size="18" style="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_namasupplierActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="410" y="180" width="310" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -613,6 +535,225 @@
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="410" y="100" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmb_satuan">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft Sans Serif" size="18" style="0"/>
+        </Property>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="1">
+            <StringItem index="0" value="Pcs"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmb_satuanActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="1180" y="120" width="140" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmb_merek">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft Sans Serif" size="18" style="0"/>
+        </Property>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="52">
+            <StringItem index="0" value="Sharp"/>
+            <StringItem index="1" value="Samsung"/>
+            <StringItem index="2" value="Polytron"/>
+            <StringItem index="3" value="Toshiba"/>
+            <StringItem index="4" value="Sony"/>
+            <StringItem index="5" value="Lg"/>
+            <StringItem index="6" value="Akari"/>
+            <StringItem index="7" value="Panasonic"/>
+            <StringItem index="8" value="Tcl"/>
+            <StringItem index="9" value="Aqua"/>
+            <StringItem index="10" value="Coocaa"/>
+            <StringItem index="11" value="Xiaomi"/>
+            <StringItem index="12" value="Olike"/>
+            <StringItem index="13" value="Robot"/>
+            <StringItem index="14" value="Noise"/>
+            <StringItem index="15" value="Bracket Tv"/>
+            <StringItem index="16" value="Daikin"/>
+            <StringItem index="17" value="Midea"/>
+            <StringItem index="18" value="Gree"/>
+            <StringItem index="19" value="Electrolux"/>
+            <StringItem index="20" value="Ariston"/>
+            <StringItem index="21" value="Realme"/>
+            <StringItem index="22" value="Apple"/>
+            <StringItem index="23" value="Oppo"/>
+            <StringItem index="24" value="Infinix"/>
+            <StringItem index="25" value="Vivo"/>
+            <StringItem index="26" value="Asus"/>
+            <StringItem index="27" value="Lenovo"/>
+            <StringItem index="28" value="Acer"/>
+            <StringItem index="29" value="Hp"/>
+            <StringItem index="30" value="Msi"/>
+            <StringItem index="31" value="Huawei"/>
+            <StringItem index="32" value="Kangaroo"/>
+            <StringItem index="33" value="Sunhouse"/>
+            <StringItem index="34" value="Bolde"/>
+            <StringItem index="35" value="Maspion"/>
+            <StringItem index="36" value="Philips"/>
+            <StringItem index="37" value="Miyako"/>
+            <StringItem index="38" value="Cosmos"/>
+            <StringItem index="39" value="Turbo"/>
+            <StringItem index="40" value="Oniko"/>
+            <StringItem index="41" value="Advance"/>
+            <StringItem index="42" value="Lock&amp;Lock"/>
+            <StringItem index="43" value="Cuckoo"/>
+            <StringItem index="44" value="Yongma"/>
+            <StringItem index="45" value="Ecohome"/>
+            <StringItem index="46" value="Maxim"/>
+            <StringItem index="47" value="Foomee"/>
+            <StringItem index="48" value="Acmic"/>
+            <StringItem index="49" value="It"/>
+            <StringItem index="50" value="Loops"/>
+            <StringItem index="51" value="Morejoy"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmb_merekActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="990" y="120" width="140" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_hargabeli1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft Sans Serif" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Satuan"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="1180" y="100" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_hargabeli2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft Sans Serif" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Kategori"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="770" y="100" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmb_kategori">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft Sans Serif" size="18" style="0"/>
+        </Property>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="46">
+            <StringItem index="0" value="Tv"/>
+            <StringItem index="1" value="Tv Box"/>
+            <StringItem index="2" value="Speaker"/>
+            <StringItem index="3" value="Bracket Tv"/>
+            <StringItem index="4" value="Ac"/>
+            <StringItem index="5" value="Kulkas"/>
+            <StringItem index="6" value="Mesin Cuci"/>
+            <StringItem index="7" value="Water Heater"/>
+            <StringItem index="8" value="Freezer"/>
+            <StringItem index="9" value="Showcase"/>
+            <StringItem index="10" value="Handphone"/>
+            <StringItem index="11" value="Laptop"/>
+            <StringItem index="12" value="Tablet"/>
+            <StringItem index="13" value="Smartwatch"/>
+            <StringItem index="14" value="Air Cooler"/>
+            <StringItem index="15" value="Air Purifier"/>
+            <StringItem index="16" value="Kipas Angin"/>
+            <StringItem index="17" value="Vacuum Clearner"/>
+            <StringItem index="18" value="hair Dryer"/>
+            <StringItem index="19" value="hair Styler"/>
+            <StringItem index="20" value="Setrika"/>
+            <StringItem index="21" value="Mop Set"/>
+            <StringItem index="22" value="Water Dispenser"/>
+            <StringItem index="23" value="Microwave"/>
+            <StringItem index="24" value="Oven Listrik"/>
+            <StringItem index="25" value="Kompor Gas"/>
+            <StringItem index="26" value="Rice Cooker"/>
+            <StringItem index="27" value="Air Fryer"/>
+            <StringItem index="28" value="Blender"/>
+            <StringItem index="29" value="Mixer"/>
+            <StringItem index="30" value="Juicer"/>
+            <StringItem index="31" value="Ketel Listrik"/>
+            <StringItem index="32" value="Fry Pan"/>
+            <StringItem index="33" value="Panci"/>
+            <StringItem index="34" value="Panci Multifungsi"/>
+            <StringItem index="35" value="Pisau"/>
+            <StringItem index="36" value="Spatula"/>
+            <StringItem index="37" value="Konverter"/>
+            <StringItem index="38" value="Adaptor"/>
+            <StringItem index="39" value="Headphone"/>
+            <StringItem index="40" value="Mouse"/>
+            <StringItem index="41" value="Phone Holder"/>
+            <StringItem index="42" value="Power Bank"/>
+            <StringItem index="43" value="Screen Protector"/>
+            <StringItem index="44" value="Memory Card"/>
+            <StringItem index="45" value="Phone Case"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmb_kategoriActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="770" y="120" width="170" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="txt_diskon">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft Sans Serif" size="18" style="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_diskonActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="410" y="180" width="110" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_stok1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft Sans Serif" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Stok"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="570" y="160" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
