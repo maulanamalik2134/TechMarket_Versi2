@@ -20,6 +20,8 @@ import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JFormattedTextField;
+import javax.swing.JPasswordField;
 
 public class Login extends javax.swing.JFrame {
     String tanggal;
@@ -56,6 +58,8 @@ public class Login extends javax.swing.JFrame {
                 setTanggalDanWaktu();
             }
         }, 0, 1, TimeUnit.SECONDS);
+        JFormattedTextField username = txt_username;
+        JPasswordField password = txt_password;
     }
 
     public void login() {
@@ -303,10 +307,10 @@ if (chk_showpassword.isSelected()) {
         btn_login.setEnabled(true);
         String role = checkUserPassRs.getString("role");
         if (role.equals("Admin")) {
-            JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Admin.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Admin.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             new Dashboard().setVisible(true);
         } else if (role.equals("Kasir")) {
-            JOptionPane.showMessageDialog(null, "u", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selamat datang, " + username + "! Anda berhasil login sebagai Kasir.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             new Transaksi_Penjualan_Kasir().setVisible(true);
         } 
         this.dispose();
@@ -328,7 +332,12 @@ if (chk_showpassword.isSelected()) {
     }//GEN-LAST:event_btn_forgotActionPerformed
 
     private void txt_rfidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_rfidActionPerformed
-        // TODO add your handling code here:
+        String username = txt_username.getText();
+    String password = new String(txt_password.getPassword());
+
+    if (!username.isEmpty() && !password.isEmpty()) {
+        btn_login.doClick();
+    }
     }//GEN-LAST:event_txt_rfidActionPerformed
 
     private void txt_rfidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_rfidKeyReleased
@@ -402,7 +411,4 @@ if (chk_showpassword.isSelected()) {
     private javax.swing.JFormattedTextField txt_rfid;
     private javax.swing.JFormattedTextField txt_username;
     // End of variables declaration//GEN-END:variables
-    private void GetData(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

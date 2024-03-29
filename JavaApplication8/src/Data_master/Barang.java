@@ -87,7 +87,7 @@ private String getNextIdBarang() {
 private void kosong1() {
     txt_namabarang.setText(null);
     txt_hargajual.setText(null);
-    txt_stok.setText(null);
+//    txt_stok.setText(null);
     txt_diskon.setText(null);
 }
 
@@ -508,7 +508,6 @@ private void tabel_Barang() {
             txt_hargajual.setText(tabel_barang.getValueAt(baris, 5) == null ? "" : tabel_barang.getValueAt(baris, 5).toString());
             txt_diskon.setText(tabel_barang.getValueAt(baris, 6) == null ? "" : tabel_barang.getValueAt(baris, 6).toString());
             txt_stok.setText(tabel_barang.getValueAt(baris, 7) == null ? "" : tabel_barang.getValueAt(baris, 7).toString());
-            txt_tanggalmasuk.setText(tabel_barang.getValueAt(baris,8) == null ? "" : tabel_barang.getValueAt(baris, 8).toString());
         }
         catch(SQLException ex){
             Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
@@ -535,8 +534,8 @@ private void tabel_Barang() {
         } else if (namabarang.length() < 5 || namabarang.length() > 100) {
             JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 100 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (!namabarang.matches("[a-zA-Z0-9\"\\s.-]+")) {
-            JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (\") dan titik (.)", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (!namabarang.matches("[a-zA-Z0-9'\\s./()-]+")) {
+            JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (') dan titik (.), garis miring (/), tanda kurung buka (()) dan tanda kurung tutup ())", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (hargajual.length() < 4 || hargajual.length() > 9) {
             JOptionPane.showMessageDialog(null, "Panjang harga jual harus antara 4 hingga 9 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
@@ -613,8 +612,8 @@ private void tabel_Barang() {
         } else if (namabarang.length() < 5 || namabarang.length() > 100) {
             JOptionPane.showMessageDialog(null, "Panjang nama barang harus antara 5 hingga 100 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (!namabarang.matches("[a-zA-Z0-9\"\\s.-]+")) {
-            JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (\") dan titik (.)", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
+        } else if (!namabarang.matches("[a-zA-Z0-9'\\s./()-]+")) {
+            JOptionPane.showMessageDialog(null, "Nama barang hanya boleh terdiri dari huruf, angka, spasi, tanda petik (') dan titik (.), garis miring (/), tanda kurung buka (()) dan tanda kurung tutup ())", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (hargajual.length() < 4 || hargajual.length() > 9) {
             JOptionPane.showMessageDialog(null, "Panjang harga jual harus antara 4 hingga 9 karakter", "Inputan tidak valid", JOptionPane.ERROR_MESSAGE);
