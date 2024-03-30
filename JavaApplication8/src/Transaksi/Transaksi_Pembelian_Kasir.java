@@ -28,7 +28,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Transaksi_Pembelian_Kasir extends javax.swing.JFrame {
 String Tanggal;
@@ -749,6 +754,26 @@ if (namabarang.isEmpty() || jumlah.isEmpty() || hargajual.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Masukkan Angka Yang Valid");
     txt_bayar.setText("0");
     txt_kembalian.setText("0");
+     try{
+            String file = "/struk/struk_1.jasper";
+            
+           Class.forName("com.mysql.jdbc.Driver").newInstance();
+           HashMap param = new HashMap();
+            
+           
+         param.put("total",txt_total.getText());
+         param.put("bayar",txt_bayar.getText());
+           param.put("kembalian",txt_kembalian.getText());
+            
+          JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream(file),param,Config.configDB());
+          JasperViewer.viewReport(print, false);
+            
+       }catch(ClassNotFoundException | InstantiationException | IllegalAccessException | JRException a){
+            System.out.println(a);
+           
+                 } catch (SQLException ex) {
+                Logger.getLogger(Transaksi_Pembelian_Kasir.class.getName()).log(Level.SEVERE, null, ex);
+            }
 }
     }//GEN-LAST:event_btn_bayarActionPerformed
 

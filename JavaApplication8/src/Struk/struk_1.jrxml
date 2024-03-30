@@ -7,21 +7,21 @@
 	<parameter name="bayar" class="java.lang.String"/>
 	<parameter name="kembalian" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM `detail_transaksi_penjualan`]]>
+		<![CDATA[Select * from detail_transaksi_pembelian]]>
 	</queryString>
-	<field name="Id_transaksi" class="java.lang.Integer">
+	<field name="Id_Transaksi" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Id_Barang" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Nama_barang" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Harga_barang" class="java.lang.Integer">
+	<field name="Barang" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Satuan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Harga" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Jumlah" class="java.lang.Integer">
@@ -117,22 +117,22 @@
 	<detail>
 		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="66" height="20" uuid="7095ff0e-3a38-4619-9a74-24db31785b64"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Nama_barang}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="66" y="0" width="45" height="20" uuid="7cd31478-c912-4262-8299-da9913e4c698"/>
+				<reportElement x="0" y="2" width="50" height="20" uuid="e4f7ccf1-27d0-42b0-98bb-f603e016bca4"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Harga_barang}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Barang}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="0" width="46" height="20" uuid="596f5c6f-a988-4b55-a805-4401a075bb70"/>
+				<reportElement x="68" y="2" width="42" height="20" uuid="3d8b0633-bd10-42a8-9346-6d2fe91cc3c5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Harga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="113" y="2" width="33" height="20" uuid="fc725f0e-fad6-487a-a972-c1397087d72b"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Jumlah}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="146" y="0" width="40" height="20" uuid="ee1f4111-56c6-408a-9b44-e0caf30a4542"/>
+				<reportElement x="153" y="2" width="33" height="20" uuid="e223199f-29fa-4609-8b77-c592aab382b9"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Satuan}]]></textFieldExpression>
 			</textField>
