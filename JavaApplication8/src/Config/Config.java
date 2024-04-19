@@ -4,19 +4,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Config {
+public class DatabaseConfig {
+    private static final String URL = "jdbc:mysql://localhost:3306/techmarket";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
+
     private static Connection mysqlConfig;
 
-public static Connection configDB() throws SQLException {
-    try {
-        String url = "jdbc:mysql://localhost:3306/techmarket";
-        String user = "root";
-        String pass = "";
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-        mysqlConfig = DriverManager.getConnection(url, user, pass);
-    } catch (Exception e) {
-        System.err.println("Koneksi Gagal " + e.getMessage());
+    public static Connection getConnection() throws SQLException {
+        if (mysqlConfig == null) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                mysqlConfig = DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (Exception e) {
+                throw new SQLException("Error connecting to the database", e);
+            }
+        }
+        return mysqlConfig;
     }
-    return mysqlConfig;
-}
 }
