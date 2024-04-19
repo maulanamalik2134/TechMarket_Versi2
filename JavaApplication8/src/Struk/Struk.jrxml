@@ -1,159 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="226" pageHeight="431" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b71c15b-607b-466d-82c7-71dcfe829883">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="83"/>
-	<parameter name="Nama_barang" class="java.lang.String"/>
-	<parameter name="Harga_barang" class="java.lang.String"/>
-	<parameter name="Jumlah" class="java.lang.String"/>
-	<parameter name="Subtotal" class="java.lang.String"/>
-	<parameter name="Satuan" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[SELECT * FROM detail_transaksi_pembelian]]>
-	</queryString>
-	<field name="Id_Transaksi" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Id_barang" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Nama_barang" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Harga_barang" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Satuan" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Jumlah" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Subtotal" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="79" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="16" width="186" height="20" uuid="24344236-9f13-433d-a5d7-939b8ce0c003"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[=================================]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="59" width="186" height="20" uuid="bd57be00-073b-4ba7-9125-316df85b4974"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[=================================]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="39" y="36" width="108" height="23" uuid="b7a2911e-7756-4ddf-977d-2567a940df52"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[TECH MARKET]]></text>
-			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="49" splitType="Stretch">
-			<line>
-				<reportElement x="3" y="48" width="183" height="1" uuid="6b05a93e-07e8-41cd-b9b2-08a96b50e348"/>
-			</line>
-			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="29" y="13" width="131" height="20" uuid="bfeabba0-493f-4039-970c-4995cb9a40a5"/>
-				<textElement textAlignment="Center">
-					<font size="13" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="62" splitType="Stretch">
-			<line>
-				<reportElement x="3" y="32" width="183" height="1" uuid="73ad94a2-1ef4-4575-9431-b88264fb5658"/>
-			</line>
-			<staticText>
-				<reportElement x="3" y="12" width="100" height="20" uuid="596195fc-a1fe-4182-a1ce-b0672b1eaee3"/>
-				<textElement textAlignment="Left"/>
-				<text><![CDATA[Nama Barang]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="147" y="13" width="100" height="20" uuid="fa767d07-4298-4087-bb9a-dbbc57e75d11"/>
-				<textElement textAlignment="Left"/>
-				<text><![CDATA[Satuan]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="3" y="41" width="100" height="20" uuid="6613bb39-474d-4b8c-be8a-14e118ff2160"/>
-				<textFieldExpression><![CDATA[$F{Nama_barang}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="127" y="41" width="100" height="20" uuid="547846a6-fbfd-4d0d-b6bb-c93f42c727ed"/>
-				<textFieldExpression><![CDATA[$F{Satuan}]]></textFieldExpression>
-			</textField>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="147" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="187" height="26" uuid="67fb1b1d-d27d-4d7d-9e7e-387e7c642ed9"/>
-				<textElement textAlignment="Center">
-					<font size="15"/>
-				</textElement>
-				<text><![CDATA[Harga]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="44" width="186" height="26" uuid="f16c0f77-1356-4a0d-b23c-20ece308cf86"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="15"/>
-				</textElement>
-				<text><![CDATA[Jumlah]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="1" y="89" width="186" height="26" uuid="f05d28d0-8078-49bb-b402-fcb4d9f84423"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="15"/>
-				</textElement>
-				<text><![CDATA[SubTotal]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="0" y="24" width="186" height="20" uuid="e1e86ebe-598d-495f-afad-f47d976496bc"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Harga_barang}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="69" width="186" height="20" uuid="558bdc11-88fa-43ab-9357-e57294718c2c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Jumlah}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="115" width="185" height="20" uuid="cc1eb06d-531d-4e86-8ce6-a56404a8575c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Subtotal}]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="15" width="186" height="20" uuid="b5abb0a5-f1c7-48a9-a17e-fec3a6a5cc31"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[=================================]]></text>
-			</staticText>
-		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
-</jasperReport>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_name" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b71c15b-607b-466d-82c7-71dcfe829883">
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <parameter name="reportTitle" class="java.lang.String"/>
+    <parameter name="reportDate" class="java.util.Date"/>
+    <queryString>
+        <![CDATA[SELECT dt.Id_Transaksi, dt.Id_barang, b.Nama_barang, dt.Harga_barang, dt.Satuan, dt.Jumlah, dt.Subtotal
+                  FROM detail_transaksi_pembelian dt
+                  JOIN barang b ON dt.Id_barang = b.Id_barang]]>
+    </queryString>
+    <field name="Id_Transaksi" class="java.lang.Integer"/>
+    <field name="Id_barang" class="java.lang.Integer"/>
+    <field name="Nama_barang" class="java.lang.String"/>
+    <field name="Harga_barang" class="java.lang.Integer"/>
+    <field name="Satuan" class="java.lang.String"/>
+    <field name="Jumlah" class="java.lang.Integer"/>
+    <field name="Subtotal" class="java.lang.Integer"/>
+    <title>
+        <band height="79" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="16" width="555" height="20" uuid="24344236-9f13-433d-a5d7-939b8ce0c003"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[=================================]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="59" width="555" height="20" uuid="bd57be00-073b-4ba7-9125-316df85b4974"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[=================================]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="165" y="36" width="225" height="23" uuid="b7a2911e-7756-4ddf-977d-2567a940df52"/>
+                <textElement textAlignment="Center">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TECH MARKET]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="465" y="13" width="80" height="20" uuid="bfeabba0-493f-4039-970c-4995cb9a40a5"/>
+                <textElement textAlignment="Center">
+                    <font size="13" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="225" y="13" width="240" height="20" uuid="8a8a8a8a-8a8a-8a8a-8a8a-8a8a8a8a8a8a"/>
+                <textElement textAlignment="Center">
+                    <font size="13" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{reportTitle}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="49" splitType="Stretch">
+            <line>
+                <reportElement x="3" y="48" width="552" height="1" uuid="6b05a93e-07e8-41cd-b9b2-08a96b50e348"/>
+            </line>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="62" splitType="Stretch">
+            <line>
+                <reportElement x="3" y="32" width="552" height="1" uuid="73ad94a2-1ef4-4575-9431-b88264fb5658"/>
+            </line>
+            <staticText>
+                <reportElement x="3" y="12" width="100" height="20" uuid="596195fc-a1fe-4182-a1ce-b0672b1eaee3"/>
+                <textElement textAlignment="Left"/>
+
