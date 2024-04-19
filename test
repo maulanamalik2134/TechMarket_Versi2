@@ -1,1 +1,15 @@
-abc
+def factorial(n):
+    """
+    Calculate the factorial of a given number.
+
+    :param n: The number for which to calculate the factorial.
+    :return: The factorial of the given number.
+    """
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+# Example usage:
+number = 5
+print(f"The factorial of {number} is {factorial(number)}")
