@@ -1,1 +1,28 @@
-/JavaApplication8/nbproject/private/
+my-java-project/
+├── src/
+│   └── com/
+│       └── example/
+│           └── Main.java
+├── lib/
+│   └── (any external libraries here)
+├── build/
+│   └── classes/
+│       └── com/
+│           └── example/
+│               └── Main.class
+├── nbproject/
+│   └── (NetBeans project files)
+├── build.xml
+├── manifest.mf
+├── project.properties
+├── README.md
+└── .gitignore
+
+
+package com.example;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
